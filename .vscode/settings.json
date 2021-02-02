@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/ba438aa0-5d2f-40eb-a62e-449b1809e511/resourceGroups/CocotteGroup/providers/Microsoft.Web/sites/cocotteweb",
+    "appService.deploySubpath": "dist\\Cocotte"
+}

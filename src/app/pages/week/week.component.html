@@ -1,0 +1,122 @@
+<div class="content" role="main" style="margin-top:100px;">
+  <section class="text-center">
+    <div class="container">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+              <a class="nav-link" id="ingredients-tab" data-toggle="tab" href="#ingredients" role="tab" aria-controls="ingredients" aria-selected="true">Ingredients</a>
+          </li>
+          <li class="nav-item" role="presentation">
+              <a class="nav-link active" id="recettes-tab" data-toggle="tab" href="#recettes" role="tab" aria-controls="recettes" aria-selected="false">Recettes</a>
+          </li>
+          <li class="nav-item" role="presentation">
+              <a class="nav-link" id="week-tab" data-toggle="tab" href="#week" role="tab" aria-controls="week" aria-selected="false">Semaine</a>
+          </li>
+      </ul>
+
+          <!-- Tab panes -->
+          <!-- <div class="tab-content">
+              <div class="tab-pane" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">..</div>
+              <div class="tab-pane active" id="recettes" role="tabpanel" aria-labelledby="recettes-tab">
+                  <h1>Mes recettes</h1>
+                  <button class="btn btn-content btn-lg"><i class="fa fa-plus" data-toggle="modal" data-target="#addRecetteModal"></i></button>
+                  <div class="table-responsive mt-2">
+                      <table class="table">
+                          <thead>
+                              <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">Nom</th>
+                                  <th scope="col">Prix</th>
+                                  <th scope="col">Editer</th>
+                                  <th scope="col">Supprimer</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <th scope="row">1</th>
+                                  <td>Coquillette Jambon</td>
+                                  <td>0.62 €</td>
+                                  <td><button class="btn"><i class="fa fa-pencil"></i></button></td>
+                                  <td><button class="btn"><i class="fa fa-eraser"></i></button></td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+          </div>
+        <div class="tab-pane" id="week" role="tabpanel" aria-labelledby="week-tab">...</div>
+      </div> -->
+      <div>
+        <table mat-table #table [dataSource]="dataSource">
+          <ng-container>
+            <td>
+              <button mat-button class="cocotte button add"><i class="cocotte icon add"></i></button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> # </th>
+            <td mat-cell *matCellDef="let element; index as i;"> {{i}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Nom </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="basePrice">
+            <th mat-header-cell *matHeaderCellDef> Prix </th>
+            <td mat-cell *matCellDef="let element"> {{element.basePrice}} <td>
+          </ng-container>
+
+          <ng-container matColumnDef="baseQuantity">
+            <th mat-header-cell *matHeaderCellDef> Quantité </th>
+            <td mat-cell *matCellDef="let element"> {{element.baseQuantity}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="unit">
+            <th mat-header-cell *matHeaderCellDef> Unité </th>
+            <td mat-cell *matCellDef="let element"> {{element.unit}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="modify">
+            <th mat-header-cell *matHeaderCellDef> Modifier </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button class="cocotte button modify"><i class="cocotte icon modify"></i></button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef> Supprimer </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button class="cocotte button delete"><i class="cocotte icon delete"></i></button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+  <footer class="text-center">
+  </footer>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="addRecetteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajouter une recette</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <p>Champs pour add</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-content">Valider</button>
+            </div>
+        </div>
+    </div>
+</div>

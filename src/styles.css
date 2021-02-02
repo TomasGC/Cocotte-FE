@@ -1,0 +1,122 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+html {
+  background-color: #FFF2CC;
+}
+
+.cocotte.header {
+  background-color: #FEB768;
+}
+
+.cocotte.background {
+  background-color: #FFF2CC;
+}
+
+.cocotte.icon {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+}
+
+.cocotte.text {
+  color: #404040;
+}
+
+.cocotte.button.main-menu {
+  background-color: #FFE699;
+}
+
+.cocotte.tab {
+  color: #FFE79B;
+}
+
+.cocotte.button.exit {
+  background-color: #F4B183;
+}
+
+.cocotte.button.validate {
+  background-color: #A9D18E;
+}
+
+.cocotte.input {
+  background-color: #FFD966;
+}
+
+.cocotte.button.modify {
+  background-color: #FFD966;
+}
+
+.cocotte.button.delete {
+  background-color: #F4B183;
+}
+
+.cocotte.button.add {
+  background-color: #A9D18E;
+}
+
+.cocotte.check {
+  background-color: #FAD665;
+}
+
+/* Icons */
+.cocotte.icon.logo {
+  content: url('assets/img/cocotte.png');
+  width: initial !important;
+  height: initial !important;
+}
+
+.cocotte.icon.add {
+  content: url('assets/img/add.png');
+}
+
+.cocotte.icon.checkmark {
+  content: url('assets/img/checkmark.png');
+}
+
+.cocotte.icon.day {
+  content: url('assets/img/day.png');
+}
+
+.cocotte.icon.delete {
+  content: url('assets/img/delete.png');
+}
+
+.cocotte.icon.modify {
+  content: url('assets/img/modify.png');
+}
+
+.cocotte.icon.ingredient {
+  content: url('assets/img/ingredient.png');
+}
+
+.cocotte.icon.list {
+  content: url('assets/img/list.png');
+}
+
+.cocotte.icon.nope {
+  content: url('assets/img/nope.png');
+}
+
+.cocotte.icon.people {
+  content: url('assets/img/people.png');
+}
+
+.cocotte.icon.quit {
+  content: url('assets/img/quit.png');
+}
+
+.cocotte.icon.recipe {
+  content: url('assets/img/recipe.png');
+}
+
+.cocotte.icon.restaurant {
+  content: url('assets/img/restaurant.png');
+}
+
+.cocotte.icon.settings {
+  content: url('assets/img/settings.png');
+}
+
+.cocotte.icon.week {
+  content: url('assets/img/week.png');
+}
