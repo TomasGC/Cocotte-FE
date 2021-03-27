@@ -10,7 +10,7 @@ import { WeekIngredients } from 'src/app/classes/weeks/weekIngredients';
 @Injectable({ providedIn: 'root' })
 
 export class WeeksService {
-  baseRoute = "ingredients/api/";
+  baseRoute = "weeks/api/";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',

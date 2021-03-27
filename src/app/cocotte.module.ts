@@ -1,12 +1,11 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { CommonModule, DatePipe, registerLocaleData  } from '@angular/common';
+import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
-
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './modules/angular-material.module';
@@ -19,6 +18,17 @@ import { WeekComponent } from './pages/week/week.component';
 
 import { CookieService } from 'ngx-cookie-service';
 import { RootComponent } from './pages/root/root.component';
+
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr, 'fr');
+
+const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'settings', component: SettingsComponent },
+  { path: 'week', component: WeekComponent },
+  { path: '**', redirectTo: '/login', pathMatch: 'full' }
+];
 
 @NgModule({
   declarations: [
@@ -35,16 +45,12 @@ import { RootComponent } from './pages/root/root.component';
     HttpClientModule,
     BrowserModule,
     FormsModule,
+    BrowserAnimationsModule,
     AngularMaterialModule,
     AngularFireModule.initializeApp(environment.firebase),
-    RouterModule.forRoot([
-      { path: '/#/login', component: LoginComponent },
-      { path: '/#/home', component: HomeComponent },
-      { path: '/#/settings', component: SettingsComponent },
-      { path: '/#/week/ingredients', component: WeekComponent }
-    ])
+    RouterModule.forRoot(routes)
   ],
-  providers: [CookieService],
+  providers: [CookieService, DatePipe],
   bootstrap: [RootComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

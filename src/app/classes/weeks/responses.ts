@@ -3,7 +3,7 @@ import { Recipes } from '../recipes/recipes';
 import { Weeks } from './weeks';
 import { WeekIngredients } from './weekIngredients';
 
-export class GetWeek extends BaseResponse{
+export class GetWeekResponse extends BaseResponse{
     public week: Weeks;
 
     constructor() {
@@ -11,7 +11,7 @@ export class GetWeek extends BaseResponse{
     }
   }
 
-export class GetWeekIngredients extends BaseResponse{
+export class GetWeekIngredientsResponse extends BaseResponse{
     public weekIngredients: WeekIngredients;
 
     constructor() {

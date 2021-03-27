@@ -16,7 +16,6 @@ import { CookieService } from 'ngx-cookie-service';
 export class LoginComponent implements OnInit {
   title = 'Login';
   events = null;
-  cookieValue: string;
   request: LoginRequest;
 
   constructor(
@@ -49,6 +48,8 @@ export class LoginComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.cookieValue = this.cookieService.get('sessionKey');
+    var sessionKey = this.cookieService.get('sessionKey');
+    if (typeof sessionKey != 'undefined' && sessionKey)
+      this.router.navigate(['/home']);
   }
 }

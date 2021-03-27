@@ -1,13 +1,13 @@
 import { BaseType } from '../base/baseType';
 
 /// The unit for the ingredients.
-enum IngredientUnit {
+export enum IngredientUnit {
     Grammes,
     Centiliters,
     Pinch,
     Slices,
     Pieces,
-    Spoon,
+    Tablespoon,
     Teaspoon,
     None = 100
 }
