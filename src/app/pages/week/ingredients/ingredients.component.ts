@@ -57,39 +57,38 @@ export class IngredientsComponent implements OnInit {
   }
 
   Validate(): void {
-    this.dialogRef.close(this.ingredient);
-    // if (this.isCreation){
-    //   this.ingredientsService.Create(this.ingredient).subscribe(
-    //     data => {
-    //       let response = Object.assign(new BaseResponse(), data);
-    //       if(!response.success) {
-    //         console.error('Something went wrong during ingredient creation.');
-    //         return;
-    //       }
+    if (this.isCreation){
+      this.ingredientsService.Create(this.ingredient).subscribe(
+        data => {
+          let response = Object.assign(new BaseResponse(), data);
+          if(!response.success) {
+            console.error('Something went wrong during ingredient creation.');
+            return;
+          }
 
-    //       console.log('Ingredient created.');
-    //       this.dialogRef.close(this.ingredient);
-    //     },
-    //     error => {
-    //       console.error('Ingredient not created.');
-    //     });
-    // }
-    // else{
-    //   this.ingredientsService.Update(this.ingredient).subscribe(
-    //     data => {
-    //       let response = Object.assign(new BaseResponse(), data);
-    //       if(!response.success) {
-    //         console.error('Something went wrong during ingredient update.');
-    //         return;
-    //       }
+          console.log('Ingredient created.');
+          this.dialogRef.close(this.ingredient);
+        },
+        error => {
+          console.error('Ingredient not created.');
+        });
+    }
+    else{
+      this.ingredientsService.Update(this.ingredient).subscribe(
+        data => {
+          let response = Object.assign(new BaseResponse(), data);
+          if(!response.success) {
+            console.error('Something went wrong during ingredient update.');
+            return;
+          }
 
-    //       console.log('Ingredient updated.');
-    //       this.dialogRef.close(this.ingredient);
-    //     },
-    //     error => {
-    //       console.error('Ingredient not updated.');
-    //     });
-    // }
+          console.log('Ingredient updated.');
+          this.dialogRef.close(this.ingredient);
+        },
+        error => {
+          console.error('Ingredient not updated.');
+        });
+    }
   }
 
   ngOnInit() {
