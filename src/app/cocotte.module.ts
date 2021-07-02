@@ -4,7 +4,6 @@ import { CommonModule, DatePipe, registerLocaleData  } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,6 +14,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { WeekComponent } from './pages/week/week.component';
+import { IngredientsComponent } from './pages/week/ingredients/ingredients.component';
 
 import { CookieService } from 'ngx-cookie-service';
 import { RootComponent } from './pages/root/root.component';
@@ -37,7 +37,8 @@ const routes: Routes = [
     LoginComponent,
     RootComponent,
     SettingsComponent,
-    WeekComponent
+    WeekComponent,
+    IngredientsComponent
   ],
   imports: [
     CommonModule,
@@ -47,11 +48,11 @@ const routes: Routes = [
     FormsModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
-    AngularFireModule.initializeApp(environment.firebase),
     RouterModule.forRoot(routes)
   ],
   providers: [CookieService, DatePipe],
   bootstrap: [RootComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  entryComponents: [IngredientsComponent]
 })
 export class CocotteModule { }

@@ -15,18 +15,20 @@ export class HomeComponent implements OnInit {
   fontawesome = environment.application.fontawesome;
 
 
-  constructor(
-    private router: Router,
-    private cookieService: CookieService
-    ) {}
+  constructor(private router: Router, private cookieService: CookieService) {}
 
-  gotoSettings(){
+  GoToWeek(){
+    this.router.navigate(['/week']);  // define your component where you want to go
+  }
+
+  GoToSettings(){
       this.router.navigate(['/settings']);  // define your component where you want to go
   }
 
-  gotoWeek(){
-    this.router.navigate(['/week']);  // define your component where you want to go
-}
+  Logout() {
+    this.cookieService.deleteAll();
+    this.router.navigate(['/login']);
+  }
 
   ngOnInit() {
     var sessionKey = this.cookieService.get('sessionKey');

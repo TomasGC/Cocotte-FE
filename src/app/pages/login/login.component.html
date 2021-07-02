@@ -3,15 +3,19 @@
 <div class="content" role="main">
   <form>
     <div class="form-group">
-      <label for="login">Login</label>
+      <label for="login">Identifiant</label>
       <input [(ngModel)]="request.login" name="login" type="text" class="form-control cocotte input" id="login" required>
     </div>
 
     <div class="form-group">
-      <label for="password">Password</label>
+      <label for="password">Mot de passe</label>
       <input [(ngModel)]="request.password" name="password" type="password" class="form-control cocotte input" id="password" required>
     </div>
   </form>
 
-  <button type="submit" class="btn cocotte button validate" (click)="Login()">Login</button>
+  <a href="javascript:void(0)" *ngIf="!isCreation" (click)="isCreation = true">Créer un compte</a>
+  <a href="javascript:void(0)" *ngIf="isCreation" (click)="isCreation = false">Se connecter</a>
+
+  <button *ngIf="!isCreation" type="submit" class="btn cocotte button validate" (click)="Login()">Se connecter</button>
+  <button *ngIf="isCreation" type="submit" class="btn cocotte button validate" (click)="Create()">Créer</button>
 </div>

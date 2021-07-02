@@ -1,4 +1,4 @@
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 html {
   background-color: #FFF2CC;
@@ -10,12 +10,6 @@ html {
 
 .cocotte.background {
   background-color: #FFF2CC;
-}
-
-.cocotte.icon {
-  display: inline-block;
-  width: 25px;
-  height: 25px;
 }
 
 .cocotte.text {
@@ -59,6 +53,11 @@ html {
 }
 
 /* Icons */
+.cocotte.icon {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+}
 .cocotte.icon.logo {
   content: url('assets/img/cocotte.png');
   width: initial !important;
@@ -119,4 +118,19 @@ html {
 
 .cocotte.icon.week {
   content: url('assets/img/week.png');
+}
+
+.backdropBackground {
+  filter: blur(20px);
+  background-color: #666666;
+  opacity: 0.7 !important;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.modalBox  >  mat-dialog-container {
+  background-color: #FFF2CC;
+  padding-top: 0px !important;
 }

@@ -3,14 +3,14 @@ import { BaseType } from '../base/baseType';
 import { Ingredients } from '../ingredients/ingredients';
 
 // Type of recipe.
-enum RecipeType {
+export enum RecipeType {
     Starter,
     Dish,
     Dessert
 }
 
 /// Type of recipe.
-enum Season {
+export enum Season {
     Automn,
     Winter,
     Spring,

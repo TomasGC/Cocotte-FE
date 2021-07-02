@@ -23,5 +23,6 @@ export class Ingredients extends BaseType{
 
     constructor() {
       super();
+      this.quantities = new Array<number>();
     }
   }

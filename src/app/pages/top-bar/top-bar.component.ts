@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-top-bar',
@@ -8,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 export class TopBarComponent implements OnInit {
   title = 'Cocotte';
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  GoToHome(): void {
+    this.router.navigate(['/home']);
+  }
 }
