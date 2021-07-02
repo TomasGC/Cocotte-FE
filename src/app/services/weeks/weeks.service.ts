@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Address } from '../../classes/addresses';
 import { Weeks, Day } from 'src/app/classes/weeks/weeks';
 import { WeekIngredients } from 'src/app/classes/weeks/weekIngredients';
+import { DeleteRequest } from 'src/app/classes/base/requests';
 
 @Injectable({ providedIn: 'root' })
 
@@ -35,8 +36,8 @@ export class WeeksService {
     return this.http.put<Weeks>(Address.Get(this.baseRoute, 'update/day'), request, this.httpOptions)
   }
 
-  Delete(id: string): Observable<void> {
-    return this.http.delete<void>(Address.Get(this.baseRoute, 'delete/' + id), this.httpOptions)
+  Delete(request: DeleteRequest): Observable<DeleteRequest> {
+    return this.http.post<DeleteRequest>(Address.Get(this.baseRoute, 'delete'), request, this.httpOptions)
   }
 
   Current(): Observable<void> {

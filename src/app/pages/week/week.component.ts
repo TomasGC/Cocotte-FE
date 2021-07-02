@@ -23,6 +23,8 @@ import { IngredientsComponent } from './ingredients/ingredients.component';
 import { IsEmpty } from 'src/app/classes/tools';
 import { MatTableDataSource } from '@angular/material/table';
 import { RecipesComponent } from './recipes/recipes.component';
+import { BaseResponse } from 'src/app/classes/base/responses';
+import { DeleteRequest } from 'src/app/classes/base/requests';
 
 @Component({
   selector: 'week',
@@ -104,6 +106,40 @@ onTabClick(tab: TabMods) {
 }
 
 RemoveItem(index): void {
+  let id = this.dataSource.data[index]._id;
+  switch(this.currentTab){
+    case TabMods.Ingredients:
+      this.ingredientsService.Delete(new DeleteRequest(id)).subscribe(
+        data => {
+          let response = Object.assign(new BaseResponse(), data);
+          if(!response.success) {
+            console.error('Something went wrong during ingredient deletion.');
+            return;
+          }
+          console.log('Ingredient deleted.');
+
+        },
+        error => {
+          console.error('Ingredient not deleted.');
+        });
+      break;
+    case TabMods.Recipes:
+      this.recipesService.Delete(new DeleteRequest(id)).subscribe(
+        data => {
+          let response = Object.assign(new BaseResponse(), data);
+          if(!response.success) {
+            console.error('Something went wrong during recipe deletion.');
+            return;
+          }
+          console.log('Recipe deleted.');
+
+        },
+        error => {
+          console.error('Recipe not deleted.');
+        });
+      break;
+  }
+
   let temp = this.dataSource.data;
   temp.splice(index, 1);
   this.dataSource.data = temp;
