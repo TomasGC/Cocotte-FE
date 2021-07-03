@@ -20,7 +20,6 @@ import { WeeksService } from '../../services/weeks/weeks.service';
 import { CookieService } from 'ngx-cookie-service';
 
 import { IngredientsComponent } from './ingredients/ingredients.component';
-import { IsEmpty } from 'src/app/classes/tools';
 import { MatTableDataSource } from '@angular/material/table';
 import { RecipesComponent } from './recipes/recipes.component';
 import { BaseResponse } from 'src/app/classes/base/responses';
