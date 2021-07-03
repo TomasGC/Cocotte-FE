@@ -53,4 +53,4 @@ jobs:
         app-name: 'cocotte'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_0d1034358d3d4f8abe10e2f94a894517 }}
-        package: ./dist/cocotte
+        package: .
