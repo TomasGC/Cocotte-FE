@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - hello-world-app-to-delete
+name: Build and deploy Node.js app to Azure Web App - cocotte
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
     - name: Set up Node.js version
       uses: actions/setup-node@v1
       with:
-        node-version: '12.x'
+        node-version: '14.x'
 
     - name: npm install, build, and test
       run: |
@@ -29,7 +29,7 @@ jobs:
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'hello-world-app-to-delete'
+        app-name: 'cocotte'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_e23ebf38a61143ae90e7f7699a444c9d }}
-        package: ./dist/hello-world-app
+        package: ./dist/cocotte
