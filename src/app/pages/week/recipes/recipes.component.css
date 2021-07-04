@@ -1,0 +1,13 @@
+mat-toolbar {
+  background-color: #FEB768;
+  width: 100%;
+}
+table.mat-table {
+  display: table;
+  width: 100%;
+  background-color: #f7dc8d;
+}
+
+.quantity{
+width: 80%;
+}

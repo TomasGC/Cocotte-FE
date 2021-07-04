@@ -1,11 +1,10 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import {DragDropModule} from '@angular/cdk/drag-drop';
-import {ScrollingModule} from '@angular/cdk/scrolling';
-import {CdkTableModule} from '@angular/cdk/table';
-import {CdkTreeModule} from '@angular/cdk/tree';
-import {A11yModule} from '@angular/cdk/a11y';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CdkTableModule } from '@angular/cdk/table';
+import { CdkTreeModule } from '@angular/cdk/tree';
+import { A11yModule } from '@angular/cdk/a11y';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -41,7 +40,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
 
 const materialModules = [
   MatAutocompleteModule,
@@ -78,12 +76,10 @@ const materialModules = [
   MatTooltipModule,
   MatTreeModule,
   MatFormFieldModule,
-  FormsModule
 ];
 
 @NgModule({
   imports: [
-    CommonModule,
     ...materialModules
   ],
   exports: [
@@ -91,8 +87,8 @@ const materialModules = [
     CdkTableModule,
     CdkTreeModule,
     DragDropModule,
-    ...materialModules,
-    ScrollingModule
+    ScrollingModule,
+    ...materialModules
   ],
 })
 

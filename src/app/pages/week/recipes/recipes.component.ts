@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { BaseResponse } from 'src/app/classes/base/responses';
+import { Ingredients } from 'src/app/classes/ingredients/ingredients';
 
 import { Recipes, RecipeType, Season } from 'src/app/classes/recipes/recipes';
 import { IsEmpty } from 'src/app/classes/tools';
-import { IngredientsService } from 'src/app/services/ingredients/ingredients.service';
 import { RecipesService } from 'src/app/services/recipes/recipes.service';
 
 @Component({
@@ -20,15 +20,16 @@ export class RecipesComponent implements OnInit {
   seasons = Object.values(Season);
   displayedColumns: string[] = ['quantity', 'delete'];
   recipe = { ...this.data };
-  // dataSource = new MatTableDataSource(this.ingredient.quantities);
+  dataSource = new MatTableDataSource(this.recipe.ingredientIds);
 
   constructor(private recipesService: RecipesService,
     public dialogRef: MatDialogRef<RecipesComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Recipes) {
-    // // create data source
-    // this.dataSource = new MatTableDataSource(this.data.quantities);
-    // // update data in data source when available
-    // this.streamOfDataUpdates.subscribe(newData => this.dataSource.data = newData);
+    @Inject(MAT_DIALOG_DATA) public data: Recipes,
+    public dialog: MatDialog) {
+  }
+
+  AddIngredient(): void {
+
   }
 
   Close(): void {

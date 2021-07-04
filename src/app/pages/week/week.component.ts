@@ -24,6 +24,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { RecipesComponent } from './recipes/recipes.component';
 import { BaseResponse } from 'src/app/classes/base/responses';
 import { DeleteRequest } from 'src/app/classes/base/requests';
+import { Recipes } from 'src/app/classes/recipes/recipes';
 
 @Component({
   selector: 'week',
@@ -226,13 +227,14 @@ ListRecipes() {
 
 OpenRecipeMenu(recipe): void {
   if (recipe == null)
-    recipe = new Ingredients();
+    recipe = new Recipes();
 
   const dialogRef = this.dialog.open(RecipesComponent, {
     height: '800px',
     width: '600px',
     data: recipe,
-    backdropClass: 'backdropBackground'
+    backdropClass: 'backdropBackground',
+    panelClass: 'modalBox'
   });
 
   dialogRef.afterClosed().subscribe(recipe => {

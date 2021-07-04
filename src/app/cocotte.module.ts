@@ -1,12 +1,12 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule, DatePipe, registerLocaleData  } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { DatePipe, registerLocaleData } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { environment } from '../environments/environment';
-
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AngularMaterialModule } from './modules/angular-material.module';
 
 import { TopBarComponent } from './pages/top-bar/top-bar.component';
@@ -20,6 +20,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { RootComponent } from './pages/root/root.component';
 
 import localeFr from '@angular/common/locales/fr';
+import { RecipesComponent } from './pages/week/recipes/recipes.component';
+
 registerLocaleData(localeFr, 'fr');
 
 const routes: Routes = [
@@ -38,21 +40,21 @@ const routes: Routes = [
     RootComponent,
     SettingsComponent,
     WeekComponent,
-    IngredientsComponent
+    IngredientsComponent,
+    RecipesComponent
   ],
   imports: [
+    AngularMaterialModule,
+    FormsModule,
     CommonModule,
-    BrowserModule,
     HttpClientModule,
     BrowserModule,
-    FormsModule,
     BrowserAnimationsModule,
-    AngularMaterialModule,
     RouterModule.forRoot(routes)
   ],
   providers: [CookieService, DatePipe],
   bootstrap: [RootComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [IngredientsComponent]
+  entryComponents: [IngredientsComponent, RecipesComponent]
 })
 export class CocotteModule { }

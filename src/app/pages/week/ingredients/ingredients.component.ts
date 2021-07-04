@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { BaseResponse } from 'src/app/classes/base/responses';
-import { MatFormFieldControl } from '@angular/material/form-field';
 
 import { Ingredients, IngredientUnit } from 'src/app/classes/ingredients/ingredients';
 import { IsEmpty } from 'src/app/classes/tools';

@@ -1,0 +1,66 @@
+<h1 mat-dialog-title style="width: 100%;">
+  <mat-toolbar>
+    <input matInput [(ngModel)]="recipe.name" type="text" required>
+    <button mat-icon-button (click)="Close()" class="cocotte button exit">
+        <mat-icon mat-list-icon>close</mat-icon>
+    </button>
+  </mat-toolbar>
+</h1>
+<div mat-dialog-content style="height: 100%;">
+  <div mat-dialog-content>
+    <mat-label for="type">Type: </mat-label>
+    <mat-form-field name="type" id="type" >
+      <mat-select [(ngModel)]="recipe.type" required>
+        <mat-option *ngFor="let type of recipeTypes" [value]="type">
+          {{type}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-content>
+    <mat-label for="seasons">Saisons: </mat-label>
+    <mat-form-field name="seasons" id="seasons" >
+      <mat-select [(ngModel)]="recipe.seasons" multiple required>
+        <mat-option *ngFor="let season of seasons" [value]="season">
+          {{season}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-content>
+    <span>Cuisiné {{recipe.timesCooked}} fois</span>
+  </div>
+  <div mat-dialog-content>
+    <span>Cuisiné {{recipe.lastCooked}} pour la dernière fois</span>
+  </div>
+  <div mat-dialog-content>
+    <span>Ingrédients:</span>
+  </div>
+  <div mat-dialog-content>
+    <button mat-button class="cocotte button add w-100" (click)="AddIngredient()"><i class="cocotte icon add"></i></button>
+  </div>
+  <div mat-dialog-content>
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="quantity" >
+        <!-- <th mat-header-cell *matHeaderCellDef> No. </th> -->
+        <td mat-cell *matCellDef="let element; let i = index" class="quantity">
+          <mat-form-field>
+            <input matInput [(ngModel)]="ingredient.quantities[i]" type="number">
+          </mat-form-field>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="delete" >
+        <!-- <th mat-header-cell *matHeaderCellDef> No. </th> -->
+        <td mat-cell *matCellDef="let element; let i = index">
+          <button mat-button class="cocotte button delete" (click)="RemoveQuantity(i)"><i class="cocotte icon delete"></i></button>
+        </td>
+      </ng-container>
+
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="Validate()" (disabled)="!IsValid()" class="cocotte button add">Valider</button>
+</div>
