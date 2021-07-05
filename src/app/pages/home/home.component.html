@@ -3,14 +3,22 @@
     <section class="text-center">
         <div class="container">
             <p>
-                <button type="button" (click)="GoToWeek()" class="btn btn-content btn-lg"><img class="cocotte icon week" alt="Cocotte"/> <b>Semaine</b></button>
+                <button type="button" (click)="GoToWeek()" class="btn btn-content btn-lg">
+                  <mat-icon mat-list-icon>calendar_today</mat-icon>
+                  <b> Semaine</b>
+                </button>
             </p>
             <p>
-                <button type="button" (click)="GoToSettings()" class="btn btn-content btn-lg"><img class="cocotte icon settings" alt="Cocotte"/> <b>Paramètres</b></button>
+                <button type="button" (click)="GoToSettings()" class="btn btn-content btn-lg">
+                  <mat-icon mat-list-icon>settings</mat-icon>
+                  <b> Paramètres</b>
+                </button>
             </p>
         </div>
     </section>
     <footer class="text-center">
-        <button type="button" class="btn btn-footer btn-lg" (click)="Logout()"><b>Quitter</b></button>
+        <button type="button" class="btn btn-footer btn-lg" (click)="Logout()">
+          <mat-icon mat-list-icon>exit_to_app</mat-icon>
+        </button>
     </footer>
 </div>

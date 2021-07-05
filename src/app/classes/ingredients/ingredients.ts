@@ -13,16 +13,15 @@ export enum IngredientUnit {
 }
 
 export class Ingredients extends BaseType{
-    public name: string;
-    public basePrice: number;
-    public baseQuantity: number;
-    public quantities: Array<number>;
-    public unit: IngredientUnit;
-    public userId: number;
-    public selectedQuantity: number;
-
-    constructor() {
+    constructor(
+      public _id?: string,
+      public name?: string,
+      public basePrice?: number,
+      public baseQuantity?: number,
+      public quantities?: Array<number>,
+      public unit?: IngredientUnit,
+      public userId?: number,
+      public selectedQuantity?: number) {
       super();
-      this.quantities = new Array<number>();
     }
   }

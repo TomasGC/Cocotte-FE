@@ -1,5 +1,5 @@
 export class BaseType {
-    public _id: string;
+    public _id?: string;
 
     constructor() {}
   }

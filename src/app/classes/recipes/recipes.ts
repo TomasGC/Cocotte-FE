@@ -19,7 +19,7 @@ export enum Season {
 
 export class Recipes extends BaseType{
     public name: string;
-    public ingredientIds: Array<KeyValue<number, number>>;
+    public ingredientIds: Array<KeyValue<string, number>>;
     public timesCooked: number;
     public lastCooked: Date;
     public type: RecipeType;

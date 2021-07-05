@@ -23,6 +23,7 @@ export class IngredientsComponent implements OnInit {
   constructor(private ingredientsService: IngredientsService,
     public dialogRef: MatDialogRef<IngredientsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Ingredients) {
+      this.isCreation = this.ingredient._id == null;
   }
 
   AddQuantity(): void {

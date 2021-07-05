@@ -61,9 +61,9 @@ export class WeekComponent implements OnInit {
   displayedDayColumns: string[] = ["date"];
   displayedMealsColumns: string[] = ["type", "number", "name", "price"];
   tabs = [
-    {key: TabMods.Ingredients, value: "Ingrédients"},
-    {key: TabMods.Recipes, value: "Recettes"},
-    {key: TabMods.Week, value: "Ma Semaine"}
+    {key: TabMods.Ingredients, value: "Ingrédients", icon: "ingredient"},
+    {key: TabMods.Recipes, value: "Recettes", icon: "recipe"},
+    {key: TabMods.Week, value: "Ma Semaine", icon: "week"}
   ];
   activeLink = this.tabs[2].value;
 
@@ -231,7 +231,7 @@ OpenRecipeMenu(recipe): void {
 
   const dialogRef = this.dialog.open(RecipesComponent, {
     height: '800px',
-    width: '600px',
+    width: '700px',
     data: recipe,
     backdropClass: 'backdropBackground',
     panelClass: 'modalBox'
