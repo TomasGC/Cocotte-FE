@@ -15,7 +15,7 @@ import { IngredientsService } from 'src/app/services/ingredients/ingredients.ser
 
 export class IngredientsComponent implements OnInit {
   isCreation: boolean;
-  enumKeys = Object.values(IngredientUnit);
+  enumKeys: string[] = Object.keys(IngredientUnit);
   displayedColumns: string[] = ['quantity', 'delete'];
   ingredient = { ...this.data };
   dataSource = new MatTableDataSource(this.ingredient.quantities);
@@ -24,6 +24,7 @@ export class IngredientsComponent implements OnInit {
     public dialogRef: MatDialogRef<IngredientsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Ingredients) {
       this.isCreation = this.ingredient._id == null;
+      this.enumKeys = this.enumKeys.slice(this.enumKeys.length / 2);
   }
 
   AddQuantity(): void {
@@ -38,7 +39,7 @@ export class IngredientsComponent implements OnInit {
 
   Close(): void {
     this.ingredient = this.data;
-    this.dialogRef.close(this.ingredient);
+    this.dialogRef.close(false);
   }
 
   IsValid(): boolean {
@@ -48,7 +49,7 @@ export class IngredientsComponent implements OnInit {
       return false;
     if (IsEmpty(this.ingredient.baseQuantity))
       return false;
-    if (typeof(this.ingredient.unit) == "undefined" || this.data.unit == null)
+    if (typeof(this.ingredient.unit) == "undefined" || this.ingredient.unit == null)
       return false;
     if (IsEmpty(this.ingredient.quantities) || this.ingredient.quantities.length == 0 || this.ingredient.quantities.find(x => IsEmpty(x)) != null)
       return false;
@@ -67,7 +68,7 @@ export class IngredientsComponent implements OnInit {
           }
 
           console.log('Ingredient created.');
-          this.dialogRef.close(this.ingredient);
+          this.dialogRef.close(true);
         },
         error => {
           console.error('Ingredient not created.');
@@ -83,7 +84,7 @@ export class IngredientsComponent implements OnInit {
           }
 
           console.log('Ingredient updated.');
-          this.dialogRef.close(this.ingredient);
+          this.dialogRef.close(true);
         },
         error => {
           console.error('Ingredient not updated.');

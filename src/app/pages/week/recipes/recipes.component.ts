@@ -18,8 +18,8 @@ import { RecipesService } from 'src/app/services/recipes/recipes.service';
 
 export class RecipesComponent implements OnInit {
   isCreation: boolean;
-  recipeTypes = Object.values(RecipeType);
-  seasons = Object.values(Season);
+  recipeTypes = Object.keys(RecipeType);
+  seasons = Object.keys(Season);
   displayedColumns: string[] = ['name', 'quantity', 'delete'];
   recipe = { ...this.data };
   dataSource = new MatTableDataSource(this.recipe.ingredients);
@@ -31,6 +31,8 @@ export class RecipesComponent implements OnInit {
     public dialogRef: MatDialogRef<RecipesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Recipes) {
       this.isCreation = this.recipe._id == null;
+      this.recipeTypes = this.recipeTypes.slice(this.recipeTypes.length / 2);
+      this.seasons = this.seasons.slice(this.seasons.length / 2);
       this.loading = true;
 
       this.ingredientsService.List().subscribe(
@@ -72,24 +74,30 @@ export class RecipesComponent implements OnInit {
 
   Close(): void {
     this.recipe = this.data;
-    this.dialogRef.close(this.recipe);
+    this.dialogRef.close(false);
   }
 
   IsValid(): boolean {
     if (IsEmpty(this.recipe.name))
       return false;
 
+    if (typeof(this.recipe.type) === undefined || this.recipe.type == null)
+      return false;
+
+    if (IsEmpty(this.recipe.seasons))
+      return false;
+
+    if (this.recipe.ingredients === undefined || IsEmpty(this.recipe.ingredients) || this.recipe.ingredients.length == 0 || this.recipe.ingredients.find(x => IsEmpty(x.name) || IsEmpty(x.selectedQuantity)) != null)
+      return false;
+
     return true;
   }
 
   Validate(): void {
-    this.recipe.price = 0;
     for (let i = 0; i < this.recipe.ingredients.length; ++i){
       this.recipe.ingredientIds[i].key = this.recipe.ingredients[i]._id;
       this.recipe.ingredientIds[i].value = this.recipe.ingredients[i].selectedQuantity;
-      this.recipe.price += this.recipe.ingredients[i].basePrice / this.recipe.ingredients[i].baseQuantity * this.recipe.ingredients[i].selectedQuantity;
     }
-    console.log(this.recipe);
 
     if (this.isCreation){
       this.recipesService.Create(this.recipe).subscribe(
@@ -101,7 +109,7 @@ export class RecipesComponent implements OnInit {
           }
 
           console.log('Recipe created.');
-          this.dialogRef.close(this.recipe);
+          this.dialogRef.close(true);
         },
         error => {
           console.error('Recipe not created.');
@@ -117,7 +125,7 @@ export class RecipesComponent implements OnInit {
           }
 
           console.log('Recipe updated.');
-          this.dialogRef.close(this.recipe);
+          this.dialogRef.close(true);
         },
         error => {
           console.error('Recipe not updated.');

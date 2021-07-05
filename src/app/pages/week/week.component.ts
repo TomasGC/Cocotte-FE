@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ThemePalette } from '@angular/material/core';
-import { DatePipe } from '@angular/common';
+import { DatePipe, KeyValue } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -117,7 +117,7 @@ RemoveItem(index): void {
             return;
           }
           console.log('Ingredient deleted.');
-
+          this.ListIngredients();
         },
         error => {
           console.error('Ingredient not deleted.');
@@ -132,7 +132,7 @@ RemoveItem(index): void {
             return;
           }
           console.log('Recipe deleted.');
-
+          this.ListRecipes();
         },
         error => {
           console.error('Recipe not deleted.');
@@ -153,6 +153,7 @@ ListIngredients() {
     data => {
       let response = Object.assign(new ListIngredientsResponse(), data);
       if(!response.success) {
+        this.loading = false;
         console.error('Something went wrong while getting all the ingredients.' + response.message);
         return;
       }
@@ -167,8 +168,10 @@ ListIngredients() {
 }
 
 OpenIngredientMenu(ingredient): void {
-  if (ingredient == null)
+  if (ingredient == null){
     ingredient = new Ingredients();
+    ingredient.quantity = new Array<number>();
+  }
 
   const dialogRef = this.dialog.open(IngredientsComponent, {
     height: '800px',
@@ -178,15 +181,9 @@ OpenIngredientMenu(ingredient): void {
     panelClass: 'modalBox'
   });
 
-  dialogRef.afterClosed().subscribe(ingredient => {
-    let temp = this.dataSource.data;
-    let index = temp.findIndex(x => x._id == ingredient._id);
-
-    if (index == -1)
-      temp.push(ingredient);
-
-    temp[index] = ingredient;
-    this.dataSource.data = temp;
+  dialogRef.afterClosed().subscribe(modified => {
+    if (modified == true)
+      this.ListIngredients();
   });
 }
 
@@ -212,6 +209,7 @@ ListRecipes() {
     data => {
       let response = Object.assign(new ListRecipesResponse(), data);
       if(!response.success) {
+        this.loading = false;
         console.error('Something went wrong while getting all the recipes.' + response.message);
         return;
       }
@@ -226,8 +224,11 @@ ListRecipes() {
 }
 
 OpenRecipeMenu(recipe): void {
-  if (recipe == null)
+  if (recipe == null) {
     recipe = new Recipes();
+    recipe.ingredientIds = new Array<KeyValue<string, number>>();
+    recipe.ingredients = new Array<Ingredients>();
+  }
 
   const dialogRef = this.dialog.open(RecipesComponent, {
     height: '800px',
@@ -237,15 +238,9 @@ OpenRecipeMenu(recipe): void {
     panelClass: 'modalBox'
   });
 
-  dialogRef.afterClosed().subscribe(recipe => {
-    let temp = this.dataSource.data;
-    let index = temp.findIndex(x => x._id == recipe._id);
-
-    if (index == -1)
-      temp.push(recipe);
-
-    temp[index] = recipe;
-    this.dataSource.data = temp;
+  dialogRef.afterClosed().subscribe(modified => {
+    if (modified == true)
+      this.ListRecipes();
   });
 }
 //#endregion Recipes
@@ -257,6 +252,7 @@ GetWeek() {
     data => {
       let response = Object.assign(new GetWeekResponse(), data);
       if(!response.success) {
+        this.loading = false;
         console.error('Something went wrong while getting the current week.' + response.message);
         return;
       }
@@ -269,6 +265,25 @@ GetWeek() {
       //   });
       // }
       this.loading = false;
+    },
+    error => {
+      this.loading = false;
+      console.error('Get the current week not succeeded.');
+    });
+}
+
+GenerateWeek() {
+  this.loading = true;
+  this.weeksService.Generate().subscribe(
+    data => {
+      let response = Object.assign(new BaseResponse(), data);
+      if(!response.success) {
+        this.loading = false;
+        console.error('Something went wrong while getting the current week.' + response.message);
+        return;
+      }
+
+      this.GetWeek();
     },
     error => {
       this.loading = false;
