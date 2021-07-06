@@ -10,3 +10,11 @@ export class LoginResponse extends BaseResponse{
     super();
   }
 }
+
+export class GetUserResponse extends BaseResponse{
+  public user: Users;
+
+  constructor() {
+    super();
+  }
+}

@@ -2,7 +2,7 @@ import { BaseType } from '../base/baseType';
 import { Recipes } from '../recipes/recipes';
 
 /// Type of meals in a day.
-enum MealType {
+export enum MealType {
     Breakfast,
     Lunch,
     Dinner

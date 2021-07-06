@@ -42,10 +42,10 @@
   <div mat-dialog-content>
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="name" >
-        <td mat-cell *matCellDef="let element; let i = index;" class="elem" [disabled]="loading">
+        <td mat-cell *matCellDef="let element; let i = index;" class="elem">
           <mat-label for="name">Ingrédient: </mat-label>
           <mat-form-field name="name" id="name" >
-            <mat-select [(ngModel)]="recipe.ingredients[i]" [compareWith]="ObjectComparisonFunction" (selectionChange)="ChangeIngredient(i, $event.value)" required>
+            <mat-select [(ngModel)]="recipe.ingredients[i]" [compareWith]="ObjectComparisonFunction" (selectionChange)="ChangeIngredient(i, $event.value)" [disabled]="loading" required>
               <mat-option *ngFor="let ingredient of ingredients" [value]="ingredient">
                 {{ingredient.name}}
               </mat-option>
@@ -55,10 +55,10 @@
       </ng-container>
       <ng-container matColumnDef="quantity">
         <!-- <th mat-header-cell *matHeaderCellDef> No. </th> -->
-        <td mat-cell *matCellDef="let element; let i = index" class="elem" [disabled]="recipe.ingredients[i].name == null">
+        <td mat-cell *matCellDef="let element; let i = index" class="elem">
           <mat-label for="quantity">Quantités: </mat-label>
           <mat-form-field name="quantity" id="quantity" >
-            <mat-select [(ngModel)]="recipe.ingredients[i].selectedQuantity" required>
+            <mat-select [(ngModel)]="recipe.ingredients[i].selectedQuantity" [disabled]="recipe.ingredients[i].name == null" required>
               <mat-option *ngFor="let quantity of recipe.ingredients[i].quantities" [value]="quantity">
                 {{quantity}}
               </mat-option>

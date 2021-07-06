@@ -1,29 +1,54 @@
 .content{
-   background-color: #FFF2CC; 
+  background-color: #FFF2CC;
 }
 
 section{
-  margin-top: 160px;
+ margin-top: 160px;
 }
 
 .btn-content{
-  background-color: #f7dc8d;
-  max-width:170px;
-  margin-top: 15px;
+ background-color: #f7dc8d;
+ max-width:170px;
+ margin-top: 15px;
 }
 
 .btn-footer{
-  background-color: #F4B183;
+ background-color: #F4B183;
 }
 
 img{
-  width:25%;
-  height: 25%;
+ width:25%;
+ height: 25%;
 }
 
 footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  margin-bottom: 30px;
+ position: absolute;
+ bottom: 0;
+ width: 100%;
+ margin-bottom: 30px;
+}
+
+table.mat-table {
+ display: table;
+ width: 100%;
+ background-color: #f7dc8d;
+}
+
+.mat-header-row .mat-header-cell, .header-row {
+ background-color: #F4B183;
+ font-size: medium;
+ color: black;
+ font-weight: bold;
+}
+
+table {
+ width: 100%;
+ margin-top: 5px;
+}
+
+button {
+  display: flex;
+  margin: 5px auto auto;
+  flex-direction: column;
+  align-items: center;
 }
