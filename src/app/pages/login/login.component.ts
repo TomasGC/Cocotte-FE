@@ -7,6 +7,7 @@ import { BaseResponse } from '../../classes/base/responses';
 
 import { UsersService } from '../../services/users/users.service';
 import { CookieService } from 'ngx-cookie-service';
+import { IsEmpty } from 'src/app/classes/tools';
 
 @Component({
   selector: 'login',
@@ -27,6 +28,23 @@ export class LoginComponent implements OnInit {
       this.request = new LoginRequest();
       this.isCreation = false;
     }
+
+  public ngOnInit(): void {
+    var sessionKey = this.cookieService.get('sessionKey');
+    if (typeof sessionKey != 'undefined' && sessionKey)
+      this.router.navigate(['/home']);
+  }
+
+  IsValid() {
+    if (IsEmpty(this.request.login))
+      return false;
+    if (IsEmpty(this.request.password))
+      return false;
+    if (this.isCreation && IsEmpty(this.request.creationAllowanceKey))
+      return false;
+
+    return true;
+  }
 
   Login() {
     this.usersService.Login(this.request).subscribe(
@@ -66,11 +84,5 @@ export class LoginComponent implements OnInit {
       error => {
         console.error('Not logged');
       });
-  }
-
-  public ngOnInit(): void {
-    var sessionKey = this.cookieService.get('sessionKey');
-    if (typeof sessionKey != 'undefined' && sessionKey)
-      this.router.navigate(['/home']);
   }
 }
