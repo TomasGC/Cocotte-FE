@@ -10,7 +10,7 @@ export enum MealType {
 
 export class Meal extends BaseType{
     public type: MealType;
-    public recipeId: number;
+    public recipeId: string;
     public numberOfPeople: number;
     public recipe: Recipes;
 

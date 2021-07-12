@@ -130,6 +130,14 @@ html {
   width: 100%;
 }
 
+.w-50 {
+  width: 50%;
+}
+
+.h-50 {
+  height: 50%;
+}
+
 .modalBox  >  mat-dialog-container {
   background-color: #FFF2CC;
   padding-top: 0px !important;

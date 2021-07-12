@@ -21,6 +21,7 @@ import { RootComponent } from './pages/root/root.component';
 
 import localeFr from '@angular/common/locales/fr';
 import { RecipesComponent } from './pages/week/recipes/recipes.component';
+import { DaysComponent } from './pages/week/days/days.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -41,7 +42,8 @@ const routes: Routes = [
     SettingsComponent,
     WeekComponent,
     IngredientsComponent,
-    RecipesComponent
+    RecipesComponent,
+    DaysComponent
   ],
   imports: [
     AngularMaterialModule,
@@ -55,6 +57,6 @@ const routes: Routes = [
   providers: [CookieService, DatePipe],
   bootstrap: [RootComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [IngredientsComponent, RecipesComponent]
+  entryComponents: [IngredientsComponent, RecipesComponent, DaysComponent]
 })
 export class CocotteModule { }

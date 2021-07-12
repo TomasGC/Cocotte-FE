@@ -25,6 +25,7 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { BaseResponse } from 'src/app/classes/base/responses';
 import { DeleteRequest } from 'src/app/classes/base/requests';
 import { Recipes } from 'src/app/classes/recipes/recipes';
+import { DaysComponent } from './days/days.component';
 
 @Component({
   selector: 'week',
@@ -270,6 +271,21 @@ GetWeek() {
       this.loading = false;
       console.error('Get the current week not succeeded.');
     });
+}
+
+OpenDayMenu(day): void {
+  const dialogRef = this.dialog.open(DaysComponent, {
+    height: '800px',
+    width: '700px',
+    data: day,
+    backdropClass: 'backdropBackground',
+    panelClass: 'modalBox'
+  });
+
+  dialogRef.afterClosed().subscribe(modified => {
+    if (modified == true)
+      this.GetWeek();
+  });
 }
 
 GenerateWeek() {

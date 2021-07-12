@@ -21,7 +21,7 @@ export class RecipesComponent implements OnInit {
   recipeTypes = Object.keys(RecipeType);
   seasons = Object.keys(Season);
   displayedColumns: string[] = ['name', 'quantity', 'delete'];
-  recipe = { ...this.data };
+  recipe = this.data;
   dataSource = new MatTableDataSource(this.recipe.ingredients);
   ingredients: Array<Ingredients>;
   loading: boolean = true;
@@ -29,27 +29,29 @@ export class RecipesComponent implements OnInit {
   constructor(private ingredientsService: IngredientsService,
     private recipesService: RecipesService,
     public dialogRef: MatDialogRef<RecipesComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Recipes) {
-      this.isCreation = this.recipe._id == null;
-      this.recipeTypes = this.recipeTypes.slice(this.recipeTypes.length / 2);
-      this.seasons = this.seasons.slice(this.seasons.length / 2);
-      this.loading = true;
+    @Inject(MAT_DIALOG_DATA) public data: Recipes) {  }
 
-      this.ingredientsService.List().subscribe(
-        data => {
-          let response = Object.assign(new ListIngredientsResponse(), data);
-          if(!response.success) {
-            console.error('Something went wrong while getting all the ingredients.' + response.message);
-            return;
-          }
+  ngOnInit() {
+    this.isCreation = this.recipe._id == null;
+    this.recipeTypes = this.recipeTypes.slice(this.recipeTypes.length / 2);
+    this.seasons = this.seasons.slice(this.seasons.length / 2);
+    this.loading = true;
 
-          this.ingredients = response.ingredients;
-          this.loading = false;
-        },
-        error => {
-          this.loading = false;
-          console.error('List all ingredients not succeeded.');
-        });
+    this.ingredientsService.List().subscribe(
+      data => {
+        let response = Object.assign(new ListIngredientsResponse(), data);
+        if(!response.success) {
+          console.error('Something went wrong while gathering all the ingredients.' + response.message);
+          return;
+        }
+
+        this.ingredients = response.ingredients;
+        this.loading = false;
+      },
+      error => {
+        this.loading = false;
+        console.error('List all ingredients not succeeded.');
+      });
   }
 
   AddIngredient(): void {
@@ -73,7 +75,6 @@ export class RecipesComponent implements OnInit {
   }
 
   Close(): void {
-    this.recipe = this.data;
     this.dialogRef.close(false);
   }
 
@@ -132,8 +133,4 @@ export class RecipesComponent implements OnInit {
         });
     }
   }
-
-  ngOnInit() {
-  }
-
 }

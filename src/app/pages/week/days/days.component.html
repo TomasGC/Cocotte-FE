@@ -1,0 +1,66 @@
+<h1 mat-dialog-title style="width: 100%;">
+  <mat-toolbar>
+    <span class="w-100">{{day.date | date:'mediumDate':'fr'}}</span>
+    <button mat-icon-button (click)="Close()" class="cocotte button exit">
+        <mat-icon mat-list-icon>close</mat-icon>
+    </button>
+  </mat-toolbar>
+</h1>
+<div mat-dialog-content style="height: 100%;">
+  <div mat-dialog-content>
+    <button mat-button class="cocotte button add w-100" (click)="AddMeal()"><i class="cocotte icon add"></i></button>
+  </div>
+  <div mat-dialog-content>
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="type" style="width: 20%;">
+        <td mat-cell *matCellDef="let element; let i = index;">
+          <mat-form-field name="type" id="type">
+            <mat-select [(ngModel)]="day.meals[i].type" required>
+              <mat-option *ngFor="let type of mealTypes" [value]="type">
+                {{type}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="recipe" style="width: 40%;">
+        <td mat-cell *matCellDef="let element; let i = index;">
+          <mat-form-field name="recipe" id="recipe" >
+            <mat-select [(ngModel)]="day.meals[i].recipe" [compareWith]="ObjectComparisonFunction" (selectionChange)="ChangeRecipe(i, $event.value)" [disabled]="loading" required>
+              <mat-option *ngFor="let recipe of recipes" [value]="recipe">
+                {{recipe.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="people" style="width: 10%;">
+        <td mat-cell *matCellDef="let element; let i = index;">
+          <span>Nb: {{day.meals[i].numberOfPeople}}</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="buttons" style="width: 10%;">
+        <td mat-cell *matCellDef="let element; let i = index;">
+          <button mat-button class="cocotte button add" style="width: 10%;" (click)="Plus(i, 1)"><mat-icon mat-list-icon>add</mat-icon></button>
+          <button mat-button class="cocotte button delete" style="width: 10%;" (click)="Plus(i, -1)"><mat-icon mat-list-icon>remove</mat-icon></button>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="price" style="width: 10%;">
+        <td mat-cell *matCellDef="let element; let i = index;">
+          <span>{{(day.meals[i].recipe.price * day.meals[i].numberOfPeople) | number}}€</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="delete" style="width: 10%;">
+        <td mat-cell *matCellDef="let element; let i = index;">
+          <button mat-button class="cocotte button delete" (click)="RemoveItem(i)"><mat-icon mat-list-icon>delete</mat-icon></button>
+        </td>
+      </ng-container>
+
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="Validate()" [disabled]="!IsValid()" class="cocotte button add">Valider</button>
+</div>

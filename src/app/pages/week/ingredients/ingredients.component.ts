@@ -17,14 +17,16 @@ export class IngredientsComponent implements OnInit {
   isCreation: boolean;
   enumKeys: string[] = Object.keys(IngredientUnit);
   displayedColumns: string[] = ['quantity', 'delete'];
-  ingredient = { ...this.data };
+  ingredient = this.data;
   dataSource = new MatTableDataSource(this.ingredient.quantities);
 
   constructor(private ingredientsService: IngredientsService,
     public dialogRef: MatDialogRef<IngredientsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Ingredients) {
-      this.isCreation = this.ingredient._id == null;
-      this.enumKeys = this.enumKeys.slice(this.enumKeys.length / 2);
+    @Inject(MAT_DIALOG_DATA) public data: Ingredients) {  }
+
+  ngOnInit() {
+    this.isCreation = this.ingredient._id == null;
+    this.enumKeys = this.enumKeys.slice(this.enumKeys.length / 2);
   }
 
   AddQuantity(): void {
@@ -90,8 +92,5 @@ export class IngredientsComponent implements OnInit {
           console.error('Ingredient not updated.');
         });
     }
-  }
-
-  ngOnInit() {
   }
 }
