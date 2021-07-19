@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { BaseResponse } from 'src/app/classes/base/responses';
 
-import { Ingredients, IngredientUnit } from 'src/app/classes/ingredients/ingredients';
+import { Ingredients, IngredientType, IngredientUnit } from 'src/app/classes/ingredients/ingredients';
 import { IsEmpty } from 'src/app/classes/tools';
 import { IngredientsService } from 'src/app/services/ingredients/ingredients.service';
 
@@ -14,8 +14,10 @@ import { IngredientsService } from 'src/app/services/ingredients/ingredients.ser
 })
 
 export class IngredientsComponent implements OnInit {
+  Ingredients = Ingredients;
   isCreation: boolean;
-  enumKeys: string[] = Object.keys(IngredientUnit);
+  units: string[] = Object.keys(IngredientUnit);
+  types: string[] = Object.keys(IngredientType);
   displayedColumns: string[] = ['quantity', 'delete'];
   ingredient = this.data;
   dataSource = new MatTableDataSource(this.ingredient.quantities);
@@ -26,7 +28,8 @@ export class IngredientsComponent implements OnInit {
 
   ngOnInit() {
     this.isCreation = this.ingredient._id == null;
-    this.enumKeys = this.enumKeys.slice(this.enumKeys.length / 2);
+    this.units = this.units.slice(this.units.length / 2);
+    this.types = this.types.slice(this.types.length / 2);
   }
 
   AddQuantity(): void {
@@ -52,6 +55,8 @@ export class IngredientsComponent implements OnInit {
     if (IsEmpty(this.ingredient.baseQuantity))
       return false;
     if (typeof(this.ingredient.unit) == "undefined" || this.ingredient.unit == null)
+      return false;
+    if (typeof(this.ingredient.type) == "undefined" || this.ingredient.type == null)
       return false;
     if (IsEmpty(this.ingredient.quantities) || this.ingredient.quantities.length == 0 || this.ingredient.quantities.find(x => IsEmpty(x)) != null)
       return false;

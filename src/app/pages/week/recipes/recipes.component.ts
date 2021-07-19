@@ -17,6 +17,7 @@ import { RecipesService } from 'src/app/services/recipes/recipes.service';
 })
 
 export class RecipesComponent implements OnInit {
+  Recipes = Recipes;
   isCreation: boolean;
   recipeTypes = Object.keys(RecipeType);
   seasons = Object.keys(Season);

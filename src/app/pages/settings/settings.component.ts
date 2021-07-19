@@ -8,7 +8,7 @@ import { BaseResponse } from 'src/app/classes/base/responses';
 import { IsEmpty } from 'src/app/classes/tools';
 import { GetUserResponse } from 'src/app/classes/users/responses';
 import { DayMealsSchedule, DayOfWeek, Users } from 'src/app/classes/users/users';
-import { MealType } from 'src/app/classes/weeks/weeks';
+import { Meal, MealType } from 'src/app/classes/weeks/weeks';
 import { UsersService } from 'src/app/services/users/users.service';
 import { environment } from 'src/environments/environment';
 
@@ -18,6 +18,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
+  Users = Users;
   loading: boolean = true;
   user: Users = null;
   displayedColumns: string[] = ['day', 'breakfast', 'lunch', 'dinner'];
@@ -56,9 +57,9 @@ export class SettingsComponent implements OnInit {
         var label = new DayMealsSchedule();
         label.day = DayOfWeek.None;
         label.meals = new Array<KeyValue<MealType, boolean>>();
-        label.meals.push({key: MealType.Breakfast, value: false});
-        label.meals.push({key: MealType.Lunch, value: false});
-        label.meals.push({key: MealType.Dinner, value: false});
+        label.meals.push({key: Meal.GetType(MealType.Breakfast), value: false});
+        label.meals.push({key: Meal.GetType(MealType.Lunch), value: false});
+        label.meals.push({key: Meal.GetType(MealType.Dinner), value: false});
 
         this.user.dayMealsSchedule.unshift(label);
 

@@ -26,7 +26,7 @@
               <table mat-table [dataSource]="dataSource" name="dayMealsSchedule" id="dayMealsSchedule">
                 <div matColumnDef="day" >
                   <td mat-cell *matCellDef="let element; let i = index">
-                    <span *ngIf="element.day != 7">{{element.day}}</span>
+                    <span *ngIf="element.day != 7">{{Users.GetDay(element.day)}}</span>
                   </td>
                 </div>
                 <div matColumnDef="breakfast" >

@@ -23,8 +23,18 @@
     <mat-label for="unit">Unité: </mat-label>
     <mat-form-field name="unit" id="unit" >
       <mat-select [(ngModel)]="ingredient.unit" required>
-        <mat-option *ngFor="let unit of enumKeys" [value]="unit">
-          {{unit}}
+        <mat-option *ngFor="let unit of units" [value]="unit">
+          {{Ingredients.GetFullUnit(unit)}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-content>
+    <mat-label for="type">Type: </mat-label>
+    <mat-form-field name="type" id="type" >
+      <mat-select [(ngModel)]="ingredient.type" required>
+        <mat-option *ngFor="let type of types" [value]="type">
+          {{Ingredients.GetType(type)}}
         </mat-option>
       </mat-select>
     </mat-form-field>

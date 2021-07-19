@@ -24,8 +24,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { RecipesComponent } from './recipes/recipes.component';
 import { BaseResponse } from 'src/app/classes/base/responses';
 import { DeleteRequest } from 'src/app/classes/base/requests';
-import { Recipes } from 'src/app/classes/recipes/recipes';
+import { Recipes, RecipeType } from 'src/app/classes/recipes/recipes';
 import { DaysComponent } from './days/days.component';
+import { Meal, MealType } from 'src/app/classes/weeks/weeks';
 
 @Component({
   selector: 'week',
@@ -42,6 +43,9 @@ import { DaysComponent } from './days/days.component';
 
 export class WeekComponent implements OnInit {
 //#region Properties
+  Ingredients = Ingredients;
+  Recipes = Recipes;
+  Meal = Meal;
   public TabMods = TabMods;
   currentTab: TabMods = TabMods.Week;
 
@@ -186,20 +190,6 @@ OpenIngredientMenu(ingredient): void {
     if (modified == true)
       this.ListIngredients();
   });
-}
-
-GetUnit(ingredient: Ingredients){
-  switch (Number.parseInt(IngredientUnit[ingredient.unit])) {
-    case IngredientUnit.Grammes: return "g";
-    case IngredientUnit.Centiliters: return "cl";
-    case IngredientUnit.Pinch: return "pincées";
-    case IngredientUnit.Slices: return "tranches";
-    case IngredientUnit.Pieces: return "morceaux";
-    case IngredientUnit.Tablespoon: return "cs";
-    case IngredientUnit.Teaspoon: return "cc";
-    case IngredientUnit.None: return "";
-    default: return ingredient.unit;
-  }
 }
 //#endregion Ingredients
 

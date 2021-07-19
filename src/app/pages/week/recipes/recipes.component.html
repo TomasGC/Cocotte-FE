@@ -12,7 +12,7 @@
     <mat-form-field name="type" id="type" >
       <mat-select [(ngModel)]="recipe.type" required>
         <mat-option *ngFor="let type of recipeTypes" [value]="type">
-          {{type}}
+          {{Recipes.GetType(type)}}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -22,7 +22,7 @@
     <mat-form-field name="seasons" id="seasons" >
       <mat-select [(ngModel)]="recipe.seasons" multiple required>
         <mat-option *ngFor="let season of seasons" [value]="season">
-          {{season}}
+          {{Recipes.GetSeason(season)}}
         </mat-option>
       </mat-select>
     </mat-form-field>

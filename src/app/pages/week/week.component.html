@@ -32,7 +32,7 @@
 
               <ng-container matColumnDef="baseQuantity">
                 <th mat-header-cell *matHeaderCellDef> Quantité </th>
-                <td mat-cell *matCellDef="let element"> {{element.baseQuantity}} {{GetUnit(element)}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.baseQuantity}} {{Ingredients.GetUnit(element)}} </td>
               </ng-container>
 
               <ng-container matColumnDef="modify">
@@ -79,7 +79,7 @@
 
             <ng-container matColumnDef="type">
               <th mat-header-cell *matHeaderCellDef> Type </th>
-              <td mat-cell *matCellDef="let element"> {{element.type}} <td>
+              <td mat-cell *matCellDef="let element"> {{Recipes.GetType(element.type)}} <td>
             </ng-container>
 
             <ng-container matColumnDef="timesCooked">
@@ -135,7 +135,7 @@
                 <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                   <table mat-table #subTable [dataSource]="element.meals" (click)="OpenDayMenu(element)">
                     <ng-container matColumnDef="type">
-                      <td mat-cell *matCellDef="let subElement"> {{subElement.type}} </td>
+                      <td mat-cell *matCellDef="let subElement"> {{Meal.GetType(subElement.type)}} </td>
                     </ng-container>
                     <ng-container matColumnDef="number">
                       <td mat-cell *matCellDef="let subElement"> {{subElement.numberOfPeople}} </td>

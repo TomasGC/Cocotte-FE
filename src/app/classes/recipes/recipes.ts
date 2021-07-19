@@ -31,4 +31,23 @@ export class Recipes extends BaseType{
     constructor() {
       super();
     }
+
+    static GetType(type) {
+      switch (Number.parseInt(RecipeType[type])) {
+        case RecipeType.Dessert: return "Dessert";
+        case RecipeType.Dish: return "Plat";
+        case RecipeType.Starter: return "Entrée";
+        default: return type;
+      }
+    }
+
+    static GetSeason(season){
+      switch (Number.parseInt(Season[season])) {
+        case Season.Automn: return "Automne";
+        case Season.Spring: return "Printemps";
+        case Season.Summer: return "Été";
+        case Season.Winter: return "Hiver";
+        default: return season;
+      }
+    }
   }

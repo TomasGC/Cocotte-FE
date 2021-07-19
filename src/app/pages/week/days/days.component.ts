@@ -17,6 +17,7 @@ import { ListRecipesResponse } from 'src/app/classes/recipes/responses';
 })
 
 export class DaysComponent implements OnInit {
+  Meal = Meal;
   isCreation: boolean;
   displayedColumns: string[] = ['type', 'recipe', 'people', 'buttons', 'price', 'delete'];
   mealTypes = Object.keys(MealType);

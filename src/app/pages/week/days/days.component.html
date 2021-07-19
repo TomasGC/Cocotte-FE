@@ -17,7 +17,7 @@
           <mat-form-field name="type" id="type">
             <mat-select [(ngModel)]="day.meals[i].type" required>
               <mat-option *ngFor="let type of mealTypes" [value]="type">
-                {{type}}
+                {{Meal.GetType(type)}}
               </mat-option>
             </mat-select>
           </mat-form-field>
