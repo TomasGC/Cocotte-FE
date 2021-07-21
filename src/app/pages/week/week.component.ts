@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe } from '@angular/core';
 import { Router } from '@angular/router';
 import { ThemePalette } from '@angular/material/core';
 import { DatePipe, KeyValue } from '@angular/common';
@@ -26,7 +26,7 @@ import { BaseResponse } from 'src/app/classes/base/responses';
 import { DeleteRequest } from 'src/app/classes/base/requests';
 import { Recipes, RecipeType } from 'src/app/classes/recipes/recipes';
 import { DaysComponent } from './days/days.component';
-import { Meal, MealType } from 'src/app/classes/weeks/weeks';
+import { Day, Meal, MealType } from 'src/app/classes/weeks/weeks';
 
 @Component({
   selector: 'week',
@@ -66,9 +66,9 @@ export class WeekComponent implements OnInit {
   displayedDayColumns: string[] = ["date"];
   displayedMealsColumns: string[] = ["type", "number", "name", "price"];
   tabs = [
-    {key: TabMods.Ingredients, value: "Ingrédients", icon: "ingredient"},
-    {key: TabMods.Recipes, value: "Recettes", icon: "recipe"},
-    {key: TabMods.Week, value: "Ma Semaine", icon: "week"}
+    {key: TabMods.Ingredients, value: "ingredients", icon: "ingredient"},
+    {key: TabMods.Recipes, value: "recipes", icon: "recipe"},
+    {key: TabMods.Week, value: "myWeek", icon: "week"}
   ];
   activeLink = this.tabs[2].value;
 
@@ -295,6 +295,12 @@ GenerateWeek() {
       this.loading = false;
       console.error('Get the current week not succeeded.');
     });
+}
+
+public GetDay(date: Date): string {
+  const language = this.cookieService.get('language');
+  const event = new Date(date);
+  return event.toLocaleDateString(language, { weekday:'long', day:'numeric' });
 }
 //#endregion Week
 }

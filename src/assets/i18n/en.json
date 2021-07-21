@@ -1,0 +1,131 @@
+{
+  "login": {
+    "login": "Login",
+    "password": "Password",
+    "creationAllowanceKey": "Creation Key",
+    "creationSwitch": "Create account",
+    "loginSwitch": "Log in",
+    "loginButton": "Log in",
+    "creationButton": "Create"
+  },
+  "home": {
+    "week": "Week",
+    "settings": "Settings"
+  },
+  "settings": {
+    "login": "Login",
+    "password": "Password",
+    "timeBetweenMeals": "Time between meals",
+    "dailyMeals": "Daily meals",
+    "validate": "Validate"
+  },
+  "week": {
+    "ingredients": "Ingredients",
+    "recipes": "Recipes",
+    "myWeek": "My Week",
+    "name": "Name",
+    "price": "Price",
+    "quantity": "Quantity",
+    "type": "Type",
+    "timesCooked": "Times cooked",
+    "modify": "Modify",
+    "remove": "Remove",
+    "dialogs":{
+      "ingredients":{
+        "basePrice": "Base price",
+        "baseQuantity": "Base quantity",
+        "unit": "Unit",
+        "type": "Type",
+        "quantities": "Quantities",
+        "validate": "Validate"
+      },
+      "recipes": {
+        "type": "Type",
+        "season": "Season",
+        "timesCooked": "Cooked {number} times",
+        "lastCooked": "Cooked {date} for the last time",
+        "ingredients": "{count, plural, =1 {Ingredient} other {Ingredients}}",
+        "quantities": "Quantities",
+        "validate": "Validate"
+      },
+      "days": {
+        "number": "Nb",
+        "validate": "Validate"
+      }
+    }
+  },
+  "enums": {
+    "DayOfWeek": {
+      "Sunday": "Sunday",
+      "Monday": "Monday",
+      "Tuesday": "Tuesday",
+      "Wednesday": "Wednesday",
+      "Thursday": "Thursday",
+      "Friday": "Friday",
+      "Saturday": "Saturday"
+    },
+    "MealTypes": {
+      "Breakfast": "Breakfast",
+      "Lunch": "Lunch",
+      "Dinner": "Dinner"
+    },
+    "IngredientUnit": {
+      "Grammes": {
+        "full": "Grammes",
+        "short": "g"
+      },
+      "Centiliters": {
+        "full": "Centiliters",
+        "short": "cl"
+      },
+      "Pinch": {
+        "full": "Pinch",
+        "short": "pinch"
+      },
+      "Slices": {
+        "full": "Slices",
+        "short": "slices"
+      },
+      "Pieces": {
+        "full": "Pieces",
+        "short": "pieces"
+      },
+      "Tablespoon": {
+        "full": "Tablespoon",
+        "short": "tablespoon"
+      },
+      "Teaspoon": {
+        "full": "Teaspoon",
+        "short": "teaspoon"
+      },
+      "None": {
+        "full": "",
+        "short": ""
+      }
+    },
+    "IngredientType": {
+      "Condiment": "Condiment",
+      "Dairy": "Dairy",
+      "Egg": "Egg",
+      "Fat": "Fat",
+      "Fish": "Fish",
+      "Fruit": "Fruit",
+      "Liquid": "Liquid",
+      "Meat": "Meat",
+      "Starchy": "Starchy",
+      "Sweet": "Sweet",
+      "Vegetable": "Vegetable"
+    },
+    "RecipeType": {
+      "Starter": "Starter",
+      "Dish": "Dish",
+      "Dessert": "Dessert"
+    },
+    "Season": {
+      "Spring": "Spring",
+      "Summer": "Summer",
+      "Autumn": "Autumn",
+      "Winter": "Winter"
+    }
+  }
+}

@@ -4,7 +4,7 @@
       <nav mat-tab-nav-bar>
         <a mat-tab-link *ngFor="let tab of tabs"
            (click)="onTabClick(tab.key)"
-           [active]="currentTab == tab.key"> <i class="cocotte icon {{tab.icon}}"></i> {{tab.value}} </a>
+           [active]="currentTab == tab.key"><i class="cocotte icon {{tab.icon}}"></i> {{"week."+tab.value | translate}}</a>
       </nav>
 
         <!-- Ingredients -->
@@ -16,27 +16,27 @@
           </ng-container>
           <table mat-table #table [dataSource]="dataSource">
               <ng-container matColumnDef="position">
-                <th mat-header-cell *matHeaderCellDef> # </th>
-                <td mat-cell *matCellDef="let element; index as i;"> {{i}} </td>
+                <th mat-header-cell *matHeaderCellDef>#</th>
+                <td mat-cell *matCellDef="let element; index as i;">{{i}}</td>
               </ng-container>
 
               <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef> Nom </th>
-                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                <th mat-header-cell *matHeaderCellDef>{{ 'week.name' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{element.name}}</td>
               </ng-container>
 
               <ng-container matColumnDef="basePrice">
-                <th mat-header-cell *matHeaderCellDef> Prix </th>
-                <td mat-cell *matCellDef="let element"> {{element.basePrice}}€ <td>
+                <th mat-header-cell *matHeaderCellDef>{{ 'week.price' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{element.basePrice}}€<td>
               </ng-container>
 
               <ng-container matColumnDef="baseQuantity">
-                <th mat-header-cell *matHeaderCellDef> Quantité </th>
-                <td mat-cell *matCellDef="let element"> {{element.baseQuantity}} {{Ingredients.GetUnit(element.unit)}} </td>
+                <th mat-header-cell *matHeaderCellDef>{{ 'week.quantity' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{element.baseQuantity}} {{ 'enums.IngredientUnit.'+element.unit+'.short' | translate }}</td>
               </ng-container>
 
               <ng-container matColumnDef="modify">
-                <th mat-header-cell *matHeaderCellDef> Modifier </th>
+                <th mat-header-cell *matHeaderCellDef>{{ 'week.modify' | translate }}</th>
                 <td mat-cell *matCellDef="let element">
                   <button mat-button class="cocotte button modify" (click)="OpenIngredientMenu(element)">
                     <mat-icon mat-list-icon>edit</mat-icon>
@@ -45,7 +45,7 @@
               </ng-container>
 
               <ng-container matColumnDef="delete">
-                <th mat-header-cell *matHeaderCellDef> Supprimer </th>
+                <th mat-header-cell *matHeaderCellDef>{{ 'week.remove' | translate }}</th>
                 <td mat-cell *matCellDef="let element; let i = index;">
                   <button mat-button class="cocotte button delete" (click)="RemoveItem(i)">
                     <mat-icon mat-list-icon>delete</mat-icon>
@@ -68,32 +68,32 @@
           </ng-container>
           <table mat-table #table [dataSource]="dataSource">
             <ng-container matColumnDef="position">
-              <th mat-header-cell *matHeaderCellDef> # </th>
-              <td mat-cell *matCellDef="let element; index as i;"> {{i}} </td>
+              <th mat-header-cell *matHeaderCellDef>#</th>
+              <td mat-cell *matCellDef="let element; index as i;">{{i}}</td>
             </ng-container>
 
             <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef> Nom </th>
-              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+              <th mat-header-cell *matHeaderCellDef>{{ 'week.name' | translate }}</th>
+              <td mat-cell *matCellDef="let element">{{element.name}}</td>
             </ng-container>
 
             <ng-container matColumnDef="type">
-              <th mat-header-cell *matHeaderCellDef> Type </th>
-              <td mat-cell *matCellDef="let element"> {{Recipes.GetType(element.type)}} <td>
+              <th mat-header-cell *matHeaderCellDef>{{ 'week.type' | translate }}</th>
+              <td mat-cell *matCellDef="let element">{{ 'enums.RecipeType.'+element.type | translate }}<td>
             </ng-container>
 
             <ng-container matColumnDef="timesCooked">
-              <th mat-header-cell *matHeaderCellDef> Nb fois Cuisinés </th>
-              <td mat-cell *matCellDef="let element"> {{element.timesCooked}} </td>
+              <th mat-header-cell *matHeaderCellDef>{{ 'week.timesCooked' | translate }}</th>
+              <td mat-cell *matCellDef="let element">{{element.timesCooked}}</td>
             </ng-container>
 
             <ng-container matColumnDef="price">
-              <th mat-header-cell *matHeaderCellDef> Prix </th>
-              <td mat-cell *matCellDef="let element"> {{element.price | number}}€ </td>
+              <th mat-header-cell *matHeaderCellDef>{{ 'week.price' | translate }}</th>
+              <td mat-cell *matCellDef="let element">{{element.price | number}}€</td>
             </ng-container>
 
             <ng-container matColumnDef="modify">
-              <th mat-header-cell *matHeaderCellDef> Modifier </th>
+              <th mat-header-cell *matHeaderCellDef>{{ 'week.modify' | translate }}</th>
               <td mat-cell *matCellDef="let element">
                 <button mat-button class="cocotte button modify" (click)="OpenRecipeMenu(element)">
                   <mat-icon mat-list-icon>edit</mat-icon>
@@ -102,7 +102,7 @@
             </ng-container>
 
             <ng-container matColumnDef="delete">
-              <th mat-header-cell *matHeaderCellDef> Supprimer </th>
+              <th mat-header-cell *matHeaderCellDef>{{ 'week.remove' | translate }}</th>
               <td mat-cell *matCellDef="let element; let i = index;">
                 <button mat-button class="cocotte button delete" (click)="RemoveItem(i)">
                   <mat-icon mat-list-icon>delete</mat-icon>
@@ -125,8 +125,8 @@
           </ng-container>
           <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
             <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedDayColumns">
-              <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-              <td mat-cell *matCellDef="let element" class="header-row" style="text-align: center;"> {{element.date | date: 'EEEE': null: 'fr'}} </td>
+              <th mat-header-cell *matHeaderCellDef>{{column}}</th>
+              <td mat-cell *matCellDef="let element" class="header-row" style="text-align: center;">{{ GetDay(element.date) }}</td>
             </ng-container>
 
             <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
@@ -135,16 +135,16 @@
                 <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                   <table mat-table #subTable [dataSource]="element.meals" (click)="OpenDayMenu(element)">
                     <ng-container matColumnDef="type">
-                      <td mat-cell *matCellDef="let subElement"> {{Meal.GetType(subElement.type)}} </td>
+                      <td mat-cell *matCellDef="let subElement">{{ subElement.type }}</td>
                     </ng-container>
                     <ng-container matColumnDef="number">
-                      <td mat-cell *matCellDef="let subElement"> {{subElement.numberOfPeople}} </td>
+                      <td mat-cell *matCellDef="let subElement">{{subElement.numberOfPeople}}</td>
                     </ng-container>
                     <ng-container matColumnDef="name">
-                      <td mat-cell *matCellDef="let subElement"> {{subElement.recipe.name}} </td>
+                      <td mat-cell *matCellDef="let subElement">{{subElement.recipe.name}}</td>
                     </ng-container>
                     <ng-container matColumnDef="price">
-                      <td mat-cell *matCellDef="let subElement"> {{subElement.recipe.price * subElement.numberOfPeople | number}}€ </td>
+                      <td mat-cell *matCellDef="let subElement">{{subElement.recipe.price * subElement.numberOfPeople | number}}€</td>
                     </ng-container>
 
                     <tr mat-row *matRowDef="let row; columns: displayedMealsColumns;"></tr>

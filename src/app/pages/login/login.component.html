@@ -3,24 +3,24 @@
 <div class="content" role="main">
   <form>
     <div class="form-group">
-      <label for="login">Identifiant</label>
+      <label for="login">{{ 'login.login' | translate }}</label>
       <input [(ngModel)]="request.login" name="login" type="text" class="form-control cocotte input" id="login" required>
     </div>
 
     <div class="form-group">
-      <label for="password">Mot de passe</label>
+      <label for="password">{{ 'login.password' | translate }}</label>
       <input [(ngModel)]="request.password" name="password" type="password" class="form-control cocotte input" id="password" required>
     </div>
 
     <div class="form-group" *ngIf="isCreation">
-      <label for="creationAllowanceKey">Clé de création</label>
+      <label for="creationAllowanceKey">{{ 'login.creationAllowanceKey' | translate }}</label>
       <input [(ngModel)]="request.creationAllowanceKey" name="creationAllowanceKey" type="password" class="form-control cocotte input" id="creationAllowanceKey" required>
     </div>
   </form>
 
-  <a href="javascript:void(0)" *ngIf="!isCreation" (click)="isCreation = true">Créer un compte</a>
-  <a href="javascript:void(0)" *ngIf="isCreation" (click)="isCreation = false">Se connecter</a>
+  <a href="javascript:void(0)" *ngIf="!isCreation" (click)="isCreation = true">{{ 'login.creationSwitch' | translate }}</a>
+  <a href="javascript:void(0)" *ngIf="isCreation" (click)="isCreation = false">{{ 'login.loginSwitch' | translate }}</a>
 
-  <button *ngIf="!isCreation" type="submit" class="btn cocotte button validate" (click)="Login()" [disabled]="!IsValid()">Se connecter</button>
-  <button *ngIf="isCreation" type="submit" class="btn cocotte button validate" (click)="Create()" [disabled]="!IsValid()">Créer</button>
+  <button *ngIf="!isCreation" type="submit" class="btn cocotte button validate" (click)="Login()" [disabled]="!IsValid()">{{ 'login.loginButton' | translate }}</button>
+  <button *ngIf="isCreation" type="submit" class="btn cocotte button validate" (click)="Create()" [disabled]="!IsValid()">{{ 'login.creationButton' | translate }}</button>
 </div>

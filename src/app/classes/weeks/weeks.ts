@@ -17,15 +17,6 @@ export class Meal extends BaseType{
     constructor() {
       super();
     }
-
-    static GetType(type){
-      switch (Number.parseInt(MealType[type])) {
-        case MealType.Breakfast: return "Petit Déjeuner";
-        case MealType.Dinner: return "Dîner";
-        case MealType.Lunch: return "Déjeuner";
-        default: return type;
-      }
-    }
   }
 
 export class Day extends BaseType{

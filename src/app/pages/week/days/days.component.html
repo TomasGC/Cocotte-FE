@@ -1,6 +1,6 @@
 <h1 mat-dialog-title style="width: 100%;">
   <mat-toolbar>
-    <span class="w-100">{{day.date | date:'mediumDate':'fr'}}</span>
+    <span class="w-100">{{GetDay()}}</span>
     <button mat-icon-button (click)="Close()" class="cocotte button exit">
         <mat-icon mat-list-icon>close</mat-icon>
     </button>
@@ -17,7 +17,7 @@
           <mat-form-field name="type" id="type">
             <mat-select [(ngModel)]="day.meals[i].type" required>
               <mat-option *ngFor="let type of mealTypes" [value]="type">
-                {{Meal.GetType(type)}}
+                {{ 'enums.MealTypes.'+type | translate }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -36,7 +36,7 @@
       </ng-container>
       <ng-container matColumnDef="people">
         <td mat-cell *matCellDef="let element; let i = index;">
-          <span>Nb: {{day.meals[i].numberOfPeople}}</span>
+          <span>{{ 'week.dialogs.days.number' | translate }}: {{day.meals[i].numberOfPeople}}</span>
         </td>
       </ng-container>
       <ng-container matColumnDef="buttons">
@@ -62,5 +62,5 @@
 </div>
 
 <div mat-dialog-actions align="end">
-  <button mat-button (click)="Validate()" [disabled]="!IsValid()" class="cocotte button add">Valider</button>
+  <button mat-button (click)="Validate()" [disabled]="!IsValid()" class="cocotte button add">{{ 'week.dialogs.days.validate' | translate }}</button>
 </div>

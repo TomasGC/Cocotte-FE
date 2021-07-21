@@ -8,39 +8,39 @@
 </h1>
 <div mat-dialog-content style="height: 100%;">
   <div mat-dialog-content>
-    <mat-label for="basePrice">Prix de base: </mat-label>
+    <mat-label for="basePrice">{{ 'week.dialogs.ingredients.basePrice' | translate }}: </mat-label>
     <mat-form-field name="basePrice" id="basePrice">
       <input matInput [(ngModel)]="ingredient.basePrice" type="number" required>
     </mat-form-field>
   </div>
   <div mat-dialog-content>
-    <mat-label for="basePrice">Quantité de base: </mat-label>
+    <mat-label for="baseQuantity">{{ 'week.dialogs.ingredients.baseQuantity' | translate }}: </mat-label>
     <mat-form-field name="baseQuantity" id="baseQuantity">
       <input matInput [(ngModel)]="ingredient.baseQuantity" type="number" required>
     </mat-form-field>
   </div>
   <div mat-dialog-content>
-    <mat-label for="unit">Unité: </mat-label>
+    <mat-label for="unit">{{ 'week.dialogs.ingredients.unit' | translate }}: </mat-label>
     <mat-form-field name="unit" id="unit" >
       <mat-select [(ngModel)]="ingredient.unit" required>
         <mat-option *ngFor="let unit of units" [value]="unit">
-          {{Ingredients.GetFullUnit(unit)}}
+          {{ 'enums.IngredientUnit.'+unit+".full" | translate }}
         </mat-option>
       </mat-select>
     </mat-form-field>
   </div>
   <div mat-dialog-content>
-    <mat-label for="type">Type: </mat-label>
+    <mat-label for="type">{{ 'week.dialogs.ingredients.type' | translate }}: </mat-label>
     <mat-form-field name="type" id="type" >
       <mat-select [(ngModel)]="ingredient.type" required>
         <mat-option *ngFor="let type of types" [value]="type">
-          {{Ingredients.GetType(type)}}
+          {{ 'enums.IngredientType.'+type | translate }}
         </mat-option>
       </mat-select>
     </mat-form-field>
   </div>
   <div mat-dialog-content>
-    <span>Quantités: </span>
+    <span>{{ 'week.dialogs.ingredients.quantities' | translate }}: </span>
   </div>
   <div mat-dialog-content>
     <button mat-button class="cocotte button add w-100" (click)="AddQuantity()"><i class="cocotte icon add"></i></button>
@@ -66,5 +66,5 @@
 </div>
 
 <div mat-dialog-actions align="end">
-  <button mat-button (click)="Validate()" [disabled]="!IsValid()" class="cocotte button add">Valider</button>
+  <button mat-button (click)="Validate()" [disabled]="!IsValid()" class="cocotte button add">{{ 'week.dialogs.ingredients.validate' | translate }}</button>
 </div>

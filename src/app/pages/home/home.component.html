@@ -5,13 +5,13 @@
             <p>
                 <button type="button" (click)="GoToWeek()" class="btn btn-content btn-lg">
                   <mat-icon mat-list-icon>calendar_today</mat-icon>
-                  <b> Semaine</b>
+                  <b> {{ 'home.week' | translate }}</b>
                 </button>
             </p>
             <p>
                 <button type="button" (click)="GoToSettings()" class="btn btn-content btn-lg">
                   <mat-icon mat-list-icon>settings</mat-icon>
-                  <b> Paramètres</b>
+                  <b> {{ 'home.settings' | translate }}</b>
                 </button>
             </p>
         </div>

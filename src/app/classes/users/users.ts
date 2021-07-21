@@ -12,7 +12,7 @@ export enum DayOfWeek {
   None
 }
 
-export class DayMealsSchedule {
+export class DailyMeals {
   public day: DayOfWeek;
   public meals: Array<KeyValue<MealType, boolean>>;
 
@@ -23,7 +23,7 @@ export class Users {
     public login: string;
     public password: string;
     public timeBetweenMeals: number;
-    public dayMealsSchedule: Array<DayMealsSchedule>;
+    public dailyMeals: Array<DailyMeals>;
 
     constructor() {}
 

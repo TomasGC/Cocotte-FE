@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { TranslateService } from '@ngx-translate/core';
 import { BaseResponse } from 'src/app/classes/base/responses';
 import { Ingredients } from 'src/app/classes/ingredients/ingredients';
 import { ListIngredientsResponse } from 'src/app/classes/ingredients/responses';
@@ -27,7 +28,12 @@ export class RecipesComponent implements OnInit {
   ingredients: Array<Ingredients>;
   loading: boolean = true;
 
-  constructor(private ingredientsService: IngredientsService,
+  // Translations with variables.
+  timesCooked: string;
+  lastCooked: string;
+
+  constructor(private translate: TranslateService,
+    private ingredientsService: IngredientsService,
     private recipesService: RecipesService,
     public dialogRef: MatDialogRef<RecipesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Recipes) {  }
@@ -53,6 +59,9 @@ export class RecipesComponent implements OnInit {
         this.loading = false;
         console.error('List all ingredients not succeeded.');
       });
+
+      this.timesCooked = this.translate.instant('week.dialogs.recipes.timesCooked', { number: this.recipe.timesCooked });
+      this.lastCooked = this.translate.instant('week.dialogs.recipes.lastCooked', { date: this.recipe.lastCooked });
   }
 
   AddIngredient(): void {

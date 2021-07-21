@@ -3,12 +3,13 @@ import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { BaseResponse } from 'src/app/classes/base/responses';
 
-import { Weeks, Day, Meal, MealType } from 'src/app/classes/weeks/weeks';
+import { Day, Meal, MealType } from 'src/app/classes/weeks/weeks';
 import { IsEmpty } from 'src/app/classes/tools';
 import { WeeksService } from 'src/app/services/weeks/weeks.service';
 import { Recipes } from 'src/app/classes/recipes/recipes';
 import { RecipesService } from 'src/app/services/recipes/recipes.service';
 import { ListRecipesResponse } from 'src/app/classes/recipes/responses';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'meals',
@@ -28,6 +29,7 @@ export class DaysComponent implements OnInit {
 
   constructor(private weeksService: WeeksService,
     private recipesService: RecipesService,
+    private cookieService: CookieService,
     public dialogRef: MatDialogRef<DaysComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Day) {
       this.mealTypes = this.mealTypes.slice(this.mealTypes.length / 2);
@@ -136,5 +138,11 @@ export class DaysComponent implements OnInit {
       error => {
         console.error('Day not update.');
       });
+  }
+
+  public GetDay(): string {
+    const language = this.cookieService.get('language');
+    const event = new Date(this.day.date);
+    return event.toLocaleDateString(language, { weekday:'long', day:'numeric', month:'long' });
   }
 }

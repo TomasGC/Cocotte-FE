@@ -17,4 +17,9 @@
       </div>
     </div>
   </div>
+  <div>
+    <select #langSelect (change)="ChangeLanguage(langSelect.value)" class="cocotte input m-r-20">
+      <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+    </select>
   </div>
+</div>

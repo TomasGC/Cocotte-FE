@@ -7,7 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { BaseResponse } from 'src/app/classes/base/responses';
 import { IsEmpty } from 'src/app/classes/tools';
 import { GetUserResponse } from 'src/app/classes/users/responses';
-import { DayMealsSchedule, DayOfWeek, Users } from 'src/app/classes/users/users';
+import { DailyMeals, DayOfWeek, Users } from 'src/app/classes/users/users';
 import { Meal, MealType } from 'src/app/classes/weeks/weeks';
 import { UsersService } from 'src/app/services/users/users.service';
 import { environment } from 'src/environments/environment';
@@ -22,7 +22,7 @@ export class SettingsComponent implements OnInit {
   loading: boolean = true;
   user: Users = null;
   displayedColumns: string[] = ['day', 'breakfast', 'lunch', 'dinner'];
-  dataSource: MatTableDataSource<DayMealsSchedule>;
+  dataSource: MatTableDataSource<DailyMeals>;
   mealTypes: string[] = Object.keys(MealType);
 
   name = environment.application.name;
@@ -54,16 +54,16 @@ export class SettingsComponent implements OnInit {
 
         this.mealTypes = this.mealTypes.slice(this.mealTypes.length / 2);
 
-        var label = new DayMealsSchedule();
+        var label = new DailyMeals();
         label.day = DayOfWeek.None;
         label.meals = new Array<KeyValue<MealType, boolean>>();
-        label.meals.push({key: Meal.GetType(MealType.Breakfast), value: false});
-        label.meals.push({key: Meal.GetType(MealType.Lunch), value: false});
-        label.meals.push({key: Meal.GetType(MealType.Dinner), value: false});
+        label.meals.push({key: MealType.Breakfast, value: false});
+        label.meals.push({key: MealType.Lunch, value: false});
+        label.meals.push({key: MealType.Dinner, value: false});
 
-        this.user.dayMealsSchedule.unshift(label);
+        this.user.dailyMeals.unshift(label);
 
-        this.dataSource = new MatTableDataSource(this.user.dayMealsSchedule);
+        this.dataSource = new MatTableDataSource(this.user.dailyMeals);
 
         this.loading = false;
       },
@@ -80,7 +80,7 @@ export class SettingsComponent implements OnInit {
       return false;
     if (IsEmpty(this.user.timeBetweenMeals))
       return false;
-    if (IsEmpty(this.user.dayMealsSchedule) || this.user.dayMealsSchedule.length == 0)
+    if (IsEmpty(this.user.dailyMeals) || this.user.dailyMeals.length == 0)
       return false;
 
     return true;
@@ -88,7 +88,7 @@ export class SettingsComponent implements OnInit {
 
   Validate() : void {
     var request = { ...this.user };
-    request.dayMealsSchedule.splice(0, 1);
+    request.dailyMeals.splice(0, 1);
 
     this.usersService.Update(request).subscribe(
       data => {
