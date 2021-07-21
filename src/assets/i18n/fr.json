@@ -10,7 +10,8 @@
   },
   "home": {
     "week": "Semaine",
-    "settings": "Paramètres"
+    "settings": "Paramètres",
+    "download": "Télécharger"
   },
   "settings": {
     "login": "Identifiant",

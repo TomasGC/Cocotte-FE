@@ -10,7 +10,8 @@
   },
   "home": {
     "week": "Week",
-    "settings": "Settings"
+    "settings": "Settings",
+    "download": "Download"
   },
   "settings": {
     "login": "Login",
