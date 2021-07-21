@@ -18,9 +18,10 @@ export class TopBarComponent implements OnInit {
     translate.addLangs(['en', 'fr']);
 
     var language = this.cookieService.get('language');
-    if (IsEmpty(language))
+    if (IsEmpty(language)) {
       language = translate.getBrowserLang();
-
+      this.ChangeLanguage(language);
+    }
 
     translate.setDefaultLang(language);
     translate.use(language);
@@ -36,6 +37,5 @@ export class TopBarComponent implements OnInit {
   ChangeLanguage(language): void {
     this.cookieService.set('language', language);
     this.translate.use(language);
-    console.log(language);
   }
 }
