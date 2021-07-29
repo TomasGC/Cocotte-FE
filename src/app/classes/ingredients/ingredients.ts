@@ -1,31 +1,5 @@
 import { BaseType } from '../base/baseType';
-
-/// The unit for the ingredients.
-export enum IngredientUnit {
-  Grammes,
-  Centiliters,
-  Pinch,
-  Slices,
-  Pieces,
-  Tablespoon,
-  Teaspoon,
-  None = 100
-}
-
-/// The type for the ingredients.
-export enum IngredientType {
-  Condiment,
-  Meat,
-  Fish,
-  Egg,
-  Fruit,
-  Vegetable,
-  Liquid,
-  Starchy,
-  Dairy,
-  Fat,
-  Sweet
-}
+import { DataConfig } from '../configuration/dataConfig';
 
 export class Ingredients extends BaseType{
     constructor(
@@ -34,8 +8,10 @@ export class Ingredients extends BaseType{
       public basePrice?: number,
       public baseQuantity?: number,
       public quantities?: Array<number>,
-      public unit?: IngredientUnit,
-      public type?: IngredientType,
+      public unitId?: string,
+      public unit?: DataConfig,
+      public typeId?: string,
+      public type?: DataConfig,
       public userId?: number,
       public selectedQuantity?: number) {
       super();

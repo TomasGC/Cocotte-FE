@@ -24,7 +24,7 @@
     <mat-form-field name="unit" id="unit" >
       <mat-select [(ngModel)]="ingredient.unit" required>
         <mat-option *ngFor="let unit of units" [value]="unit">
-          {{ 'enums.IngredientUnit.'+unit+'.full' | translate }}
+          {{ unit.mainValue }}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -34,7 +34,7 @@
     <mat-form-field name="type" id="type" >
       <mat-select [(ngModel)]="ingredient.type" required>
         <mat-option *ngFor="let type of types" [value]="type">
-          {{ 'enums.IngredientType.'+type | translate }}
+          {{ type.mainValue }}
         </mat-option>
       </mat-select>
     </mat-form-field>

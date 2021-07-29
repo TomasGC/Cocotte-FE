@@ -1,4 +1,4 @@
-import { Component, OnInit, Pipe } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ThemePalette } from '@angular/material/core';
 import { DatePipe, KeyValue } from '@angular/common';
@@ -6,7 +6,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { MatDialog } from '@angular/material/dialog';
 
 import { BaseType } from '../../classes/base/baseType';
-import { Ingredients, IngredientUnit } from '../../classes/ingredients/ingredients';
+import { Ingredients } from '../../classes/ingredients/ingredients';
 import { TabMods } from "../../enums/week-enums.model";
 import { environment } from '../../../environments/environment';
 
@@ -24,9 +24,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { RecipesComponent } from './recipes/recipes.component';
 import { BaseResponse } from 'src/app/classes/base/responses';
 import { DeleteRequest } from 'src/app/classes/base/requests';
-import { Recipes, RecipeType } from 'src/app/classes/recipes/recipes';
+import { Recipes } from 'src/app/classes/recipes/recipes';
 import { DaysComponent } from './days/days.component';
-import { Day, Meal, MealType } from 'src/app/classes/weeks/weeks';
+import { Meal } from 'src/app/classes/weeks/weeks';
+import { LanguageType } from 'src/app/classes/configuration/dataConfig';
+import { IsEmpty } from 'src/app/classes/tools';
 
 @Component({
   selector: 'week',
@@ -71,6 +73,7 @@ export class WeekComponent implements OnInit {
     {key: TabMods.Week, value: "myWeek", icon: "week"}
   ];
   activeLink = this.tabs[2].value;
+  userLanguage: LanguageType;
 
   expandedElement: null;
   subDataSource = [];
@@ -92,6 +95,7 @@ ngOnInit() {
   if (typeof sessionKey == 'undefined' || !sessionKey)
     this.router.navigate(['/login']);
 
+  this.userLanguage = LanguageType[this.cookieService.get('language')];
   this.GetWeek();
 }
 
@@ -248,7 +252,9 @@ GetWeek() {
         return;
       }
 
-      this.dataSource = new MatTableDataSource(response.week.days);
+      if (!IsEmpty(response.week))
+        this.dataSource = new MatTableDataSource(response.week.days);
+
       // for (var i = 0; i < response.week.days.length; ++i) {
       //   this.subDataSource.push({
       //     key: this.dataSource[i].position,

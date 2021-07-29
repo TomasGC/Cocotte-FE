@@ -1,10 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { CookieService } from 'ngx-cookie-service';
 import { BaseResponse } from 'src/app/classes/base/responses';
+import { DataConfig, DataConfigType, LanguageType } from 'src/app/classes/configuration/dataConfig';
+import { GetDataConfigsResponse } from 'src/app/classes/configuration/responses';
 
-import { Ingredients, IngredientType, IngredientUnit } from 'src/app/classes/ingredients/ingredients';
+import { Ingredients } from 'src/app/classes/ingredients/ingredients';
 import { IsEmpty } from 'src/app/classes/tools';
+import { ConfigurationService } from 'src/app/services/configuration/configuration.service';
 import { IngredientsService } from 'src/app/services/ingredients/ingredients.service';
 
 @Component({
@@ -16,23 +20,66 @@ import { IngredientsService } from 'src/app/services/ingredients/ingredients.ser
 export class IngredientsComponent implements OnInit {
   Ingredients = Ingredients;
   isCreation: boolean;
-  units: string[] = Object.keys(IngredientUnit);
-  types: string[] = Object.keys(IngredientType);
+
+  units: DataConfig[];
+  types: DataConfig[];
   displayedColumns: string[] = ['quantity', 'delete'];
   ingredient = this.data;
   dataSource = new MatTableDataSource(this.ingredient.quantities);
 
+  userLanguage: LanguageType;
+
   constructor(private ingredientsService: IngredientsService,
+    private configurationService: ConfigurationService,
+    private cookieService: CookieService,
     public dialogRef: MatDialogRef<IngredientsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Ingredients) {  }
 
   ngOnInit() {
     this.isCreation = this.ingredient._id == null;
-    this.units = this.units.slice(this.units.length / 2);
-    this.types = this.types.slice(this.types.length / 2);
+    this.userLanguage = LanguageType[this.cookieService.get('language')];
+
+    this.configurationService.GetDataConfigs(DataConfigType.IngredientUnit).subscribe(
+      data => {
+        let response = Object.assign(new GetDataConfigsResponse(), data);
+        if(!response.success) {
+          // this.loading = false;
+          console.error('Something went wrong while the data configs of IngredientUnit kind.' + response.message);
+          return;
+        }
+
+        this.units = response.dataConfigs;
+        // this.loading = false;
+      },
+      error => {
+        // this.loading = false;
+        console.error('List all ingredients not succeeded.');
+      });
+
+      this.configurationService.GetDataConfigs(DataConfigType.IngredientType).subscribe(
+        data => {
+          let response = Object.assign(new GetDataConfigsResponse(), data);
+          if(!response.success) {
+            // this.loading = false;
+            console.error('Something went wrong while getting the data configs of IngredientType kind.' + response.message);
+            return;
+          }
+
+          this.types = response.dataConfigs;
+
+          // this.loading = false;
+        },
+        error => {
+          // this.loading = false;
+          console.error('List all ingredients not succeeded.');
+        });
   }
 
+
   AddQuantity(): void {
+    if (IsEmpty(this.ingredient.quantities) || this.ingredient.quantities.length == 0 || this.ingredient.quantities.find(x => IsEmpty(x)) != null)
+      this.ingredient.quantities = new Array<number>();
+
     this.ingredient.quantities.push(0);
     this.dataSource.data = this.ingredient.quantities;
   }
@@ -65,6 +112,9 @@ export class IngredientsComponent implements OnInit {
   }
 
   Validate(): void {
+    this.ingredient.unitId = this.ingredient.unit._id;
+    this.ingredient.typeId = this.ingredient.type._id;
+
     if (this.isCreation){
       this.ingredientsService.Create(this.ingredient).subscribe(
         data => {

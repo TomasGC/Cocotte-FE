@@ -70,53 +70,6 @@
       "Lunch": "Lunch",
       "Dinner": "Dinner"
     },
-    "IngredientUnit": {
-      "Grammes": {
-        "full": "Grammes",
-        "short": "g"
-      },
-      "Centiliters": {
-        "full": "Centiliters",
-        "short": "cl"
-      },
-      "Pinch": {
-        "full": "Pinch",
-        "short": "pinch"
-      },
-      "Slices": {
-        "full": "Slices",
-        "short": "slices"
-      },
-      "Pieces": {
-        "full": "Pieces",
-        "short": "pieces"
-      },
-      "Tablespoon": {
-        "full": "Tablespoon",
-        "short": "tablespoon"
-      },
-      "Teaspoon": {
-        "full": "Teaspoon",
-        "short": "teaspoon"
-      },
-      "None": {
-        "full": "",
-        "short": ""
-      }
-    },
-    "IngredientType": {
-      "Condiment": "Condiment",
-      "Dairy": "Dairy",
-      "Egg": "Egg",
-      "Fat": "Fat",
-      "Fish": "Fish",
-      "Fruit": "Fruit",
-      "Liquid": "Liquid",
-      "Meat": "Meat",
-      "Starchy": "Starchy",
-      "Sweet": "Sweet",
-      "Vegetable": "Vegetable"
-    },
     "RecipeType": {
       "Starter": "Starter",
       "Dish": "Dish",

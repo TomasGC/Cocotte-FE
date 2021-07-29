@@ -1,7 +1,9 @@
+import { KeyValue } from '@angular/common';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
+import { logging } from 'protractor';
 import { BaseResponse } from 'src/app/classes/base/responses';
 import { Ingredients } from 'src/app/classes/ingredients/ingredients';
 import { ListIngredientsResponse } from 'src/app/classes/ingredients/responses';
@@ -65,13 +67,19 @@ export class RecipesComponent implements OnInit {
   }
 
   AddIngredient(): void {
+
+    if (this.recipe.ingredients === undefined || IsEmpty(this.recipe.ingredients) || this.recipe.ingredients.length == 0 || this.recipe.ingredients.find(x => IsEmpty(x.name) || IsEmpty(x.selectedQuantity)) != null){
+      this.recipe.ingredients = new Array<Ingredients>();
+      this.recipe.ingredientIds = new Array<KeyValue<string, number>>();
+    }
+
     this.recipe.ingredientIds.push({key: "0", value: 0});
     this.recipe.ingredients.push(new Ingredients());
     this.dataSource.data = this.recipe.ingredients;
   }
 
   ChangeIngredient(index, value: Ingredients): void {
-    this.recipe.ingredients[index] = new Ingredients(value._id, value.name, value.basePrice, value.baseQuantity, value.quantities, value.unit, value.userId, value.selectedQuantity)
+    this.recipe.ingredients[index] = new Ingredients(value._id, value.name, value.basePrice, value.baseQuantity, value.quantities, value.unitId, value.unit, value.typeId, value.type, value.userId, value.selectedQuantity)
   }
 
   RemoveIngredient(index): void {

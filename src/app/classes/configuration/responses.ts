@@ -1,7 +1,10 @@
-import { UIColors } from "./uiColors";
+import { BaseResponse } from "../base/responses";
+import { DataConfig } from "./dataConfig";
 
-export class GetColorsResponse {
-  public uiColors: UIColors;
+export class GetDataConfigsResponse extends BaseResponse {
+  public dataConfigs: Array<DataConfig>;
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 }

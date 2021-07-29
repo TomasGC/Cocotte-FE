@@ -70,53 +70,6 @@
       "Lunch": "Déjeuner",
       "Dinner": "Dîner"
     },
-    "IngredientUnit": {
-      "Grammes": {
-        "full": "Grammes",
-        "short": "g"
-      },
-      "Centiliters": {
-        "full": "Centilitres",
-        "short": "cl"
-      },
-      "Pinch": {
-        "full": "Pincées",
-        "short": "pincées"
-      },
-      "Slices": {
-        "full": "Tranches",
-        "short": "tranches"
-      },
-      "Pieces": {
-        "full": "Morceaux",
-        "short": "morceaux"
-      },
-      "Tablespoon": {
-        "full": "Cuillères à soupe",
-        "short": "cs"
-      },
-      "Teaspoon": {
-        "full": "Cuillères à café",
-        "short": "cc"
-      },
-      "None": {
-        "full": "",
-        "short": ""
-      }
-    },
-    "IngredientType": {
-      "Condiment": "Condiment",
-      "Dairy": "Produit Laitier",
-      "Egg": "Oeuf",
-      "Fat": "Gras",
-      "Fish": "Poisson",
-      "Fruit": "Fruit",
-      "Liquid": "Liquide",
-      "Meat": "Viande",
-      "Starchy": "Féculent",
-      "Sweet": "Sucre",
-      "Vegetable": "Légume"
-    },
     "RecipeType": {
       "Starter": "Entrée",
       "Dish": "Plat",
