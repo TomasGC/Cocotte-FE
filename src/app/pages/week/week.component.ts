@@ -4,6 +4,7 @@ import { ThemePalette } from '@angular/material/core';
 import { DatePipe, KeyValue } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatDialog } from '@angular/material/dialog';
+import { PullToRefreshService } from '@piumaz/pull-to-refresh';
 
 import { BaseType } from '../../classes/base/baseType';
 import { Ingredients } from '../../classes/ingredients/ingredients';
@@ -86,7 +87,21 @@ export class WeekComponent implements OnInit {
     private cookieService: CookieService,
     private router: Router,
     public datePipe: DatePipe,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private pullToRefreshService: PullToRefreshService) {
+      pullToRefreshService.refresh$().subscribe(() => {
+        this.Reload();
+
+        setTimeout(() => {
+          console.log('dismiss by service');
+          pullToRefreshService.dismiss();
+        }, 1000);
+
+      });
+
+      document.addEventListener('pull-to-refresh', () => {
+        this.Reload();
+      });
     }
 
 //#region General
@@ -101,7 +116,11 @@ ngOnInit() {
 
 onTabClick(tab: TabMods) {
   this.currentTab = tab;
-  switch(tab){
+  this.Reload();
+}
+
+Reload() {
+  switch(this.currentTab){
     case TabMods.Ingredients:
       this.ListIngredients();
       break;

@@ -4,13 +4,15 @@ import { ThemePalette } from '@angular/material/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { PullToRefreshService } from '@piumaz/pull-to-refresh';
+
 import { CookieService } from 'ngx-cookie-service';
 import { BaseResponse } from 'src/app/classes/base/responses';
 import { LanguageType } from 'src/app/classes/configuration/dataConfig';
 import { IsEmpty } from 'src/app/classes/tools';
 import { GetUserResponse } from 'src/app/classes/users/responses';
 import { DailyMeals, DayOfWeek, Users } from 'src/app/classes/users/users';
-import { Meal, MealType } from 'src/app/classes/weeks/weeks';
+import { MealType } from 'src/app/classes/weeks/weeks';
 import { UsersService } from 'src/app/services/users/users.service';
 import { environment } from 'src/environments/environment';
 
@@ -37,13 +39,30 @@ export class SettingsComponent implements OnInit {
   constructor(private usersService: UsersService,
     private cookieService: CookieService,
     private router: Router,
-    public translate: TranslateService) { }
+    public translate: TranslateService,
+    private pullToRefreshService: PullToRefreshService) {
+      pullToRefreshService.refresh$().subscribe(() => {
+        this.Reload();
+
+        setTimeout(() => {
+          console.log('dismiss by service');
+          pullToRefreshService.dismiss();
+        }, 1000);
+
+      });
+
+      document.addEventListener('pull-to-refresh', () => {
+        this.Reload();
+      });
+    }
 
   ngOnInit() {
     var sessionKey = this.cookieService.get('sessionKey');
     if (typeof sessionKey == 'undefined' || !sessionKey)
       this.router.navigate(['/login']);
+  }
 
+  Reload() {
     this.usersService.Get().subscribe(
       data => {
         let response = Object.assign(new GetUserResponse(), data);

@@ -4,6 +4,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import {PullToRefreshModule} from '@piumaz/pull-to-refresh';
+
 import { AngularMaterialModule } from './modules/angular-material.module';
 import { SharedModules } from './modules/shared.module';
 
@@ -37,7 +39,8 @@ import { DaysComponent } from './pages/week/days/days.component';
     SharedModules,
     HttpClientModule,
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    PullToRefreshModule
   ],
   providers: [HttpClient, CookieService, DatePipe],
   bootstrap: [RootComponent],
