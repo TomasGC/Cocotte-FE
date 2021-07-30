@@ -3,7 +3,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
-import { logging } from 'protractor';
 import { BaseResponse } from 'src/app/classes/base/responses';
 import { Ingredients } from 'src/app/classes/ingredients/ingredients';
 import { ListIngredientsResponse } from 'src/app/classes/ingredients/responses';

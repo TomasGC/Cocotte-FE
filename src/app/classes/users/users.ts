@@ -1,4 +1,5 @@
 import { KeyValue } from "@angular/common";
+import { LanguageType } from "../configuration/dataConfig";
 import { MealType } from "../weeks/weeks";
 
 export enum DayOfWeek {
@@ -22,6 +23,7 @@ export class DailyMeals {
 export class Users {
     public login: string;
     public password: string;
+    public language: LanguageType;
     public timeBetweenMeals: number;
     public dailyMeals: Array<DailyMeals>;
 

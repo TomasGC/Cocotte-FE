@@ -17,16 +17,19 @@ export class TopBarComponent implements OnInit {
   constructor(private router: Router,
     private cookieService: CookieService,
     public translate: TranslateService) {
-    translate.addLangs([LanguageType.fr.toString(), LanguageType.en.toString()]);
+      var languageTypes: string[] = Object.keys(LanguageType);
+      languageTypes = languageTypes.slice(languageTypes.length / 2);
 
-    var language = this.cookieService.get('language');
-    if (IsEmpty(language)) {
-      language = translate.getBrowserLang();
-      this.ChangeLanguage(language);
-    }
+      translate.addLangs(languageTypes);
 
-    translate.setDefaultLang(language);
-    translate.use(language);
+      var language = this.cookieService.get('language');
+      if (IsEmpty(language)) {
+        language = translate.getBrowserLang();
+        this.ChangeLanguage(language);
+      }
+
+      translate.setDefaultLang(language);
+      translate.use(language);
   }
 
   ngOnInit(): void {

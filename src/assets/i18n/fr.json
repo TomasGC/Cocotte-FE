@@ -16,6 +16,7 @@
   "settings": {
     "login": "Identifiant",
     "password": "Mot de passe",
+    "language": "Langue",
     "timeBetweenMeals": "Nb jours entre deux mêmes repas",
     "dailyMeals": "Calendrier des repas",
     "validate": "Valider"

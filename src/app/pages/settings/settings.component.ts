@@ -3,8 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
 import { BaseResponse } from 'src/app/classes/base/responses';
+import { LanguageType } from 'src/app/classes/configuration/dataConfig';
 import { IsEmpty } from 'src/app/classes/tools';
 import { GetUserResponse } from 'src/app/classes/users/responses';
 import { DailyMeals, DayOfWeek, Users } from 'src/app/classes/users/users';
@@ -24,6 +26,7 @@ export class SettingsComponent implements OnInit {
   displayedColumns: string[] = ['day', 'breakfast', 'lunch', 'dinner'];
   dataSource: MatTableDataSource<DailyMeals>;
   mealTypes: string[] = Object.keys(MealType);
+  languageTypes = LanguageType;
 
   name = environment.application.name;
   angular = environment.application.angular;
@@ -33,7 +36,8 @@ export class SettingsComponent implements OnInit {
 
   constructor(private usersService: UsersService,
     private cookieService: CookieService,
-    private router: Router) { }
+    private router: Router,
+    public translate: TranslateService) { }
 
   ngOnInit() {
     var sessionKey = this.cookieService.get('sessionKey');
@@ -73,6 +77,12 @@ export class SettingsComponent implements OnInit {
       });
   }
 
+  ChangeLanguage(language): void {
+    this.user.language = language;
+    this.translate.setDefaultLang(language);
+    this.translate.use(language);
+  }
+
   IsValid() : boolean {
     if (IsEmpty(this.user.login))
       return false;
@@ -89,6 +99,8 @@ export class SettingsComponent implements OnInit {
   Validate() : void {
     var request = { ...this.user };
     request.dailyMeals.splice(0, 1);
+
+    this.cookieService.set('language', this.user.language.toString());
 
     this.usersService.Update(request).subscribe(
       data => {

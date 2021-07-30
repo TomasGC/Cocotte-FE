@@ -16,6 +16,7 @@
   "settings": {
     "login": "Login",
     "password": "Password",
+    "language": "Language",
     "timeBetweenMeals": "Time between meals",
     "dailyMeals": "Daily meals",
     "validate": "Validate"

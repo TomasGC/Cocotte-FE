@@ -16,6 +16,14 @@
               </mat-form-field>
             </div>
             <div>
+              <mat-label for="language">{{ 'settings.language' | translate }}: </mat-label>
+              <mat-form-field name="language" id="language">
+                <mat-select #langSelect [(ngModel)]="user.language" (selectionChange)="ChangeLanguage(langSelect.value)">
+                  <mat-option *ngFor="let lang of translate.getLangs()" [value]="lang">{{ lang }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div>
               <mat-label for="timeBetweenMeals">{{ 'settings.timeBetweenMeals' | translate }}: </mat-label>
               <mat-form-field name="timeBetweenMeals" id="timeBetweenMeals">
                 <input matInput [(ngModel)]="user.timeBetweenMeals" type="number" required>
