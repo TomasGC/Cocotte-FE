@@ -62,12 +62,11 @@ export class RecipesComponent implements OnInit {
         console.error('List all ingredients not succeeded.');
       });
 
-      this.timesCooked = this.translate.instant('week.dialogs.recipes.timesCooked', { number: this.recipe.timesCooked });
+      this.timesCooked = this.translate.instant('week.dialogs.recipes.timesCooked', { number: IsEmpty(this.recipe.timesCooked) ? 0 : this.recipe.timesCooked });
       this.lastCooked = this.translate.instant('week.dialogs.recipes.lastCooked', { date: this.recipe.lastCooked });
   }
 
   AddIngredient(): void {
-
     if (this.recipe.ingredients === undefined || IsEmpty(this.recipe.ingredients) || this.recipe.ingredients.length == 0 || this.recipe.ingredients.find(x => IsEmpty(x.name) || IsEmpty(x.selectedQuantity)) != null){
       this.recipe.ingredients = new Array<Ingredients>();
       this.recipe.ingredientIds = new Array<KeyValue<string, number>>();

@@ -11,7 +11,7 @@ export enum RecipeType {
 
 /// Type of recipe.
 export enum Season {
-    Automn,
+    Autumn,
     Winter,
     Spring,
     Summer
