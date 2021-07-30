@@ -21,6 +21,7 @@ export class IngredientsComponent implements OnInit {
   Ingredients = Ingredients;
   isCreation: boolean;
 
+  dataConfigTypes = DataConfigType;
   units: DataConfig[];
   types: DataConfig[];
   displayedColumns: string[] = ['quantity', 'delete'];
@@ -75,6 +76,20 @@ export class IngredientsComponent implements OnInit {
         });
   }
 
+  ChangeDataConfig(value: DataConfig, type: DataConfigType): void {
+    if (type == DataConfigType.IngredientUnit){
+      this.ingredient.unit = this.units.find(x => x._id == value._id);
+      this.ingredient.unitId = this.ingredient.unitId;
+    }
+    else{
+      this.ingredient.type = this.types.find(x => x._id == value._id);
+      this.ingredient.typeId = this.ingredient.typeId;
+    }
+  }
+
+  ObjectComparisonFunction(option, value): boolean {
+    return option.mainValue === value.mainValue && option._id === value._id;
+  }
 
   AddQuantity(): void {
     if (IsEmpty(this.ingredient.quantities) || this.ingredient.quantities.length == 0 || this.ingredient.quantities.find(x => IsEmpty(x)) != null)

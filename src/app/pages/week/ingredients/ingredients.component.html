@@ -22,7 +22,7 @@
   <div mat-dialog-content>
     <mat-label for="unit">{{ 'week.dialogs.ingredients.unit' | translate }}: </mat-label>
     <mat-form-field name="unit" id="unit" >
-      <mat-select [(ngModel)]="ingredient.unit" required>
+      <mat-select [(ngModel)]="ingredient.unit" [compareWith]="ObjectComparisonFunction" (selectionChange)="ChangeDataConfig($event.value, dataConfigTypes.IngredientUnit)" required>
         <mat-option *ngFor="let unit of units" [value]="unit">
           {{ unit.mainValue }}
         </mat-option>
@@ -32,7 +32,7 @@
   <div mat-dialog-content>
     <mat-label for="type">{{ 'week.dialogs.ingredients.type' | translate }}: </mat-label>
     <mat-form-field name="type" id="type" >
-      <mat-select [(ngModel)]="ingredient.type" required>
+      <mat-select [(ngModel)]="ingredient.type" [compareWith]="ObjectComparisonFunction" (selectionChange)="ChangeDataConfig($event.value, dataConfigTypes.IngredientType)" required>
         <mat-option *ngFor="let type of types" [value]="type">
           {{ type.mainValue }}
         </mat-option>
