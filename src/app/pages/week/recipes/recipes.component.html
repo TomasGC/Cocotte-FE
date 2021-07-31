@@ -1,13 +1,13 @@
-<h1 mat-dialog-title style="width: 100%;">
-  <mat-toolbar>
+<mat-dialog-title>
+  <mat-toolbar color="accent">
     <input matInput [(ngModel)]="recipe.name" type="text" required>
-    <button mat-icon-button (click)="Close()" class="cocotte button exit">
+    <button mat-mini-fab color="warn" (click)="Close()">
         <mat-icon mat-list-icon>close</mat-icon>
     </button>
   </mat-toolbar>
-</h1>
-<div mat-dialog-content style="height: 100%;">
-  <div mat-dialog-content>
+</mat-dialog-title>
+<mat-dialog-content style="height: 100%;">
+  <mat-dialog-content>
     <mat-label for="type">Type: </mat-label>
     <mat-form-field name="type" id="type" >
       <mat-select [(ngModel)]="recipe.type" required>
@@ -16,8 +16,8 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-  </div>
-  <div mat-dialog-content>
+  </mat-dialog-content>
+  <mat-dialog-content>
     <mat-label for="seasons">Saisons: </mat-label>
     <mat-form-field name="seasons" id="seasons" >
       <mat-select [(ngModel)]="recipe.seasons" multiple required>
@@ -26,23 +26,25 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-  </div>
-  <div mat-dialog-content>
+  </mat-dialog-content>
+  <mat-dialog-content>
     <span>{{ timesCooked }}</span>
-  </div>
-  <div mat-dialog-content *ngIf="recipe.lastCooked != null">
+  </mat-dialog-content>
+  <mat-dialog-content *ngIf="recipe.lastCooked != null">
     <span>{{ recipe.lastCooked }}</span>
-  </div>
-  <div mat-dialog-content>
+  </mat-dialog-content>
+  <mat-dialog-content>
     <span>{{ 'week.dialogs.recipes.ingredients' | translate:"{count:2}" }}:</span>
-  </div>
-  <div mat-dialog-content>
-    <button mat-button class="cocotte button add w-100" (click)="AddIngredient()"><i class="cocotte icon add"></i></button>
-  </div>
-  <div mat-dialog-content>
-    <table mat-table [dataSource]="dataSource">
+  </mat-dialog-content>
+  <mat-dialog-content>
+    <button mat-flat-button color="primary" class="w-100" (click)="AddIngredient()">
+      <mat-icon mat-list-icon>add</mat-icon>
+    </button>
+  </mat-dialog-content>
+  <mat-dialog-content>
+    <mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="name" >
-        <td mat-cell *matCellDef="let element; let i = index;" class="elem">
+        <mat-cell *matCellDef="let element; let i = index;">
           <mat-label for="name">{{ 'week.dialogs.recipes.ingredients' | translate:"{count:1}" }}: </mat-label>
           <mat-form-field name="name" id="name" >
             <mat-select [(ngModel)]="recipe.ingredients[i]" [compareWith]="ObjectComparisonFunction" (selectionChange)="ChangeIngredient(i, $event.value)" [disabled]="loading" required>
@@ -51,10 +53,10 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-        </td>
+        </mat-cell>
       </ng-container>
       <ng-container matColumnDef="quantity">
-        <td mat-cell *matCellDef="let element; let i = index" class="elem">
+        <mat-cell *matCellDef="let element; let i = index">
           <mat-label for="quantity">{{ 'week.dialogs.recipes.quantities' | translate }}: </mat-label>
           <mat-form-field name="quantity" id="quantity" >
             <mat-select [(ngModel)]="recipe.ingredients[i].selectedQuantity" [disabled]="recipe.ingredients[i].name == null" required>
@@ -63,19 +65,21 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-        </td>
+        </mat-cell>
       </ng-container>
-      <ng-container matColumnDef="delete" >
-        <td mat-cell *matCellDef="let element; let i = index">
-          <button mat-button class="cocotte button delete" (click)="RemoveIngredient(i)"><i class="cocotte icon delete"></i></button>
-        </td>
+      <ng-container matColumnDef="delete">
+        <mat-cell *matCellDef="let element; let i = index">
+          <button mat-flat-button color="warn" class="w-50" (click)="RemoveIngredient(i)">
+            <mat-icon mat-list-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
       </ng-container>
 
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  </div>
-</div>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-dialog-content>
+</mat-dialog-content>
 
-<div mat-dialog-actions align="end">
-  <button mat-button (click)="Validate()" [disabled]="!IsValid()" class="cocotte button add">{{ 'week.dialogs.recipes.validate' | translate }}</button>
-</div>
+<mat-dialog-actions align="end">
+  <button mat-flat-button color="primary" (click)="Validate()" [disabled]="!IsValid()">{{ 'week.dialogs.recipes.validate' | translate }}</button>
+</mat-dialog-actions>

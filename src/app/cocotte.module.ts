@@ -1,10 +1,10 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { DatePipe, registerLocaleData } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {PullToRefreshModule} from '@piumaz/pull-to-refresh';
+import { PullToRefreshModule } from '@piumaz/pull-to-refresh';
 
 import { AngularMaterialModule } from './modules/angular-material.module';
 import { SharedModules } from './modules/shared.module';

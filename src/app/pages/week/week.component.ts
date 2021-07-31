@@ -27,7 +27,7 @@ import { BaseResponse } from 'src/app/classes/base/responses';
 import { DeleteRequest } from 'src/app/classes/base/requests';
 import { Recipes } from 'src/app/classes/recipes/recipes';
 import { DaysComponent } from './days/days.component';
-import { Meal } from 'src/app/classes/weeks/weeks';
+import { Day, Meal } from 'src/app/classes/weeks/weeks';
 import { LanguageType } from 'src/app/classes/configuration/dataConfig';
 import { IsEmpty } from 'src/app/classes/tools';
 
@@ -50,7 +50,7 @@ export class WeekComponent implements OnInit {
   Recipes = Recipes;
   Meal = Meal;
   public TabMods = TabMods;
-  currentTab: TabMods = TabMods.Week;
+  currentTab: TabMods = TabMods.Ingredients;
 
   title = 'Ma Semaine';
   events = null;
@@ -63,7 +63,9 @@ export class WeekComponent implements OnInit {
   background: ThemePalette = undefined;
   loading: boolean = true;
 
-  dataSource : MatTableDataSource<BaseType>;
+  dataSource : MatTableDataSource<Ingredients>;
+  dataSource1 : MatTableDataSource<Recipes>;
+  dataSource2 : MatTableDataSource<Day>;
   displayedIngredientColumns: string[] = ["position", "name", "basePrice", "baseQuantity", "modify", "delete"];
   displayedRecipeColumns: string[] = ["position", "name", "type", "timesCooked", "price", "modify", "delete"];
   displayedDayColumns: string[] = ["date"];
@@ -73,7 +75,7 @@ export class WeekComponent implements OnInit {
     {key: TabMods.Recipes, value: "recipes", icon: "recipe"},
     {key: TabMods.Week, value: "myWeek", icon: "week"}
   ];
-  activeLink = this.tabs[2].value;
+  activeLink = this.tabs[0].value;
   userLanguage: LanguageType;
 
   expandedElement: null;
@@ -86,9 +88,9 @@ export class WeekComponent implements OnInit {
     private weeksService: WeeksService,
     private cookieService: CookieService,
     private router: Router,
+    private pullToRefreshService: PullToRefreshService,
     public datePipe: DatePipe,
-    public dialog: MatDialog,
-    private pullToRefreshService: PullToRefreshService) {
+    public dialog: MatDialog) {
       pullToRefreshService.refresh$().subscribe(() => {
         this.Reload();
 
@@ -111,10 +113,13 @@ ngOnInit() {
     this.router.navigate(['/login']);
 
   this.userLanguage = LanguageType[this.cookieService.get('language')];
-  this.GetWeek();
+  this.ListIngredients();
+  // this.ListRecipes();
+  // this.GetWeek();
 }
 
-onTabClick(tab: TabMods) {
+onTabClick($event) {
+  var tab : TabMods = $event.index;
   this.currentTab = tab;
   this.Reload();
 }
@@ -134,9 +139,9 @@ Reload() {
 }
 
 RemoveItem(index): void {
-  let id = this.dataSource.data[index]._id;
   switch(this.currentTab){
-    case TabMods.Ingredients:
+    case TabMods.Ingredients:{
+      let id = this.dataSource.data[index]._id;
       this.ingredientsService.Delete(new DeleteRequest(id)).subscribe(
         data => {
           let response = Object.assign(new BaseResponse(), data);
@@ -150,8 +155,14 @@ RemoveItem(index): void {
         error => {
           console.error('Ingredient not deleted.');
         });
+
+        let temp = this.dataSource.data;
+        temp.splice(index, 1);
+        this.dataSource.data = temp;
+      }
       break;
-    case TabMods.Recipes:
+    case TabMods.Recipes:{
+      let id = this.dataSource1.data[index]._id;
       this.recipesService.Delete(new DeleteRequest(id)).subscribe(
         data => {
           let response = Object.assign(new BaseResponse(), data);
@@ -165,12 +176,13 @@ RemoveItem(index): void {
         error => {
           console.error('Recipe not deleted.');
         });
+
+        let temp = this.dataSource1.data;
+        temp.splice(index, 1);
+        this.dataSource1.data = temp;
+      }
       break;
   }
-
-  let temp = this.dataSource.data;
-  temp.splice(index, 1);
-  this.dataSource.data = temp;
 }
 //#endregion General
 
@@ -228,7 +240,8 @@ ListRecipes() {
         return;
       }
 
-      this.dataSource = new MatTableDataSource(response.recipes);
+      console.log(response.recipes);
+      this.dataSource1 = new MatTableDataSource(response.recipes);
       this.loading = false;
     },
     error => {
@@ -272,7 +285,7 @@ GetWeek() {
       }
 
       if (!IsEmpty(response.week))
-        this.dataSource = new MatTableDataSource(response.week.days);
+        this.dataSource2 = new MatTableDataSource(response.week.days);
 
       // for (var i = 0; i < response.week.days.length; ++i) {
       //   this.subDataSource.push({

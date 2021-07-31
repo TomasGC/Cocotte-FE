@@ -39,8 +39,8 @@ export class SettingsComponent implements OnInit {
   constructor(private usersService: UsersService,
     private cookieService: CookieService,
     private router: Router,
-    public translate: TranslateService,
-    private pullToRefreshService: PullToRefreshService) {
+    private pullToRefreshService: PullToRefreshService,
+    public translate: TranslateService) {
       pullToRefreshService.refresh$().subscribe(() => {
         this.Reload();
 
@@ -60,6 +60,8 @@ export class SettingsComponent implements OnInit {
     var sessionKey = this.cookieService.get('sessionKey');
     if (typeof sessionKey == 'undefined' || !sessionKey)
       this.router.navigate(['/login']);
+
+    this.Reload();
   }
 
   Reload() {

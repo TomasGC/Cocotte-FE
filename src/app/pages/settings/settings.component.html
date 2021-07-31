@@ -1,71 +1,67 @@
 <pull-to-refresh [autoDismiss]="false"></pull-to-refresh>
-<div class="content" role="main" style="margin-top:100px;">
-    <section class="text-center">
-        <div class="container">
-          <div *ngIf="!loading">
-            <div>
-              <mat-label for="login">{{ 'settings.login' | translate }}: </mat-label>
-              <mat-form-field name="login" id="login">
-                <input matInput [(ngModel)]="user.login" type="text" required>
-              </mat-form-field>
-            </div>
-            <div>
-              <mat-label for="password">{{ 'settings.password' | translate }}: </mat-label>
-              <mat-form-field name="password" id="password">
-                <input matInput [(ngModel)]="user.password" type="password" required>
-              </mat-form-field>
-            </div>
-            <div>
-              <mat-label for="language">{{ 'settings.language' | translate }}: </mat-label>
-              <mat-form-field name="language" id="language">
-                <mat-select #langSelect [(ngModel)]="user.language" (selectionChange)="ChangeLanguage(langSelect.value)">
-                  <mat-option *ngFor="let lang of translate.getLangs()" [value]="lang">{{ lang }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div>
-              <mat-label for="timeBetweenMeals">{{ 'settings.timeBetweenMeals' | translate }}: </mat-label>
-              <mat-form-field name="timeBetweenMeals" id="timeBetweenMeals">
-                <input matInput [(ngModel)]="user.timeBetweenMeals" type="number" required>
-              </mat-form-field>
-            </div>
-            <div>
-              <mat-label for="dailyMeals">{{ 'settings.dailyMeals' | translate }}: </mat-label>
-              <table mat-table [dataSource]="dataSource" name="dailyMeals" id="dailyMeals">
-                <div matColumnDef="day" >
-                  <td mat-cell *matCellDef="let element; let i = index">
-                    <span *ngIf="element.day != 7">{{ 'enums.DayOfWeek.'+element.day | translate }}</span>
-                  </td>
-                </div>
-                <div matColumnDef="breakfast" >
-                  <td mat-cell *matCellDef="let element; let i = index">
-                    <span *ngIf="element.day == 7"><b>{{ 'enums.MealTypes.Breakfast' | translate }}</b></span>
-                    <mat-checkbox [(ngModel)]="element.meals[0].value" *ngIf="element.day != 7"></mat-checkbox>
-                  </td>
-                </div>
-                <div matColumnDef="lunch" >
-                  <td mat-cell *matCellDef="let element; let i = index">
-                    <span *ngIf="element.day == 7"><b>{{ 'enums.MealTypes.Lunch' | translate }}</b></span>
-                    <mat-checkbox [(ngModel)]="element.meals[1].value" *ngIf="element.day != 7"></mat-checkbox>
-                  </td>
-                </div>
-                <div matColumnDef="dinner" >
-                  <td mat-cell *matCellDef="let element; let i = index">
-                    <span *ngIf="element.day == 7"><b>{{ 'enums.MealTypes.Dinner' | translate }}</b></span>
-                    <mat-checkbox [(ngModel)]="element.meals[2].value" *ngIf="element.day != 7"></mat-checkbox>
-                  </td>
-                </div>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              </table>
-            </div>
-            <ng-container>
-              <button mat-button (click)="Validate()" [disabled]="!IsValid()" class="cocotte button modify">{{ 'settings.validate' | translate }}</button>
-            </ng-container>
-          </div>
+<div class="content" role="main">
+  <section class="text-center">
+    <div>
+      <div *ngIf="!loading">
+        <div>
+          <mat-label for="login">{{ 'settings.login' | translate }}: </mat-label>
+          <mat-form-field name="login" id="login">
+            <input matInput [(ngModel)]="user.login" type="text" required>
+          </mat-form-field>
         </div>
-    </section>
-    <footer class="text-center">
-
-
-    </footer>
+        <div>
+          <mat-label for="password">{{ 'settings.password' | translate }}: </mat-label>
+          <mat-form-field name="password" id="password">
+            <input matInput [(ngModel)]="user.password" type="password" required>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-label for="language">{{ 'settings.language' | translate }}: </mat-label>
+          <mat-form-field name="language" id="language">
+            <mat-select #langSelect [(ngModel)]="user.language" (selectionChange)="ChangeLanguage(langSelect.value)">
+              <mat-option *ngFor="let lang of translate.getLangs()" [value]="lang">{{ lang }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-label for="timeBetweenMeals">{{ 'settings.timeBetweenMeals' | translate }}: </mat-label>
+          <mat-form-field name="timeBetweenMeals" id="timeBetweenMeals">
+            <input matInput [(ngModel)]="user.timeBetweenMeals" type="number" required>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-label for="dailyMeals">{{ 'settings.dailyMeals' | translate }}: </mat-label>
+          <mat-table [dataSource]="dataSource" name="dailyMeals" id="dailyMeals">
+            <div matColumnDef="day" >
+              <mat-cell *matCellDef="let element; let i = index">
+                <span *ngIf="element.day != 7">{{ 'enums.DayOfWeek.'+element.day | translate }}</span>
+              </mat-cell>
+            </div>
+            <div matColumnDef="breakfast" >
+              <mat-cell *matCellDef="let element; let i = index">
+                <span *ngIf="element.day == 7"><b>{{ 'enums.MealTypes.Breakfast' | translate }}</b></span>
+                <mat-checkbox [(ngModel)]="element.meals[0].value" *ngIf="element.day != 7"></mat-checkbox>
+              </mat-cell>
+            </div>
+            <div matColumnDef="lunch" >
+              <mat-cell *matCellDef="let element; let i = index">
+                <span *ngIf="element.day == 7"><b>{{ 'enums.MealTypes.Lunch' | translate }}</b></span>
+                <mat-checkbox [(ngModel)]="element.meals[1].value" *ngIf="element.day != 7"></mat-checkbox>
+              </mat-cell>
+            </div>
+            <div matColumnDef="dinner" >
+              <mat-cell *matCellDef="let element; let i = index">
+                <span *ngIf="element.day == 7"><b>{{ 'enums.MealTypes.Dinner' | translate }}</b></span>
+                <mat-checkbox [(ngModel)]="element.meals[2].value" *ngIf="element.day != 7"></mat-checkbox>
+              </mat-cell>
+            </div>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+        </div>
+        <ng-container>
+          <button mat-flat-button color="primary" (click)="Validate()" [disabled]="!IsValid()">{{ 'settings.validate' | translate }}</button>
+        </ng-container>
+      </div>
+    </div>
+  </section>
 </div>

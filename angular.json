@@ -24,7 +24,8 @@
               "src/web.config"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/styles/theme.scss"
             ],
             "scripts": [],
             "vendorChunk": true,
@@ -95,7 +96,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/styles/theme.scss"
             ],
             "scripts": []
           }

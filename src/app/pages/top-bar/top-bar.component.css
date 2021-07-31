@@ -1,15 +1,4 @@
-.toolbar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: auto;
-  display: flex;
-  align-items: center;
-  background-color: #FEB768;
-  color: white;
-  font-weight: 600;
-}
+
 .tab {
   display: table;
   width: 100%;
