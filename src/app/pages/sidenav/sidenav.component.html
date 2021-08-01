@@ -21,17 +21,26 @@
         <span>{{ 'sidenav.settings' | translate }}</span>
       </button>
     </div>
+
     <mat-divider></mat-divider>
 
     <ng-container>
       <a href="https://drive.google.com/u/0/uc?export=download&confirm=XReP&id=1EEuC6onI89NuvlR0xn4BYxi3IV6NuwiC" target="blank">
-        <mat-icon mat-list-icon  color="accent">android</mat-icon>
+        <mat-icon mat-list-icon color="accent">android</mat-icon>
       </a>
       <a href="https://drive.google.com/u/0/uc?export=download&confirm=XReP&id=1EEuC6onI89NuvlR0xn4BYxi3IV6NuwiC" target="blank">
-        <mat-icon class="cocotte icon ios"  color="accent"></mat-icon>
+        <mat-icon class="cocotte icon ios" color="accent"></mat-icon>
       </a>
     </ng-container>
+
+    <mat-divider></mat-divider>
+
+    <button mat-flat-button color="warn" (click)="Logout()">
+      <mat-icon mat-list-icon>exit_to_app</mat-icon>
+      <span>{{ "sidenav.logout" | translate }}</span>
+    </button>
   </mat-sidenav>
+
   <mat-sidenav-content>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

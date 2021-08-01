@@ -3,6 +3,7 @@
     "login": "Login",
     "password": "Password",
     "creationAllowanceKey": "Creation Key",
+    "creationAllowanKeyTooltip": "You have to ask the key to the admin.",
     "creationSwitch": "Create account",
     "loginSwitch": "Log in",
     "loginButton": "Log in",
@@ -10,7 +11,8 @@
   },
   "sidenav": {
     "week": "Week",
-    "settings": "Settings"
+    "settings": "Settings",
+    "logout": "Log Out"
   },
   "settings": {
     "login": "Login",

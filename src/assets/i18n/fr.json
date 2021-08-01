@@ -3,14 +3,16 @@
     "login": "Identifiant",
     "password": "Mot de passe",
     "creationAllowanceKey": "Clé de création",
+    "creationAllowanKeyTooltip": "Tu dois demander la clé à l'administrateur.",
     "creationSwitch": "Créer un compte",
     "loginSwitch": "Se connecter",
     "loginButton": "Se connecter",
     "creationButton": "Créer"
   },
   "sidenav": {
-    "week": "Week",
-    "settings": "Settings"
+    "week": "Semaine",
+    "settings": "Paramètres",
+    "logout": "Se Déconnecter"
   },
   "settings": {
     "login": "Identifiant",
