@@ -1,5 +1,3 @@
-/* @import '~@angular/material/prebuilt-themes/deeppurple-amber.css'; */
-
 .fullscreen {
   width: 100%;
   height: 100%;
@@ -16,6 +14,7 @@
   width: 25px;
   height: 25px;
 }
+
 .cocotte.icon.logo {
   content: url('assets/img/cocotte.png');
   width: initial !important;
@@ -24,6 +23,10 @@
 
 .cocotte.icon.checkmark {
   content: url('assets/img/checkmark.png');
+}
+
+.cocotte.icon.ios {
+  content: url('assets/img/ios.png');
 }
 
 .cocotte.icon.day {
@@ -44,10 +47,6 @@
 
 .cocotte.icon.people {
   content: url('assets/img/people.png');
-}
-
-.cocotte.icon.quit {
-  content: url('assets/img/quit.png');
 }
 
 .cocotte.icon.recipe {

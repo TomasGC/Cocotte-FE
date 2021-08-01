@@ -7,7 +7,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { TranslateCompiler, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateMessageFormatCompiler } from 'ngx-translate-messageformat-compiler';
 
-import { HomeComponent } from '../pages/home/home.component';
 import { LoginComponent } from '../pages/login/login.component';
 import { SettingsComponent } from '../pages/settings/settings.component';
 import { WeekComponent } from '../pages/week/week.component';
@@ -20,7 +19,6 @@ export function createTranslateLoader(http: HttpClient) {
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'week', component: WeekComponent },
   { path: '**', redirectTo: '/login', pathMatch: 'full' }

@@ -8,10 +8,9 @@
     "loginButton": "Se connecter",
     "creationButton": "Créer"
   },
-  "home": {
-    "week": "Semaine",
-    "settings": "Paramètres",
-    "download": "Télécharger"
+  "sidenav": {
+    "week": "Week",
+    "settings": "Settings"
   },
   "settings": {
     "login": "Identifiant",

@@ -1,0 +1,38 @@
+<mat-toolbar color="warn">
+  <!-- <mat-toolbar-row> -->
+    <button aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" color="primary">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <span>Cocotte</span>
+  <!-- </mat-toolbar-row> -->
+</mat-toolbar>
+
+<mat-sidenav-container class="fullscreen">
+  <mat-sidenav #drawer mode="over" closed role="navigation" #sidenav="matSidenav">
+    <div>
+      <button mat-flat-button color="primary" (click)="GoToWeek()" >
+        <mat-icon>calendar_today</mat-icon>
+        <span>{{ 'sidenav.week' | translate }}</span>
+      </button>
+    </div>
+    <div>
+      <button mat-flat-button color="primary" (click)="GoToSettings()">
+        <mat-icon>settings</mat-icon>
+        <span>{{ 'sidenav.settings' | translate }}</span>
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+
+    <ng-container>
+      <a href="https://drive.google.com/u/0/uc?export=download&confirm=XReP&id=1EEuC6onI89NuvlR0xn4BYxi3IV6NuwiC" target="blank">
+        <mat-icon mat-list-icon  color="accent">android</mat-icon>
+      </a>
+      <a href="https://drive.google.com/u/0/uc?export=download&confirm=XReP&id=1EEuC6onI89NuvlR0xn4BYxi3IV6NuwiC" target="blank">
+        <mat-icon class="cocotte icon ios"  color="accent"></mat-icon>
+      </a>
+    </ng-container>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

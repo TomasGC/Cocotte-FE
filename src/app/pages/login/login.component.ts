@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
         this.cookieService.set('login', response.user.login);
         this.cookieService.set('password', response.user.password);
 
-        this.router.navigate(['/home']);
+        this.router.navigate(['/week']);
       },
       error => {
         console.error('Not logged.');
