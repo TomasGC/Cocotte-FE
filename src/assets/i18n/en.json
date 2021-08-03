@@ -53,14 +53,17 @@
       },
       "days": {
         "number": "Nb",
-        "validate": "Validate",
         "validate": "Validate"
       },
       "weekIngredients": {
-        "title": "Week Ingredients to get",
+        "title": "Week Ingredients to get for {price}€",
         "name": "Ingredients",
+        "quantity": "Quantity",
+        "price": "Price",
         "possessed": "Gotcha?",
-        "none": "There is no ingredients yet."
+        "none": "There is no ingredients yet.",
+        "validate": "Validate",
+        "totalPrice": "Total price"
       }
     }
   },

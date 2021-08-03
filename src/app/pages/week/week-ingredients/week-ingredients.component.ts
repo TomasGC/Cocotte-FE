@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { TranslateService } from '@ngx-translate/core';
 import { BaseResponse } from 'src/app/classes/base/responses';
 import { DataConfig, DataConfigType, LanguageType } from 'src/app/classes/configuration/dataConfig';
 import { IsEmpty } from 'src/app/classes/tools';
@@ -20,14 +21,15 @@ export class WeekIngredientsComponent implements OnInit {
   dataConfigTypes = DataConfigType;
   units: DataConfig[];
   types: DataConfig[];
-  displayedColumns: string[] = ['name', 'possessed'];
+  displayedColumns: string[] = ['name', 'quantity', 'price', 'possessed'];
   weekIngredients: WeekIngredients;
   dataSource: MatTableDataSource<WeekIngredient>;
   hasData: boolean;
-
+  title: string;
   userLanguage: LanguageType;
 
-  constructor(private weeksService: WeeksService,
+  constructor(private translate: TranslateService,
+    private weeksService: WeeksService,
     public dialogRef: MatDialogRef<WeekIngredientsComponent>) {  }
 
   ngOnInit() {
@@ -46,6 +48,8 @@ export class WeekIngredientsComponent implements OnInit {
         if (this.hasData){
           this.weekIngredients = response.weekIngredients;
           this.dataSource = new MatTableDataSource(this.weekIngredients.ingredients);
+
+          this.title = this.translate.instant('week.dialogs.weekIngredients.title', { price: this.weekIngredients.totalPrice.toFixed(2) });
         }
 
         this.loading = false;

@@ -56,11 +56,14 @@
         "validate": "Valider"
       },
       "weekIngredients": {
-        "title": "Ingrédients de la semaine à avoir",
+        "title": "Ingrédients de la semaine à avoir pour {price}",
         "name": "Ingrédients",
+        "quantity": "Quantité",
+        "price": "Prix",
         "possessed": "J'ai tout?",
         "none": "Il n'y a aucun ingrédient pour le moment.",
-        "validate": "Valider"
+        "validate": "Valider",
+        "totalPrice": "Prix total"
       }
     }
   },

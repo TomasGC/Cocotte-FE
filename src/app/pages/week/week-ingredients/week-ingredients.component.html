@@ -1,6 +1,6 @@
 <mat-dialog-title>
   <mat-toolbar color="accent" class="w-100">
-    <span class="w-90">{{ 'week.dialogs.weekIngredients.title' | translate }}</span>
+    <span class="w-90">{{ title }}</span>
     <button mat-mini-fab color="warn" (click)="Close()" class="w-10">
         <mat-icon mat-list-icon>close</mat-icon>
     </button>
@@ -11,7 +11,15 @@
     <mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef>{{ 'week.name' | translate }}</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{element.ingredient.name}}</mat-cell>
+        <mat-cell *matCellDef="let element">{{ element.ingredient.name }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="quantity">
+        <mat-header-cell *matHeaderCellDef>{{ 'week.quantity' | translate }}</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.totalQuantity }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef>{{ 'week.price' | translate }}</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.totalPrice | number:'1.0-2'}}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="possessed" class="w-50">
         <mat-header-cell *matHeaderCellDef>{{ 'week.dialogs.weekIngredients.possessed' | translate }}</mat-header-cell>
