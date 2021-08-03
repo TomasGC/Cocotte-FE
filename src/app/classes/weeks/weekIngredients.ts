@@ -3,8 +3,9 @@ import { Ingredients } from '../ingredients/ingredients';
 
 export class WeekIngredient extends BaseType{
     public checked: boolean;
-    public ingredient: Ingredients;
     public totalQuantity: number;
+    public totalPrice: number;
+    public ingredient: Ingredients;
 
     constructor() {
       super();
@@ -12,9 +13,9 @@ export class WeekIngredient extends BaseType{
   }
 
 export class WeekIngredients extends BaseType{
-    public ingredients: Array<WeekIngredient>;
     public userId: number;
     public totalPrice: number;
+    public ingredients: Array<WeekIngredient>;
 
     constructor() {
       super();

@@ -40,7 +40,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { SharedModules } from './shared.module';
 
 const materialModules = [
   MatAutocompleteModule,
@@ -76,13 +75,18 @@ const materialModules = [
   MatToolbarModule,
   MatTooltipModule,
   MatTreeModule,
-  MatFormFieldModule,
+  MatFormFieldModule
 ];
 
 @NgModule({
   declarations: [
   ],
   imports: [
+    A11yModule,
+    CdkTableModule,
+    CdkTreeModule,
+    DragDropModule,
+    ScrollingModule,
     ...materialModules
   ],
   exports: [

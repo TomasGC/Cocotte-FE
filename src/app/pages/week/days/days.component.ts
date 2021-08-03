@@ -122,7 +122,7 @@ export class DaysComponent implements OnInit {
 
   Validate(): void {
     for (var i = 0; i < this.day.meals.length; ++i)
-      this.day.meals[i].recipeId = this.day.meals[i].recipe._id;
+      this.day.meals[i]._id = this.day.meals[i].recipe._id;
 
     this.weeksService.UpdateDay(this.day).subscribe(
       data => {

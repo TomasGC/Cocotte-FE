@@ -2,7 +2,7 @@
 <div class="content" role="main">
   <section class="text-center">
     <div class="container">
-      <mat-tab-group (selectedTabChange)="onTabClick($event)">
+      <mat-tab-group headerPosition="above" [selectedIndex]="2" (selectedTabChange)="onTabClick($event)">
         <!-- Ingredients -->
         <mat-tab>
           <ng-template mat-tab-label>
@@ -15,7 +15,7 @@
                 <mat-icon mat-list-icon>add</mat-icon>
               </button>
             </ng-container>
-            <mat-table [dataSource]="dataSource">
+            <mat-table [dataSource]="dataSourceIngredients">
                 <ng-container matColumnDef="position">
                   <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
                   <mat-cell *matCellDef="let element; index as i;">{{i}}</mat-cell>
@@ -72,7 +72,7 @@
                 <mat-icon mat-list-icon>add</mat-icon>
               </button>
             </ng-container>
-            <mat-table [dataSource]="dataSource1">
+            <mat-table [dataSource]="dataSourceRecipes">
               <ng-container matColumnDef="position">
                 <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
                 <mat-cell *matCellDef="let element; index as i;">{{i}}</mat-cell>
@@ -130,21 +130,24 @@
           </ng-template>
           <div *ngIf="!loading">
             <ng-container>
-              <button mat-flat-button color="primary" class="w-100" (click)="GenerateWeek()">
+              <button mat-flat-button color="accent" class="w-90" (click)="GenerateWeek()">
                 <mat-icon mat-list-icon>autorenew</mat-icon>
               </button>
+              <button mat-flat-button color="primary" class="w-10" (click)="OpenWeekIngredientsMenu()" [disabled]="dataSourceDay == undefined || dataSourceDay == null || dataSourceDay.data.length == 0">
+                <mat-icon mat-list-icon>list</mat-icon>
+              </button>
             </ng-container>
-            <mat-table [dataSource]="dataSource2" multiTemplateDataRows class="mat-elevation-z8">
-              <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedDayColumns">
-                <mat-header-cell *matHeaderCellDef>{{column}}</mat-header-cell>
-                <mat-cell *matCellDef="let element" class="header-row" style="text-align: center;">{{ GetDay(element.date) }}</mat-cell>
-              </ng-container>
 
-              <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-              <ng-container matColumnDef="expandedDetail">
-                <mat-cell *matCellDef="let element" [attr.colspan]="displayedDayColumns.length">
-                  <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                    <mat-table mat-table #subTable [dataSource]="element.meals" (click)="OpenDayMenu(element)">
+            <mat-table [dataSource]="dataSourceDay">
+              <ng-container matColumnDef="date">
+                <mat-cell *matCellDef="let element" class="day-header">
+                  <mat-expansion-panel hideToggle class="day-header w-100">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title class="day-header">
+                        {{ GetDay(element.date) }}
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-table [dataSource]="element.meals" (click)="OpenDayMenu(element)" class="pointer">
                       <ng-container matColumnDef="type">
                         <mat-cell *matCellDef="let subElement">{{ subElement.type }}</mat-cell>
                       </ng-container>
@@ -159,12 +162,11 @@
                       </ng-container>
                       <mat-row *matRowDef="let row; columns: displayedMealsColumns;"></mat-row>
                     </mat-table>
-                  </div>
+                  </mat-expansion-panel>
                 </mat-cell>
               </ng-container>
 
-              <mat-row *matRowDef="let element; columns: displayedDayColumns;" class="example-element-row" [class.example-expanded-row]="expandedElement === element" (click)="expandedElement = expandedElement === element ? null : element"></mat-row>
-              <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></mat-row>
+              <mat-row *matRowDef="let row; columns: displayedDayColumns;"></mat-row>
             </mat-table>
           </div>
         </mat-tab>

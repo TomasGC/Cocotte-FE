@@ -53,7 +53,14 @@
       },
       "days": {
         "number": "Nb",
+        "validate": "Validate",
         "validate": "Validate"
+      },
+      "weekIngredients": {
+        "title": "Week Ingredients to get",
+        "name": "Ingredients",
+        "possessed": "Gotcha?",
+        "none": "There is no ingredients yet."
       }
     }
   },

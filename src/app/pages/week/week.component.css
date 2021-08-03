@@ -6,3 +6,15 @@ img {
   width:25%;
   height: 25%;
 }
+
+.background{
+  background-color: #fff2cc;
+}
+
+.day-header {
+  background-color: #fde9ad;
+  color: #404040;
+  font-style: italic;
+  display: inline-block;
+  text-align: center;
+}

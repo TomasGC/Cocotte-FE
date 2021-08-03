@@ -57,11 +57,11 @@
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="delete" class="w-50">
-        <td mat-cell *matCellDef="let element; let i = index">
+        <mat-cell *matCellDef="let element; let i = index">
           <button mat-flat-button color="warn" (click)="RemoveQuantity(i)">
             <mat-icon mat-list-icon>delete</mat-icon>
           </button>
-        </td>
+        </mat-cell>
       </ng-container>
 
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

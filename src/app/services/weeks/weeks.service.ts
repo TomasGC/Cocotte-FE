@@ -48,7 +48,7 @@ export class WeeksService {
     return this.http.get<void>(Address.Get(this.baseRoute, 'current/ingredients/all'), this.httpOptions);
   }
 
-  Create(request: WeekIngredients): Observable<WeekIngredients> {
+  UpdateWeekIngredients(request: WeekIngredients): Observable<WeekIngredients> {
     return this.http.put<WeekIngredients>(Address.Get(this.baseRoute, 'current/ingredients/update'), request, this.httpOptions)
   }
 }

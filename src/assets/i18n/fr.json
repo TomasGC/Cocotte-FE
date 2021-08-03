@@ -54,6 +54,13 @@
       "days": {
         "number": "Nb",
         "validate": "Valider"
+      },
+      "weekIngredients": {
+        "title": "Ingrédients de la semaine à avoir",
+        "name": "Ingrédients",
+        "possessed": "J'ai tout?",
+        "none": "Il n'y a aucun ingrédient pour le moment.",
+        "validate": "Valider"
       }
     }
   },

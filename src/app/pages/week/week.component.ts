@@ -6,7 +6,6 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { MatDialog } from '@angular/material/dialog';
 import { PullToRefreshService } from '@piumaz/pull-to-refresh';
 
-import { BaseType } from '../../classes/base/baseType';
 import { Ingredients } from '../../classes/ingredients/ingredients';
 import { TabMods } from "../../enums/week-enums.model";
 import { environment } from '../../../environments/environment';
@@ -30,6 +29,7 @@ import { DaysComponent } from './days/days.component';
 import { Day, Meal } from 'src/app/classes/weeks/weeks';
 import { LanguageType } from 'src/app/classes/configuration/dataConfig';
 import { IsEmpty } from 'src/app/classes/tools';
+import { WeekIngredientsComponent } from './week-ingredients/week-ingredients.component';
 
 @Component({
   selector: 'week',
@@ -50,7 +50,7 @@ export class WeekComponent implements OnInit {
   Recipes = Recipes;
   Meal = Meal;
   public TabMods = TabMods;
-  currentTab: TabMods = TabMods.Ingredients;
+  currentTab: TabMods = TabMods.Week;
 
   title = 'Ma Semaine';
   events = null;
@@ -63,23 +63,24 @@ export class WeekComponent implements OnInit {
   background: ThemePalette = undefined;
   loading: boolean = true;
 
-  dataSource : MatTableDataSource<Ingredients>;
-  dataSource1 : MatTableDataSource<Recipes>;
-  dataSource2 : MatTableDataSource<Day>;
+  dataSourceIngredients : MatTableDataSource<Ingredients>;
+  dataSourceRecipes : MatTableDataSource<Recipes>;
+  dataSourceDay : MatTableDataSource<Day>;
+
   displayedIngredientColumns: string[] = ["position", "name", "basePrice", "baseQuantity", "modify", "delete"];
   displayedRecipeColumns: string[] = ["position", "name", "type", "timesCooked", "price", "modify", "delete"];
   displayedDayColumns: string[] = ["date"];
   displayedMealsColumns: string[] = ["type", "number", "name", "price"];
+
   tabs = [
     {key: TabMods.Ingredients, value: "ingredients", icon: "ingredient"},
     {key: TabMods.Recipes, value: "recipes", icon: "recipe"},
     {key: TabMods.Week, value: "myWeek", icon: "week"}
   ];
-  activeLink = this.tabs[0].value;
+  activeLink = this.tabs[2].value;
   userLanguage: LanguageType;
 
   expandedElement: null;
-  subDataSource = [];
 //#endregion Properties
 
   constructor(
@@ -113,9 +114,7 @@ ngOnInit() {
     this.router.navigate(['/login']);
 
   this.userLanguage = LanguageType[this.cookieService.get('language')];
-  this.ListIngredients();
-  // this.ListRecipes();
-  // this.GetWeek();
+  this.GetWeek();
 }
 
 onTabClick($event) {
@@ -141,7 +140,7 @@ Reload() {
 RemoveItem(index): void {
   switch(this.currentTab){
     case TabMods.Ingredients:{
-      let id = this.dataSource.data[index]._id;
+      let id = this.dataSourceIngredients.data[index]._id;
       this.ingredientsService.Delete(new DeleteRequest(id)).subscribe(
         data => {
           let response = Object.assign(new BaseResponse(), data);
@@ -156,13 +155,13 @@ RemoveItem(index): void {
           console.error('Ingredient not deleted.');
         });
 
-        let temp = this.dataSource.data;
+        let temp = this.dataSourceIngredients.data;
         temp.splice(index, 1);
-        this.dataSource.data = temp;
+        this.dataSourceIngredients.data = temp;
       }
       break;
     case TabMods.Recipes:{
-      let id = this.dataSource1.data[index]._id;
+      let id = this.dataSourceRecipes.data[index]._id;
       this.recipesService.Delete(new DeleteRequest(id)).subscribe(
         data => {
           let response = Object.assign(new BaseResponse(), data);
@@ -177,9 +176,9 @@ RemoveItem(index): void {
           console.error('Recipe not deleted.');
         });
 
-        let temp = this.dataSource1.data;
+        let temp = this.dataSourceRecipes.data;
         temp.splice(index, 1);
-        this.dataSource1.data = temp;
+        this.dataSourceRecipes.data = temp;
       }
       break;
   }
@@ -198,7 +197,7 @@ ListIngredients() {
         return;
       }
 
-      this.dataSource = new MatTableDataSource(response.ingredients);
+      this.dataSourceIngredients = new MatTableDataSource(response.ingredients);
       this.loading = false;
     },
     error => {
@@ -241,7 +240,7 @@ ListRecipes() {
       }
 
       console.log(response.recipes);
-      this.dataSource1 = new MatTableDataSource(response.recipes);
+      this.dataSourceRecipes = new MatTableDataSource(response.recipes);
       this.loading = false;
     },
     error => {
@@ -284,15 +283,8 @@ GetWeek() {
         return;
       }
 
-      if (!IsEmpty(response.week))
-        this.dataSource2 = new MatTableDataSource(response.week.days);
+      this.dataSourceDay = new MatTableDataSource(response.week.days);
 
-      // for (var i = 0; i < response.week.days.length; ++i) {
-      //   this.subDataSource.push({
-      //     key: this.dataSource[i].position,
-      //     value: this.dataSource[i].meals
-      //   });
-      // }
       this.loading = false;
     },
     error => {
@@ -313,6 +305,15 @@ OpenDayMenu(day): void {
   dialogRef.afterClosed().subscribe(modified => {
     if (modified == true)
       this.GetWeek();
+  });
+}
+
+OpenWeekIngredientsMenu(): void {
+  const dialogRef = this.dialog.open(WeekIngredientsComponent, {
+    height: '800px',
+    width: '700px',
+    backdropClass: 'backdropBackground',
+    panelClass: 'modalBox'
   });
 }
 

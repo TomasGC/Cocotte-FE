@@ -4,6 +4,10 @@
   margin: 0;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .cocotte.header {
   background-color: #FEB768;
 }
@@ -70,12 +74,29 @@
   width: 100%;
 }
 
+
+.w-90 {
+  width: 90%;
+}
+
 .w-50 {
   width: 50%;
 }
 
+.w-10 {
+  width: 10%;
+}
+
 .m-r-20 {
   margin-right: 20px;
+}
+
+.m-0 {
+  margin: 0px;
+}
+
+.p-0 {
+  padding: 0px;
 }
 
 .modalBox  >  mat-dialog-container {

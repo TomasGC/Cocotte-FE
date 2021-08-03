@@ -1,0 +1,35 @@
+<mat-dialog-title>
+  <mat-toolbar color="accent" class="w-100">
+    <span class="w-90">{{ 'week.dialogs.weekIngredients.title' | translate }}</span>
+    <button mat-mini-fab color="warn" (click)="Close()" class="w-10">
+        <mat-icon mat-list-icon>close</mat-icon>
+    </button>
+  </mat-toolbar>
+</mat-dialog-title>
+<mat-dialog-content style="height: 100%;">
+  <mat-dialog-content *ngIf="hasData">
+    <mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>{{ 'week.name' | translate }}</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.ingredient.name}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="possessed" class="w-50">
+        <mat-header-cell *matHeaderCellDef>{{ 'week.dialogs.weekIngredients.possessed' | translate }}</mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index">
+          <mat-checkbox color="warn" [checked]="element.checked" (change)="element.checked = !element.checked"></mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-dialog-content>
+  <mat-dialog-content *ngIf="!hasData">
+    <span>{{ 'week.dialogs.weekIngredients.none' | translate }}</span>
+  </mat-dialog-content>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-flat-button color="primary" (click)="Validate()">{{ 'week.dialogs.weekIngredients.validate' | translate }}</button>
+</mat-dialog-actions>
+

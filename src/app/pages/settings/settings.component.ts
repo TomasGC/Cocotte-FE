@@ -109,7 +109,7 @@ export class SettingsComponent implements OnInit {
       return false;
     if (IsEmpty(this.user.password))
       return false;
-    if (IsEmpty(this.user.timeBetweenMeals))
+    if (this.user.timeBetweenMeals === undefined || typeof(this.user.timeBetweenMeals) === undefined || this.user.timeBetweenMeals == null)
       return false;
     if (IsEmpty(this.user.dailyMeals) || this.user.dailyMeals.length == 0)
       return false;
