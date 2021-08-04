@@ -77,7 +77,7 @@ export class RecipesComponent implements OnInit {
   }
 
   ChangeIngredient(index, value: Ingredients): void {
-    this.recipe.ingredients[index] = new Ingredients(value._id, value.name, value.basePrice, value.baseQuantity, value.quantities, value.unitId, value.unit, value.typeId, value.type, value.userId, value.selectedQuantity)
+    this.recipe.ingredients[index] = new Ingredients(value._id, value.name, value.basePrice, value.baseQuantity, value.quantities, value.unitId, value.unit, value.typeIds, value.types, value.userId, value.selectedQuantity)
   }
 
   RemoveIngredient(index): void {

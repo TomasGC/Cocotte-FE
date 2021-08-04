@@ -76,15 +76,14 @@ export class IngredientsComponent implements OnInit {
         });
   }
 
-  ChangeDataConfig(value: DataConfigs, type: DataConfigTypes): void {
-    if (type == DataConfigTypes.IngredientUnit){
-      this.ingredient.unit = this.units.find(x => x._id == value._id);
-      this.ingredient.unitId = this.ingredient.unitId;
-    }
-    else{
-      this.ingredient.type = this.types.find(x => x._id == value._id);
-      this.ingredient.typeId = this.ingredient.typeId;
-    }
+  ChangeUnit(value: DataConfigs, type: DataConfigTypes): void {
+    this.ingredient.unit = this.units.find(x => x._id == value._id);
+    this.ingredient.unitId = this.ingredient.unitId;
+  }
+
+  ChangeTypes(values: Array<DataConfigs>, type: DataConfigTypes): void {
+    this.ingredient.types = this.types.filter(x => values.find(y => y._id == x._id));
+    this.ingredient.typeIds = this.ingredient.types.map(x => x._id);
   }
 
   ObjectComparisonFunction(option, value): boolean {
@@ -118,7 +117,7 @@ export class IngredientsComponent implements OnInit {
       return false;
     if (typeof(this.ingredient.unit) == "undefined" || this.ingredient.unit == null)
       return false;
-    if (typeof(this.ingredient.type) == "undefined" || this.ingredient.type == null)
+      if (IsEmpty(this.ingredient.types) || this.ingredient.types.length == 0 || this.ingredient.types.find(x => IsEmpty(x)) != null)
       return false;
     if (IsEmpty(this.ingredient.quantities) || this.ingredient.quantities.length == 0 || this.ingredient.quantities.find(x => IsEmpty(x)) != null)
       return false;
@@ -127,9 +126,6 @@ export class IngredientsComponent implements OnInit {
   }
 
   Validate(): void {
-    this.ingredient.unitId = this.ingredient.unit._id;
-    this.ingredient.typeId = this.ingredient.type._id;
-
     if (this.isCreation){
       this.ingredientsService.Create(this.ingredient).subscribe(
         data => {

@@ -38,7 +38,7 @@
         "basePrice": "Base price",
         "baseQuantity": "Base quantity",
         "unit": "Unit",
-        "type": "Type",
+        "types": "Types",
         "quantities": "Quantities",
         "validate": "Validate"
       },

@@ -10,8 +10,8 @@ export class Ingredients extends BaseType {
       public quantities?: Array<number>,
       public unitId?: string,
       public unit?: DataConfigs,
-      public typeId?: string,
-      public type?: DataConfigs,
+      public typeIds?: Array<string>,
+      public types?: Array<DataConfigs>,
       public userId?: number,
       public selectedQuantity?: number) {
       super();
