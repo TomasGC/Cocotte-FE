@@ -34,7 +34,7 @@
           <mat-table [dataSource]="dataSource" name="dailyMeals" id="dailyMeals">
             <div matColumnDef="day" >
               <mat-cell *matCellDef="let element; let i = index">
-                <span *ngIf="element.day != 7">{{ 'enums.DayOfWeek.'+element.day | translate }}</span>
+                <span *ngIf="element.day != 7">{{ 'enums.DaysOfWeek.'+element.day | translate }}</span>
               </mat-cell>
             </div>
             <div matColumnDef="breakfast" >

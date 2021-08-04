@@ -27,7 +27,7 @@ import { DeleteRequest } from 'src/app/classes/base/requests';
 import { Recipes } from 'src/app/classes/recipes/recipes';
 import { DaysComponent } from './days/days.component';
 import { Day, Meal } from 'src/app/classes/weeks/weeks';
-import { LanguageType } from 'src/app/classes/configuration/dataConfig';
+import { LanguageTypes } from 'src/app/classes/configuration/dataConfigs';
 import { IsEmpty } from 'src/app/classes/tools';
 import { WeekIngredientsComponent } from './week-ingredients/week-ingredients.component';
 
@@ -78,7 +78,7 @@ export class WeekComponent implements OnInit {
     {key: TabMods.Week, value: "myWeek", icon: "week"}
   ];
   activeLink = this.tabs[2].value;
-  userLanguage: LanguageType;
+  userLanguage: LanguageTypes;
 
   expandedElement: null;
 //#endregion Properties
@@ -113,7 +113,7 @@ ngOnInit() {
   if (typeof sessionKey == 'undefined' || !sessionKey)
     this.router.navigate(['/login']);
 
-  this.userLanguage = LanguageType[this.cookieService.get('language')];
+  this.userLanguage = LanguageTypes[this.cookieService.get('language')];
   this.GetWeek();
 }
 

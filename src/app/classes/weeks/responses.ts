@@ -1,9 +1,8 @@
 import { BaseResponse } from '../base/responses';
-import { Recipes } from '../recipes/recipes';
 import { Weeks } from './weeks';
 import { WeekIngredients } from './weekIngredients';
 
-export class GetWeekResponse extends BaseResponse{
+export class GetWeekResponse extends BaseResponse {
     public week: Weeks;
 
     constructor() {

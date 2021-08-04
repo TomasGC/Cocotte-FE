@@ -2,14 +2,14 @@ import { BaseType } from '../base/baseType';
 import { Recipes } from '../recipes/recipes';
 
 /// Type of meals in a day.
-export enum MealType {
+export enum MealTypes {
     Breakfast,
     Lunch,
     Dinner
 }
 
-export class Meal extends BaseType{
-    public type: MealType;
+export class Meal extends BaseType {
+    public type: MealTypes;
     public numberOfPeople: number;
     public recipe: Recipes;
 
@@ -18,7 +18,7 @@ export class Meal extends BaseType{
     }
   }
 
-export class Day extends BaseType{
+export class Day extends BaseType {
     public position: number;
     public date: Date;
     public meals: Array<Meal>;
@@ -29,7 +29,7 @@ export class Day extends BaseType{
     }
   }
 
-export class Weeks extends BaseType{
+export class Weeks extends BaseType {
     public days: Array<Day>;
     public startTime: Date;
     public totalPrice: number;

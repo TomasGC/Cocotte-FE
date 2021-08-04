@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { CookieService } from 'ngx-cookie-service';
 import { BaseResponse } from 'src/app/classes/base/responses';
-import { DataConfig, DataConfigType, LanguageType } from 'src/app/classes/configuration/dataConfig';
+import { DataConfigs, DataConfigTypes, LanguageTypes } from 'src/app/classes/configuration/dataConfigs';
 import { GetDataConfigsResponse } from 'src/app/classes/configuration/responses';
 
 import { Ingredients } from 'src/app/classes/ingredients/ingredients';
@@ -21,14 +21,14 @@ export class IngredientsComponent implements OnInit {
   Ingredients = Ingredients;
   isCreation: boolean;
 
-  dataConfigTypes = DataConfigType;
-  units: DataConfig[];
-  types: DataConfig[];
+  dataConfigTypes = DataConfigTypes;
+  units: DataConfigs[];
+  types: DataConfigs[];
   displayedColumns: string[] = ['quantity', 'delete'];
   ingredient = this.data;
   dataSource = new MatTableDataSource(this.ingredient.quantities);
 
-  userLanguage: LanguageType;
+  userLanguage: LanguageTypes;
 
   constructor(private ingredientsService: IngredientsService,
     private configurationService: ConfigurationService,
@@ -38,9 +38,9 @@ export class IngredientsComponent implements OnInit {
 
   ngOnInit() {
     this.isCreation = this.ingredient._id == null;
-    this.userLanguage = LanguageType[this.cookieService.get('language')];
+    this.userLanguage = LanguageTypes[this.cookieService.get('language')];
 
-    this.configurationService.GetDataConfigs(DataConfigType.IngredientUnit).subscribe(
+    this.configurationService.GetDataConfigs(DataConfigTypes.IngredientUnit).subscribe(
       data => {
         let response = Object.assign(new GetDataConfigsResponse(), data);
         if(!response.success) {
@@ -57,7 +57,7 @@ export class IngredientsComponent implements OnInit {
         console.error('List all ingredients not succeeded.');
       });
 
-      this.configurationService.GetDataConfigs(DataConfigType.IngredientType).subscribe(
+      this.configurationService.GetDataConfigs(DataConfigTypes.IngredientType).subscribe(
         data => {
           let response = Object.assign(new GetDataConfigsResponse(), data);
           if(!response.success) {
@@ -76,8 +76,8 @@ export class IngredientsComponent implements OnInit {
         });
   }
 
-  ChangeDataConfig(value: DataConfig, type: DataConfigType): void {
-    if (type == DataConfigType.IngredientUnit){
+  ChangeDataConfig(value: DataConfigs, type: DataConfigTypes): void {
+    if (type == DataConfigTypes.IngredientUnit){
       this.ingredient.unit = this.units.find(x => x._id == value._id);
       this.ingredient.unitId = this.ingredient.unitId;
     }

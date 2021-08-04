@@ -1,18 +1,18 @@
-enum Environment {
+enum Environments {
   Local,
   Production
 }
 
 export interface Configuration {
-  environment: Environment;
+  environment: Environments;
   host: string;
 }
 
 export class Address {
-  static environment = Environment.Production;
+  static environment = Environments.Production;
   static configurations: Array<Configuration> = [
-    { environment: Environment.Local, host: "http://localhost:5002/" },
-    { environment: Environment.Production, host: "https://cocotte-be.azurewebsites.net/" }
+    { environment: Environments.Local, host: "http://localhost:5002/" },
+    { environment: Environments.Production, host: "https://cocotte-be.azurewebsites.net/" }
   ];
 
   constructor() { }

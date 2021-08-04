@@ -12,7 +12,7 @@
     <mat-form-field name="type" id="type" >
       <mat-select [(ngModel)]="recipe.type" required>
         <mat-option *ngFor="let type of recipeTypes" [value]="type">
-          {{ 'enums.RecipeType.'+type | translate }}
+          {{ 'enums.RecipeTypes.'+type | translate }}
         </mat-option>
       </mat-select>
     </mat-form-field>

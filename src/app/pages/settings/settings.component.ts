@@ -8,11 +8,11 @@ import { PullToRefreshService } from '@piumaz/pull-to-refresh';
 
 import { CookieService } from 'ngx-cookie-service';
 import { BaseResponse } from 'src/app/classes/base/responses';
-import { LanguageType } from 'src/app/classes/configuration/dataConfig';
+import { LanguageTypes } from 'src/app/classes/configuration/dataConfigs';
 import { IsEmpty } from 'src/app/classes/tools';
 import { GetUserResponse } from 'src/app/classes/users/responses';
-import { DailyMeals, DayOfWeek, Users } from 'src/app/classes/users/users';
-import { MealType } from 'src/app/classes/weeks/weeks';
+import { DailyMeals, DaysOfWeek, Users } from 'src/app/classes/users/users';
+import { MealTypes } from 'src/app/classes/weeks/weeks';
 import { UsersService } from 'src/app/services/users/users.service';
 import { environment } from 'src/environments/environment';
 
@@ -27,8 +27,8 @@ export class SettingsComponent implements OnInit {
   user: Users = null;
   displayedColumns: string[] = ['day', 'breakfast', 'lunch', 'dinner'];
   dataSource: MatTableDataSource<DailyMeals>;
-  mealTypes: string[] = Object.keys(MealType);
-  languageTypes = LanguageType;
+  mealTypes: string[] = Object.keys(MealTypes);
+  languageTypes = LanguageTypes;
 
   name = environment.application.name;
   angular = environment.application.angular;
@@ -80,11 +80,11 @@ export class SettingsComponent implements OnInit {
         this.mealTypes = this.mealTypes.slice(this.mealTypes.length / 2);
 
         var label = new DailyMeals();
-        label.day = DayOfWeek.None;
-        label.meals = new Array<KeyValue<MealType, boolean>>();
-        label.meals.push({key: MealType.Breakfast, value: false});
-        label.meals.push({key: MealType.Lunch, value: false});
-        label.meals.push({key: MealType.Dinner, value: false});
+        label.day = DaysOfWeek.None;
+        label.meals = new Array<KeyValue<MealTypes, boolean>>();
+        label.meals.push({key: MealTypes.Breakfast, value: false});
+        label.meals.push({key: MealTypes.Lunch, value: false});
+        label.meals.push({key: MealTypes.Dinner, value: false});
 
         this.user.dailyMeals.unshift(label);
 

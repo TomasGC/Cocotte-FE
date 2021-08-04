@@ -68,7 +68,7 @@
     }
   },
   "enums": {
-    "DayOfWeek": {
+    "DaysOfWeek": {
       "Sunday": "Dimanche",
       "Monday": "Lundi",
       "Tuesday": "Mardi",
@@ -82,7 +82,7 @@
       "Lunch": "Déjeuner",
       "Dinner": "Dîner"
     },
-    "RecipeType": {
+    "RecipeTypes": {
       "Starter": "Entrée",
       "Dish": "Plat",
       "Dessert": "Dessert"

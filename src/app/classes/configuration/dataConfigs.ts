@@ -1,25 +1,25 @@
 import { BaseType } from '../base/baseType';
 
-export enum LanguageType {
+export enum LanguageTypes {
   en,
   fr
 };
 
-export enum DataConfigType {
+export enum DataConfigTypes {
   IngredientUnit,
   IngredientType
 };
 
 export class LocalizedValue {
-  public language: LanguageType;
+  public language: LanguageTypes;
   public value: string;
   public shortValue: string;
 
   constructor() { }
 };
 
-export class DataConfig extends BaseType{
-  public type: DataConfigType;
+export class DataConfigs extends BaseType {
+  public type: DataConfigTypes;
   public names: Array<LocalizedValue>;
 
   public mainValue: string;

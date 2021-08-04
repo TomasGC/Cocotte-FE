@@ -7,7 +7,7 @@ import { BaseResponse } from 'src/app/classes/base/responses';
 import { Ingredients } from 'src/app/classes/ingredients/ingredients';
 import { ListIngredientsResponse } from 'src/app/classes/ingredients/responses';
 
-import { Recipes, RecipeType, Season } from 'src/app/classes/recipes/recipes';
+import { Recipes, RecipeTypes, Season } from 'src/app/classes/recipes/recipes';
 import { IsEmpty } from 'src/app/classes/tools';
 import { IngredientsService } from 'src/app/services/ingredients/ingredients.service';
 import { RecipesService } from 'src/app/services/recipes/recipes.service';
@@ -21,7 +21,7 @@ import { RecipesService } from 'src/app/services/recipes/recipes.service';
 export class RecipesComponent implements OnInit {
   Recipes = Recipes;
   isCreation: boolean;
-  recipeTypes = Object.keys(RecipeType);
+  recipeTypes = Object.keys(RecipeTypes);
   seasons = Object.keys(Season);
   displayedColumns: string[] = ['name', 'quantity', 'delete'];
   recipe = this.data;

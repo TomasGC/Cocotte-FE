@@ -1,8 +1,9 @@
 import { KeyValue } from "@angular/common";
-import { LanguageType } from "../configuration/dataConfig";
-import { MealType } from "../weeks/weeks";
+import { BaseType } from "../base/baseType";
+import { LanguageTypes } from "../configuration/dataConfigs";
+import { MealTypes } from "../weeks/weeks";
 
-export enum DayOfWeek {
+export enum DaysOfWeek {
   Sunday,
   Monday,
   Tuesday,
@@ -14,18 +15,20 @@ export enum DayOfWeek {
 }
 
 export class DailyMeals {
-  public day: DayOfWeek;
-  public meals: Array<KeyValue<MealType, boolean>>;
+  public day: DaysOfWeek;
+  public meals: Array<KeyValue<MealTypes, boolean>>;
 
   constructor() {}
 }
 
-export class Users {
+export class Users extends BaseType {
     public login: string;
     public password: string;
-    public language: LanguageType;
+    public language: LanguageTypes;
     public timeBetweenMeals: number;
     public dailyMeals: Array<DailyMeals>;
 
-    constructor() {}
+    constructor() {
+      super();
+    }
   }

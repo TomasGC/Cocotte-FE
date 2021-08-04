@@ -3,7 +3,7 @@ import { BaseType } from '../base/baseType';
 import { Ingredients } from '../ingredients/ingredients';
 
 // Type of recipe.
-export enum RecipeType {
+export enum RecipeTypes {
     Starter,
     Dish,
     Dessert
@@ -17,12 +17,12 @@ export enum Season {
     Summer
 }
 
-export class Recipes extends BaseType{
+export class Recipes extends BaseType {
     public name: string;
     public ingredientIds: Array<KeyValue<string, number>>;
     public timesCooked: number;
     public lastCooked: Date;
-    public type: RecipeType;
+    public type: RecipeTypes;
     public seasons: Array<Season>;
     public userId: number;
     public price: number;

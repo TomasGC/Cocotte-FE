@@ -3,7 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
 import { BaseResponse } from 'src/app/classes/base/responses';
-import { DataConfig, DataConfigType, LanguageType } from 'src/app/classes/configuration/dataConfig';
+import { DataConfigs, DataConfigTypes, LanguageTypes } from 'src/app/classes/configuration/dataConfigs';
 import { IsEmpty } from 'src/app/classes/tools';
 
 import { GetWeekIngredientsResponse } from 'src/app/classes/weeks/responses';
@@ -18,15 +18,15 @@ import { WeeksService } from 'src/app/services/weeks/weeks.service';
 
 export class WeekIngredientsComponent implements OnInit {
   loading: boolean = false;
-  dataConfigTypes = DataConfigType;
-  units: DataConfig[];
-  types: DataConfig[];
+  dataConfigTypes = DataConfigTypes;
+  units: DataConfigs[];
+  types: DataConfigs[];
   displayedColumns: string[] = ['name', 'quantity', 'price', 'possessed'];
   weekIngredients: WeekIngredients;
   dataSource: MatTableDataSource<WeekIngredient>;
   hasData: boolean;
   title: string;
-  userLanguage: LanguageType;
+  userLanguage: LanguageTypes;
 
   constructor(private translate: TranslateService,
     private weeksService: WeeksService,

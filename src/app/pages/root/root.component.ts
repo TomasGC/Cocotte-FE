@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
-import { LanguageType } from 'src/app/classes/configuration/dataConfig';
+import { LanguageTypes } from 'src/app/classes/configuration/dataConfigs';
 import { IsEmpty } from 'src/app/classes/tools';
 
 @Component({
@@ -12,7 +12,7 @@ import { IsEmpty } from 'src/app/classes/tools';
 export class RootComponent implements OnInit {
   constructor(private cookieService: CookieService,
     public translate: TranslateService) {
-      var languageTypes: string[] = Object.keys(LanguageType);
+      var languageTypes: string[] = Object.keys(LanguageTypes);
       languageTypes = languageTypes.slice(languageTypes.length / 2);
 
       translate.addLangs(languageTypes);

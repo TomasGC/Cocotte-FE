@@ -1,8 +1,8 @@
 import { BaseResponse } from "../base/responses";
-import { DataConfig } from "./dataConfig";
+import { DataConfigs } from "./dataConfigs";
 
 export class GetDataConfigsResponse extends BaseResponse {
-  public dataConfigs: Array<DataConfig>;
+  public dataConfigs: Array<DataConfigs>;
 
   constructor() {
     super();

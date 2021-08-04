@@ -1,7 +1,7 @@
 import { BaseType } from '../base/baseType';
-import { DataConfig } from '../configuration/dataConfig';
+import { DataConfigs } from '../configuration/dataConfigs';
 
-export class Ingredients extends BaseType{
+export class Ingredients extends BaseType {
     constructor(
       public _id?: string,
       public name?: string,
@@ -9,9 +9,9 @@ export class Ingredients extends BaseType{
       public baseQuantity?: number,
       public quantities?: Array<number>,
       public unitId?: string,
-      public unit?: DataConfig,
+      public unit?: DataConfigs,
       public typeId?: string,
-      public type?: DataConfig,
+      public type?: DataConfigs,
       public userId?: number,
       public selectedQuantity?: number) {
       super();

@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { BaseResponse } from 'src/app/classes/base/responses';
 
-import { Day, Meal, MealType } from 'src/app/classes/weeks/weeks';
+import { Day, Meal, MealTypes } from 'src/app/classes/weeks/weeks';
 import { IsEmpty } from 'src/app/classes/tools';
 import { WeeksService } from 'src/app/services/weeks/weeks.service';
 import { Recipes } from 'src/app/classes/recipes/recipes';
@@ -21,7 +21,7 @@ export class DaysComponent implements OnInit {
   Meal = Meal;
   isCreation: boolean;
   displayedColumns: string[] = ['type', 'recipe', 'people', 'buttons', 'price', 'delete'];
-  mealTypes = Object.keys(MealType);
+  mealTypes = Object.keys(MealTypes);
   recipes: Array<Recipes>;
   day = this.data;
   loading: boolean = true;
@@ -74,12 +74,12 @@ export class DaysComponent implements OnInit {
     meal.numberOfPeople = 2;
 
     for (var i = 0; i < this.day.meals.length; ++i) {
-      if (MealType.Breakfast == this.day.meals[i].type)
-        meal.type = MealType.Lunch;
-      else if (MealType.Lunch == this.day.meals[i].type)
-        meal.type = MealType.Dinner;
-      else if (MealType.Dinner == this.day.meals[i].type)
-        meal.type = MealType.Breakfast;
+      if (MealTypes.Breakfast == this.day.meals[i].type)
+        meal.type = MealTypes.Lunch;
+      else if (MealTypes.Lunch == this.day.meals[i].type)
+        meal.type = MealTypes.Dinner;
+      else if (MealTypes.Dinner == this.day.meals[i].type)
+        meal.type = MealTypes.Breakfast;
     }
 
     this.day.meals.push(meal);
