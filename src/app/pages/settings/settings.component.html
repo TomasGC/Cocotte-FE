@@ -1,7 +1,6 @@
 <pull-to-refresh [autoDismiss]="false"></pull-to-refresh>
 <div class="content" role="main">
   <section class="text-center">
-    <div>
       <div *ngIf="!loading">
         <div>
           <mat-label for="login">{{ 'settings.login' | translate }}: </mat-label>
@@ -62,6 +61,5 @@
           <button mat-flat-button color="primary" (click)="Validate()" [disabled]="!IsValid()">{{ 'settings.validate' | translate }}</button>
         </ng-container>
       </div>
-    </div>
   </section>
 </div>

@@ -13,7 +13,7 @@
     </button>
   </mat-dialog-content>
   <mat-dialog-content>
-    <table mat-table [dataSource]="dataSource">
+    <table mat-table [dataSource]="dataSource" class="w-100">
       <ng-container matColumnDef="type">
         <mat-cell *matCellDef="let element; let i = index;">
           <mat-form-field name="type" id="type">
