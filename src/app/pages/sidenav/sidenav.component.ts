@@ -17,6 +17,10 @@ export class SidenavComponent implements OnInit {
 
   constructor(private router: Router, private cookieService: CookieService) {}
 
+  IsLogin() {
+    return window.location.href.includes("login");
+  }
+
   GoToWeek(){
     this.router.navigate(['/week']);  // define your component where you want to go
   }

@@ -1,6 +1,6 @@
 <mat-toolbar color="warn">
   <!-- <mat-toolbar-row> -->
-    <button aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" color="primary">
+    <button aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" color="primary"  *ngIf="!IsLogin()">
       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
     <span>Cocotte</span>
@@ -10,13 +10,13 @@
 <mat-sidenav-container class="fullscreen">
   <mat-sidenav #drawer mode="over" closed role="navigation" #sidenav="matSidenav">
     <div>
-      <button mat-flat-button color="primary" (click)="GoToWeek()" >
+      <button mat-flat-button color="primary" (click)="GoToWeek(); drawer.toggle();" >
         <mat-icon>calendar_today</mat-icon>
         <span>{{ 'sidenav.week' | translate }}</span>
       </button>
     </div>
     <div>
-      <button mat-flat-button color="primary" (click)="GoToSettings()">
+      <button mat-flat-button color="primary" (click)="GoToSettings(); drawer.toggle();">
         <mat-icon>settings</mat-icon>
         <span>{{ 'sidenav.settings' | translate }}</span>
       </button>
@@ -35,7 +35,7 @@
 
     <mat-divider></mat-divider>
 
-    <button mat-flat-button color="warn" (click)="Logout()">
+    <button mat-flat-button color="warn" (click)="Logout(); drawer.toggle();">
       <mat-icon mat-list-icon>exit_to_app</mat-icon>
       <span>{{ "sidenav.logout" | translate }}</span>
     </button>
