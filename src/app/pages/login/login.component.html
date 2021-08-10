@@ -1,37 +1,46 @@
 <div class="content" role="main">
-  <section class="text-center">
-    <div class="container">
-      <div>
-        <label for="login">{{ 'login.login' | translate }}</label>
-        <input [(ngModel)]="request.login" name="login" type="text" class="form-control cocotte input" id="login"  required>
-      </div>
-
-      <div>
-        <label for="password">{{ 'login.password' | translate }}</label>
-        <input [(ngModel)]="request.password" name="password" type="password" class="form-control cocotte input" id="password" required>
-      </div>
-
-      <div *ngIf="isCreation">
-        <label for="creationAllowanceKey">
-          <mat-icon mat-list-icon color="warn" matTooltip="{{ 'login.creationAllowanKeyTooltip' | translate }}">help_outline</mat-icon>
-          {{ 'login.creationAllowanceKey' | translate }}
-        </label>
-        <input [(ngModel)]="request.creationAllowanceKey" name="creationAllowanceKey" type="password" class="form-control cocotte input" id="creationAllowanceKey" required>
-      </div>
-
-      <ng-container>
-        <a href="javascript:void(0)" *ngIf="!isCreation" (click)="isCreation = true">{{ 'login.creationSwitch' | translate }}</a>
-        <button mat-flat-button color="primary" *ngIf="!isCreation" type="submit" (click)="Login()" [disabled]="!IsValid()">
-          {{ 'login.loginButton' | translate }}
-        </button>
-      </ng-container>
-
-      <ng-container>
-        <a href="javascript:void(0)" *ngIf="isCreation" (click)="isCreation = false">{{ 'login.loginSwitch' | translate }}</a>
-        <button mat-flat-button color="primary" *ngIf="isCreation" type="submit" (click)="Create()" [disabled]="!IsValid()">
-          {{ 'login.creationButton' | translate }}
-        </button>
-      </ng-container>
-    </div>
-  </section>
+  <h2>{{ "login.title" | translate }}</h2>
+  <mat-card>
+    <mat-card-content>
+      <form class="content">
+        <mat-form-field>
+          <mat-label>{{ 'login.login' | translate }}</mat-label>
+          <input matInput [(ngModel)]="request.login" name="login" type="text" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>{{ 'login.password' | translate }}</mat-label>
+          <input matInput [(ngModel)]="request.password" name="password" type="{{revealPassword ? 'text' : 'password' }}" required>
+          <button matSuffix mat-icon-button aria-label="Clear" (click)="revealPassword = !revealPassword">
+            <mat-icon>remove_red_eye</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field  *ngIf="isCreation">
+          <mat-label>
+            <mat-icon mat-list-icon color="warn" matTooltip="{{ 'login.creationAllowanKeyTooltip' | translate }}">help_outline</mat-icon>
+            {{ 'login.creationAllowanceKey' | translate }}
+          </mat-label>
+          <input matInput [(ngModel)]="request.creationAllowanceKey" name="creationAllowanceKey" type="{{revealCreationKey ? 'text' : 'password' }}" required>
+          <button matSuffix mat-icon-button aria-label="Clear" (click)="revealCreationKey = !revealCreationKey">
+            <mat-icon>remove_red_eye</mat-icon>
+          </button>
+        </mat-form-field>
+        <div *ngIf="isCreation">
+          <a href="javascript:void(0)" (click)="isCreation = false">{{ 'login.loginSwitch' | translate }}</a>
+        </div>
+        <div *ngIf="isCreation">
+          <button mat-flat-button color="primary" type="submit" (click)="Create()" [disabled]="!IsValid()">
+            {{ 'login.creationButton' | translate }}
+          </button>
+        </div>
+        <div *ngIf="!isCreation">
+          <a href="javascript:void(0)" (click)="isCreation = true">{{ 'login.creationSwitch' | translate }}</a>
+        </div>
+        <div *ngIf="!isCreation">
+          <button mat-flat-button color="primary" type="submit" (click)="Login()" [disabled]="!IsValid()">
+            {{ 'login.loginButton' | translate }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>

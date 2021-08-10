@@ -1,11 +1,12 @@
 {
   "login": {
+    "title": "Prêt à cocotter ?",
     "login": "Identifiant",
     "password": "Mot de passe",
     "creationAllowanceKey": "Clé de création",
     "creationAllowanKeyTooltip": "Tu dois demander la clé à l'administrateur.",
-    "creationSwitch": "Créer un compte",
-    "loginSwitch": "Se connecter",
+    "creationSwitch": "Nouvel(le) utilisateur(trice) ?",
+    "loginSwitch": "Tu as déjà un compte ?",
     "loginButton": "Se connecter",
     "creationButton": "Créer"
   },

@@ -1,10 +1,8 @@
 <mat-toolbar color="warn">
-  <!-- <mat-toolbar-row> -->
-    <button aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" color="primary"  *ngIf="!IsLogin()">
-      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-    </button>
-    <span>Cocotte</span>
-  <!-- </mat-toolbar-row> -->
+  <button aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" color="primary"  *ngIf="!IsLogin()">
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+  <h1 class="span">Cocotte</h1>
 </mat-toolbar>
 
 <mat-sidenav-container class="fullscreen">

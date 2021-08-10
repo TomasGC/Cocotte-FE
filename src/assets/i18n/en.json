@@ -1,11 +1,12 @@
 {
   "login": {
+    "title": "Ready to cocotte?",
     "login": "Login",
     "password": "Password",
     "creationAllowanceKey": "Creation Key",
     "creationAllowanKeyTooltip": "You have to ask the key to the admin.",
-    "creationSwitch": "Create account",
-    "loginSwitch": "Log in",
+    "creationSwitch": "New user?",
+    "loginSwitch": "You already have an account?",
     "loginButton": "Log in",
     "creationButton": "Create"
   },

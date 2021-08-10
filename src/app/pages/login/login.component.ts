@@ -18,8 +18,10 @@ import { IsEmpty } from 'src/app/classes/tools';
 export class LoginComponent implements OnInit {
   title = 'Login';
   events = null;
-  request: LoginRequest;
+  request: LoginRequest = new LoginRequest();
   isCreation: boolean;
+  revealPassword: boolean;
+  revealCreationKey: boolean;
 
   constructor(
     private usersService: UsersService,

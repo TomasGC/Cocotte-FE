@@ -1,3 +1,17 @@
+mat-form-field {
+  width: 100%;
+}
+
+mat-card-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  margin-top: 10px;
+}
+
 .content {
   display: flex;
   margin: 80px auto auto;
