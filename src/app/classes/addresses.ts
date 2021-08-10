@@ -9,7 +9,7 @@ export interface Configuration {
 }
 
 export class Address {
-  static environment = Environments.Local;
+  static environment = Environments.Production;
   static configurations: Array<Configuration> = [
     { environment: Environments.Local, host: "http://localhost:5002/" },
     { environment: Environments.Production, host: "https://cocotte-be.azurewebsites.net/" }
