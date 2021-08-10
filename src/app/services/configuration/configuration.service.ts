@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
 import { Address } from '../../classes/addresses';
-import { DataConfigTypes, LanguageTypes } from 'src/app/classes/configuration/dataConfigs';
 
 @Injectable({ providedIn: 'root' })
 
@@ -24,9 +23,5 @@ export class ConfigurationService {
 
   GetSignalRServer(): Observable<void> {
     return this.http.get<void>(Address.Get(this.baseRoute, 'signalr'), this.httpOptions);
-  }
-
-  GetDataConfigs(type: DataConfigTypes): Observable<void> {
-    return this.http.get<void>(Address.Get(this.baseRoute, 'data-config/' + type), this.httpOptions);
   }
 }

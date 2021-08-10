@@ -1,5 +1,5 @@
 export enum TabMods {
+  Week,
   Ingredients,
-  Recipes,
-  Week
+  Recipes
 }

@@ -2,7 +2,56 @@
 <div class="content" role="main">
   <section class="text-center">
     <div class="container">
-      <mat-tab-group headerPosition="above" [selectedIndex]="2" (selectedTabChange)="onTabClick($event)">
+      <mat-tab-group headerPosition="above" [selectedIndex]="0" (selectedTabChange)="onTabClick($event)">
+        <!-- Week -->
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <i class="cocotte icon week"></i>
+            {{"week.myWeek" | translate}}
+          </ng-template>
+          <div *ngIf="!loading">
+            <ng-container>
+              <button mat-flat-button color="accent" class="w-90" (click)="GenerateWeek()">
+                <mat-icon mat-list-icon>autorenew</mat-icon>
+              </button>
+              <button mat-flat-button color="primary" class="w-10" (click)="OpenWeekIngredientsMenu()" [disabled]="dataSourceDay == undefined || dataSourceDay == null || dataSourceDay.data.length == 0">
+                <mat-icon mat-list-icon>list</mat-icon>
+              </button>
+            </ng-container>
+
+            <mat-table [dataSource]="dataSourceDay">
+              <ng-container matColumnDef="date">
+                <mat-cell *matCellDef="let element" class="day-header">
+                  <mat-expansion-panel hideToggle class="day-header w-100">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title class="day-header">
+                        {{ GetDay(element.date) }}
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-table [dataSource]="element.meals" (click)="OpenDayMenu(element)" class="pointer">
+                      <ng-container matColumnDef="type">
+                        <mat-cell *matCellDef="let subElement">{{ subElement.type }}</mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="number">
+                        <mat-cell *matCellDef="let subElement">{{ subElement.numberOfPeople }}</mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="name">
+                        <mat-cell *matCellDef="let subElement">{{ subElement.recipe.name }}</mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="price">
+                        <mat-cell *matCellDef="let subElement">{{ subElement.recipe.price | number:'1.0-2' }}€</mat-cell>
+                      </ng-container>
+                      <mat-row *matRowDef="let row; columns: displayedMealsColumns;"></mat-row>
+                    </mat-table>
+                  </mat-expansion-panel>
+                </mat-cell>
+              </ng-container>
+
+              <mat-row *matRowDef="let row; columns: displayedDayColumns;"></mat-row>
+            </mat-table>
+          </div>
+        </mat-tab>
+        <!-- ./Week -->
         <!-- Ingredients -->
         <mat-tab>
           <ng-template mat-tab-label>
@@ -16,24 +65,19 @@
               </button>
             </ng-container>
             <mat-table [dataSource]="dataSourceIngredients">
-                <ng-container matColumnDef="position">
-                  <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
-                  <mat-cell *matCellDef="let element; index as i;">{{i}}</mat-cell>
-                </ng-container>
-
                 <ng-container matColumnDef="name">
                   <mat-header-cell *matHeaderCellDef>{{ 'week.name' | translate }}</mat-header-cell>
-                  <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+                  <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="basePrice">
+                <ng-container matColumnDef="price">
                   <mat-header-cell *matHeaderCellDef>{{ 'week.price' | translate }}</mat-header-cell>
-                  <mat-cell *matCellDef="let element">{{element.basePrice}}€</mat-cell>
+                  <mat-cell *matCellDef="let element">{{ element.price.basePrice | number:'1.0-2' }}€</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="baseQuantity">
-                  <mat-header-cell *matHeaderCellDef>{{ 'week.quantity' | translate }}</mat-header-cell>
-                  <mat-cell *matCellDef="let element">{{element.baseQuantity}} {{ element.unit.mainValue }}</mat-cell>
+                <ng-container matColumnDef="priceUnit">
+                  <mat-header-cell *matHeaderCellDef>{{ 'week.priceUnit' | translate }}</mat-header-cell>
+                  <mat-cell *matCellDef="let element">{{ 'enums.IngredientPriceUnits.'+element.priceUnit | translate }}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="modify">
@@ -73,11 +117,6 @@
               </button>
             </ng-container>
             <mat-table [dataSource]="dataSourceRecipes">
-              <ng-container matColumnDef="position">
-                <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
-                <mat-cell *matCellDef="let element; index as i;">{{i}}</mat-cell>
-              </ng-container>
-
               <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef>{{ 'week.name' | translate }}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
@@ -90,12 +129,12 @@
 
               <ng-container matColumnDef="timesCooked">
                 <mat-header-cell *matHeaderCellDef>{{ 'week.timesCooked' | translate }}</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.timesCooked}}</mat-cell>
+                <mat-cell *matCellDef="let element">{{ element.timesCooked }}</mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="price">
                 <mat-header-cell *matHeaderCellDef>{{ 'week.price' | translate }}</mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element.price | number}}€</mat-cell>
+                <mat-cell *matCellDef="let element">{{ element.price | number:'1.0-2' }}€</mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="modify">
@@ -122,61 +161,6 @@
           </div>
         </mat-tab>
         <!-- ./Recipes -->
-          <!-- Week -->
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <i class="cocotte icon week"></i>
-            {{"week.myWeek" | translate}}
-          </ng-template>
-          <div *ngIf="!loading">
-            <ng-container>
-              <mat-grid-list cols="10" rowHeight="100px">
-                <mat-grid-tile colspan="9">
-                  <button mat-flat-button color="accent" class="w-100" (click)="GenerateWeek()">
-                    <mat-icon mat-list-icon>autorenew</mat-icon>
-                  </button>
-                </mat-grid-tile>
-                <mat-grid-tile colspan="1">
-                  <button mat-flat-button color="primary" class="w-100" (click)="OpenWeekIngredientsMenu()" [disabled]="dataSourceDay == undefined || dataSourceDay == null || dataSourceDay.data.length == 0">
-                    <mat-icon mat-list-icon>list</mat-icon>
-                  </button>
-                </mat-grid-tile>
-              </mat-grid-list>
-            </ng-container>
-
-            <mat-table [dataSource]="dataSourceDay">
-              <ng-container matColumnDef="date">
-                <mat-cell *matCellDef="let element" class="day-header">
-                  <mat-expansion-panel hideToggle class="day-header w-100">
-                    <mat-expansion-panel-header>
-                      <mat-panel-title class="day-header">
-                        {{ GetDay(element.date) }}
-                      </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <mat-table [dataSource]="element.meals" (click)="OpenDayMenu(element)" class="pointer">
-                      <ng-container matColumnDef="type">
-                        <mat-cell *matCellDef="let subElement">{{ subElement.type }}</mat-cell>
-                      </ng-container>
-                      <ng-container matColumnDef="number">
-                        <mat-cell *matCellDef="let subElement">{{subElement.numberOfPeople}}</mat-cell>
-                      </ng-container>
-                      <ng-container matColumnDef="name">
-                        <mat-cell *matCellDef="let subElement">{{subElement.recipe.name}}</mat-cell>
-                      </ng-container>
-                      <ng-container matColumnDef="price">
-                        <mat-cell *matCellDef="let subElement">{{subElement.recipe.price * subElement.numberOfPeople | number}}€</mat-cell>
-                      </ng-container>
-                      <mat-row *matRowDef="let row; columns: displayedMealsColumns;"></mat-row>
-                    </mat-table>
-                  </mat-expansion-panel>
-                </mat-cell>
-              </ng-container>
-
-              <mat-row *matRowDef="let row; columns: displayedDayColumns;"></mat-row>
-            </mat-table>
-          </div>
-        </mat-tab>
-        <!-- ./Week -->
       </mat-tab-group>
     </div>
   </section>

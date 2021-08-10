@@ -8,64 +8,30 @@
 </mat-dialog-title>
 <mat-dialog-content style="height: 100%;">
   <mat-dialog-content>
-    <mat-label for="basePrice">{{ 'week.dialogs.ingredients.basePrice' | translate }}: </mat-label>
-    <mat-form-field name="basePrice" id="basePrice">
-      <input matInput [(ngModel)]="ingredient.basePrice" type="number" required>
+    <mat-label for="price">{{ 'week.dialogs.ingredients.price' | translate }}: </mat-label>
+    <mat-form-field name="price" id="price">
+      <input matInput [(ngModel)]="ingredient.price.basePrice" type="number" min="0" required>
     </mat-form-field>
   </mat-dialog-content>
   <mat-dialog-content>
-    <mat-label for="baseQuantity">{{ 'week.dialogs.ingredients.baseQuantity' | translate }}: </mat-label>
-    <mat-form-field name="baseQuantity" id="baseQuantity">
-      <input matInput [(ngModel)]="ingredient.baseQuantity" type="number" required>
-    </mat-form-field>
-  </mat-dialog-content>
-  <mat-dialog-content>
-    <mat-label for="unit">{{ 'week.dialogs.ingredients.unit' | translate }}: </mat-label>
-    <mat-form-field name="unit" id="unit" >
-      <mat-select [(ngModel)]="ingredient.unit" [compareWith]="ObjectComparisonFunction" (selectionChange)="ChangeUnit($event.value, dataConfigTypes.IngredientUnit)" required>
-        <mat-option *ngFor="let unit of units" [value]="unit">
-          {{ unit.mainValue }}
+    <mat-label for="unit">{{ 'week.dialogs.ingredients.priceUnit' | translate }}: </mat-label>
+    <mat-form-field name="priceUnit" id="priceUnit" >
+      <mat-select [(ngModel)]="ingredient.priceUnit" required>
+        <mat-option *ngFor="let priceUnit of priceUnits" [value]="priceUnit">
+          {{ 'enums.IngredientPriceUnits.'+priceUnit | translate }}
         </mat-option>
       </mat-select>
     </mat-form-field>
   </mat-dialog-content>
   <mat-dialog-content>
-    <mat-label for="types">{{ 'week.dialogs.ingredients.types' | translate }}: </mat-label>
-    <mat-form-field name="types" id="types" >
-      <mat-select [(ngModel)]="ingredient.types" [compareWith]="ObjectComparisonFunction" (selectionChange)="ChangeTypes($event.value, dataConfigTypes.IngredientType)" multiple required>
-        <mat-option *ngFor="let type of types" [value]="type">
-          {{ type.mainValue }}
+    <mat-label for="categories">{{ 'week.dialogs.ingredients.categories' | translate }}: </mat-label>
+    <mat-form-field name="categories" id="categories" >
+      <mat-select [(ngModel)]="ingredient.categories" multiple required>
+        <mat-option *ngFor="let category of categories" [value]="category">
+          {{ 'enums.IngredientCategories.'+category | translate }}
         </mat-option>
       </mat-select>
     </mat-form-field>
-  </mat-dialog-content>
-  <mat-dialog-content>
-    <span>{{ 'week.dialogs.ingredients.quantities' | translate }}: </span>
-  </mat-dialog-content>
-  <mat-dialog-content>
-    <button mat-flat-button color="primary" class="w-100" (click)="AddQuantity()">
-      <mat-icon mat-list-icon>add</mat-icon>
-    </button>
-  </mat-dialog-content>
-  <mat-dialog-content>
-    <mat-table [dataSource]="dataSource">
-      <ng-container matColumnDef="quantity" >
-        <mat-cell *matCellDef="let element; let i = index">
-          <mat-form-field>
-            <input matInput [(ngModel)]="ingredient.quantities[i]" type="number">
-          </mat-form-field>
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="delete" class="w-50">
-        <mat-cell *matCellDef="let element; let i = index">
-          <button mat-flat-button color="warn" (click)="RemoveQuantity(i)">
-            <mat-icon mat-list-icon>delete</mat-icon>
-          </button>
-        </mat-cell>
-      </ng-container>
-
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
   </mat-dialog-content>
 </mat-dialog-content>
 

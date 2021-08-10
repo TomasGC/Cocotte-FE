@@ -8,7 +8,7 @@
 </mat-dialog-title>
 <mat-dialog-content style="height: 100%;">
   <mat-dialog-content>
-    <mat-label for="type">Type: </mat-label>
+    <mat-label for="type">{{ "week.dialogs.recipes.type" | translate }}: </mat-label>
     <mat-form-field name="type" id="type" >
       <mat-select [(ngModel)]="recipe.type" required>
         <mat-option *ngFor="let type of recipeTypes" [value]="type">
@@ -18,9 +18,9 @@
     </mat-form-field>
   </mat-dialog-content>
   <mat-dialog-content>
-    <mat-label for="seasons">Saisons: </mat-label>
+    <mat-label for="seasons">{{ "week.dialogs.recipes.seasons" | translate }}: </mat-label>
     <mat-form-field name="seasons" id="seasons" >
-      <mat-select [(ngModel)]="recipe.seasons" multiple required>
+      <mat-select [(ngModel)]="recipe.bestSeasons" multiple required>
         <mat-option *ngFor="let season of seasons" [value]="season">
           {{ 'enums.Season.'+season | translate }}
         </mat-option>
@@ -45,9 +45,8 @@
     <mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="name" >
         <mat-cell *matCellDef="let element; let i = index;">
-          <mat-label for="name">{{ 'week.dialogs.recipes.ingredients' | translate:"{count:1}" }}: </mat-label>
-          <mat-form-field name="name" id="name" >
-            <mat-select [(ngModel)]="recipe.ingredients[i]" [compareWith]="ObjectComparisonFunction" (selectionChange)="ChangeIngredient(i, $event.value)" [disabled]="loading" required>
+          <mat-form-field name="name" id="name" floatLabel="never">
+            <mat-select [(ngModel)]="recipe.ingredients[i].ingredient" [compareWith]="ObjectComparisonFunction" (selectionChange)="ChangeIngredient(i, $event.value)" [disabled]="loading" placeholder="{{ 'week.dialogs.recipes.ingredients' | translate:'{count:1}' }}" required>
               <mat-option *ngFor="let ingredient of ingredients" [value]="ingredient">
                 {{ingredient.name}}
               </mat-option>
@@ -57,11 +56,17 @@
       </ng-container>
       <ng-container matColumnDef="quantity">
         <mat-cell *matCellDef="let element; let i = index">
-          <mat-label for="quantity">{{ 'week.dialogs.recipes.quantities' | translate }}: </mat-label>
-          <mat-form-field name="quantity" id="quantity" >
-            <mat-select [(ngModel)]="recipe.ingredients[i].selectedQuantity" [disabled]="recipe.ingredients[i].name == null" required>
-              <mat-option *ngFor="let quantity of recipe.ingredients[i].quantities" [value]="quantity">
-                {{quantity}}
+          <mat-form-field name="quantity" id="quantity" floatLabel="never">
+            <input matInput [(ngModel)]="recipe.ingredients[i].quantity" type="number" placeholder="{{ 'week.dialogs.recipes.quantity' | translate }}" required>
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="unit">
+        <mat-cell *matCellDef="let element; let i = index">
+          <mat-form-field name="unit" id="unit" floatLabel="never">
+            <mat-select [(ngModel)]="recipe.ingredients[i].unit" placeholder="{{ 'week.dialogs.recipes.unit' | translate }}" required>
+              <mat-option *ngFor="let unit of ingredientUnits" [value]="unit">
+                {{ 'enums.IngredientUnits.'+unit+".full" | translate }}
               </mat-option>
             </mat-select>
           </mat-form-field>

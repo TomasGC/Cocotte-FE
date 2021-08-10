@@ -1,4 +1,3 @@
-import { KeyValue } from '@angular/common';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -7,7 +6,7 @@ import { BaseResponse } from 'src/app/classes/base/responses';
 import { Ingredients } from 'src/app/classes/ingredients/ingredients';
 import { ListIngredientsResponse } from 'src/app/classes/ingredients/responses';
 
-import { Recipes, RecipeTypes, Season } from 'src/app/classes/recipes/recipes';
+import { IngredientInfos, IngredientUnits, Recipes, RecipeTypes, Seasons } from 'src/app/classes/recipes/recipes';
 import { IsEmpty } from 'src/app/classes/tools';
 import { IngredientsService } from 'src/app/services/ingredients/ingredients.service';
 import { RecipesService } from 'src/app/services/recipes/recipes.service';
@@ -22,8 +21,9 @@ export class RecipesComponent implements OnInit {
   Recipes = Recipes;
   isCreation: boolean;
   recipeTypes = Object.keys(RecipeTypes);
-  seasons = Object.keys(Season);
-  displayedColumns: string[] = ['name', 'quantity', 'delete'];
+  seasons = Object.keys(Seasons);
+  ingredientUnits = Object.keys(IngredientUnits);
+  displayedColumns: string[] = ['name', 'quantity', 'unit', 'delete'];
   recipe = this.data;
   dataSource = new MatTableDataSource(this.recipe.ingredients);
   ingredients: Array<Ingredients>;
@@ -43,6 +43,7 @@ export class RecipesComponent implements OnInit {
     this.isCreation = this.recipe._id == null;
     this.recipeTypes = this.recipeTypes.slice(this.recipeTypes.length / 2);
     this.seasons = this.seasons.slice(this.seasons.length / 2);
+    this.ingredientUnits = this.ingredientUnits.slice(this.ingredientUnits.length / 2);
     this.loading = true;
 
     this.ingredientsService.List().subscribe(
@@ -66,28 +67,24 @@ export class RecipesComponent implements OnInit {
   }
 
   AddIngredient(): void {
-    if (this.recipe.ingredients === undefined || IsEmpty(this.recipe.ingredients) || this.recipe.ingredients.length == 0 || this.recipe.ingredients.find(x => IsEmpty(x.name) || IsEmpty(x.selectedQuantity)) != null){
-      this.recipe.ingredients = new Array<Ingredients>();
-      this.recipe.ingredientIds = new Array<KeyValue<string, number>>();
-    }
+    if (this.recipe.ingredients === undefined || IsEmpty(this.recipe.ingredients) || this.recipe.ingredients.length == 0 || this.recipe.ingredients.find(x => IsEmpty(x._id) || IsEmpty(x.quantity)) != null)
+      this.recipe.ingredients = new Array<IngredientInfos>();
 
-    this.recipe.ingredientIds.push({key: "0", value: 0});
-    this.recipe.ingredients.push(new Ingredients());
+    this.recipe.ingredients.push(new IngredientInfos());
     this.dataSource.data = this.recipe.ingredients;
   }
 
   ChangeIngredient(index, value: Ingredients): void {
-    this.recipe.ingredients[index] = new Ingredients(value._id, value.name, value.basePrice, value.baseQuantity, value.quantities, value.unitId, value.unit, value.typeIds, value.types, value.userId, value.selectedQuantity)
+    this.recipe.ingredients[index] = new IngredientInfos(value._id, null, null, value)
   }
 
   RemoveIngredient(index): void {
-    this.recipe.ingredientIds.splice(index, 1);
     this.recipe.ingredients.splice(index, 1);
     this.dataSource.data = this.recipe.ingredients;
   }
 
   ObjectComparisonFunction(option, value): boolean {
-    return option.name === value.name && option._id === value._id;
+    return option._id === value._id;
   }
 
   Close(): void {
@@ -101,21 +98,16 @@ export class RecipesComponent implements OnInit {
     if (typeof(this.recipe.type) === undefined || this.recipe.type == null)
       return false;
 
-    if (IsEmpty(this.recipe.seasons))
+    if (this.recipe.ingredients === undefined || IsEmpty(this.recipe.bestSeasons) || this.recipe.ingredients.length == 0)
       return false;
 
-    if (this.recipe.ingredients === undefined || IsEmpty(this.recipe.ingredients) || this.recipe.ingredients.length == 0 || this.recipe.ingredients.find(x => IsEmpty(x.name) || IsEmpty(x.selectedQuantity)) != null)
+    if (this.recipe.ingredients === undefined || IsEmpty(this.recipe.ingredients) || this.recipe.ingredients.length == 0 || this.recipe.ingredients.find(x => IsEmpty(x._id) || IsEmpty(x.quantity) || (x.unit === undefined || x.unit == null)) != null)
       return false;
 
     return true;
   }
 
   Validate(): void {
-    for (let i = 0; i < this.recipe.ingredients.length; ++i){
-      this.recipe.ingredientIds[i].key = this.recipe.ingredients[i]._id;
-      this.recipe.ingredientIds[i].value = this.recipe.ingredients[i].selectedQuantity;
-    }
-
     if (this.isCreation){
       this.recipesService.Create(this.recipe).subscribe(
         data => {
@@ -150,3 +142,4 @@ export class RecipesComponent implements OnInit {
     }
   }
 }
+

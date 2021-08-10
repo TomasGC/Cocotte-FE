@@ -53,7 +53,7 @@
       </ng-container>
       <ng-container matColumnDef="price">
         <mat-cell *matCellDef="let element; let i = index;">
-          <span>{{(day.meals[i].recipe.price * day.meals[i].numberOfPeople) | number}}€</span>
+          <span>{{ day.meals[i].recipe.price | number:'1.0-2' }}€</span>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="delete">

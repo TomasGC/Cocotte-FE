@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
-import { LanguageTypes } from 'src/app/classes/configuration/dataConfigs';
 import { IsEmpty } from 'src/app/classes/tools';
+import { LanguageTypes } from 'src/app/classes/users/users';
 
 @Component({
   selector: 'app-root',

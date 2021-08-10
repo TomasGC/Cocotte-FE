@@ -28,6 +28,7 @@
     "myWeek": "Ma Semaine",
     "name": "Nom",
     "price": "Prix",
+    "priceUnit": "Unité",
     "quantity": "Quantité",
     "type": "Type",
     "timesCooked": "Nb fois cuisinés",
@@ -35,20 +36,19 @@
     "remove": "Supprimer",
     "dialogs":{
       "ingredients":{
-        "basePrice": "Prix de base",
-        "baseQuantity": "Quantité de base",
-        "unit": "Unité",
-        "types": "Types",
-        "quantities": "Quantités",
+        "price": "Prix",
+        "priceUnit": "Unité",
+        "categories": "Catégories",
         "validate": "Valider"
       },
       "recipes": {
         "type": "Type",
-        "season": "Saison",
+        "seasons": "Saisons",
         "timesCooked": "Cuisinés {number} fois",
         "lastCooked": "Cuisinés {date} pour la dernière fois",
         "ingredients": "{count, plural, =1 {Ingrédient} other {Ingrédients}}",
-        "quantities": "Quantités",
+        "quantity": "Quantité",
+        "unit": "Unité",
         "validate": "Valider"
       },
       "days": {
@@ -85,13 +85,58 @@
     "RecipeTypes": {
       "Starter": "Entrée",
       "Dish": "Plat",
-      "Dessert": "Dessert"
+      "Dessert": "Dessert",
+      "Pastry": "Pâtisserie"
     },
     "Season": {
-      "Spring": "Printemps",
-      "Summer": "Été",
       "Autumn": "Automne",
-      "Winter": "Hiver"
+      "Winter": "Hiver",
+      "Spring": "Printemps",
+      "Summer": "Été"
+    },
+    "IngredientPriceUnits": {
+      "Kilogram": "kg",
+      "Liter": "L",
+      "Piece": "pièce"
+    },
+    "IngredientCategories": {
+      "Vegetable": "Légume",
+      "Fruit": "Fruit",
+      "Meat": "Viande",
+      "Fish": "Poisson",
+      "SeaFood": "Fruit de mer",
+      "Egg": "Oeuf",
+      "Dairy": "Produit laitier",
+      "Starchy": "Féculent",
+      "Cereal": "Céréal",
+      "Leguminous": "Legumineux",
+      "Condiment": "Condiment",
+      "Spice": "Epice",
+      "Fat": "Matière grasse",
+      "Sweet": "Produit sucré",
+      "Drink": "Boisson"
+    },
+    "IngredientUnits": {
+      "Grammes": {
+        "full": "Grammes",
+        "short": "g"
+      },
+      "Centiliters": {
+        "full": "Centilitres",
+        "short": "cl"
+      },
+      "Pieces": {
+        "full": "Pièces",
+        "short": ""
+      },
+      "Tablespoon": {
+        "full": "Cuillère à soupe",
+        "short": "cs"
+      },
+      "Teaspoon": {
+        "full": "Cuillère à café",
+        "short": "cc"
+      }
     }
   }
 }

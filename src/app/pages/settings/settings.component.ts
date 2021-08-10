@@ -8,10 +8,9 @@ import { PullToRefreshService } from '@piumaz/pull-to-refresh';
 
 import { CookieService } from 'ngx-cookie-service';
 import { BaseResponse } from 'src/app/classes/base/responses';
-import { LanguageTypes } from 'src/app/classes/configuration/dataConfigs';
 import { IsEmpty } from 'src/app/classes/tools';
 import { GetUserResponse } from 'src/app/classes/users/responses';
-import { DailyMeals, DaysOfWeek, Users } from 'src/app/classes/users/users';
+import { DailyMeals, DaysOfWeek, LanguageTypes, Users } from 'src/app/classes/users/users';
 import { MealTypes } from 'src/app/classes/weeks/weeks';
 import { UsersService } from 'src/app/services/users/users.service';
 import { environment } from 'src/environments/environment';

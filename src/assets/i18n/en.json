@@ -28,6 +28,7 @@
     "myWeek": "My Week",
     "name": "Name",
     "price": "Price",
+    "priceUnit": "Unit",
     "quantity": "Quantity",
     "type": "Type",
     "timesCooked": "Times cooked",
@@ -35,20 +36,19 @@
     "remove": "Remove",
     "dialogs":{
       "ingredients":{
-        "basePrice": "Base price",
-        "baseQuantity": "Base quantity",
-        "unit": "Unit",
-        "types": "Types",
-        "quantities": "Quantities",
+        "price": "Price",
+        "priceUnit": "Unit",
+        "categories": "Categories",
         "validate": "Validate"
       },
       "recipes": {
         "type": "Type",
-        "season": "Season",
+        "seasons": "Seasons",
         "timesCooked": "Cooked {number} times",
         "lastCooked": "Cooked {date} for the last time",
         "ingredients": "{count, plural, =1 {Ingredient} other {Ingredients}}",
-        "quantities": "Quantities",
+        "quantity": "Quantity",
+        "unit": "Unit",
         "validate": "Validate"
       },
       "days": {
@@ -85,13 +85,58 @@
     "RecipeTypes": {
       "Starter": "Starter",
       "Dish": "Dish",
-      "Dessert": "Dessert"
+      "Dessert": "Dessert",
+      "Pastry": "Pastry"
     },
     "Season": {
-      "Spring": "Spring",
-      "Summer": "Summer",
       "Autumn": "Autumn",
-      "Winter": "Winter"
+      "Winter": "Winter",
+      "Spring": "Spring",
+      "Summer": "Summer"
+    },
+    "IngredientPriceUnits": {
+      "Kilogram": "kg",
+      "Liter": "L",
+      "Piece": "piece"
+    },
+    "IngredientCategories": {
+      "Vegetable": "Vegetable",
+      "Fruit": "Fruit",
+      "Meat": "Meat",
+      "Fish": "Fish",
+      "SeaFood": "Sea Food",
+      "Egg": "Egg",
+      "Dairy": "Dairy",
+      "Starchy": "Starchy",
+      "Cereal": "Cereal",
+      "Leguminous": "Leguminous",
+      "Condiment": "Condiment",
+      "Spice": "Spice",
+      "Fat": "Fat",
+      "Sweet": "Sweet",
+      "Drink": "Drink"
+    },
+    "IngredientUnits": {
+      "Grammes": {
+        "full": "Grammes",
+        "short": "g"
+      },
+      "Centiliters": {
+        "full": "Centiliters",
+        "short": "cl"
+      },
+      "Pieces": {
+        "full": "Pieces",
+        "short": ""
+      },
+      "Tablespoon": {
+        "full": "Tablespoon",
+        "short": "tbs"
+      },
+      "Teaspoon": {
+        "full": "Teaspoon",
+        "short": "tsp"
+      }
     }
   }
 }

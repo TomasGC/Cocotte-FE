@@ -1,6 +1,5 @@
 import { KeyValue } from "@angular/common";
 import { BaseType } from "../base/baseType";
-import { LanguageTypes } from "../configuration/dataConfigs";
 import { MealTypes } from "../weeks/weeks";
 
 export enum DaysOfWeek {
@@ -12,6 +11,11 @@ export enum DaysOfWeek {
   Friday,
   Saturday,
   None
+}
+
+export enum LanguageTypes {
+  fr,
+  en
 }
 
 export class DailyMeals {

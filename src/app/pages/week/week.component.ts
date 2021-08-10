@@ -27,9 +27,9 @@ import { DeleteRequest } from 'src/app/classes/base/requests';
 import { Recipes } from 'src/app/classes/recipes/recipes';
 import { DaysComponent } from './days/days.component';
 import { Day, Meal } from 'src/app/classes/weeks/weeks';
-import { LanguageTypes } from 'src/app/classes/configuration/dataConfigs';
 import { IsEmpty } from 'src/app/classes/tools';
 import { WeekIngredientsComponent } from './week-ingredients/week-ingredients.component';
+import { LanguageTypes } from 'src/app/classes/users/users';
 
 @Component({
   selector: 'week',
@@ -67,17 +67,11 @@ export class WeekComponent implements OnInit {
   dataSourceRecipes : MatTableDataSource<Recipes>;
   dataSourceDay : MatTableDataSource<Day>;
 
-  displayedIngredientColumns: string[] = ["position", "name", "basePrice", "baseQuantity", "modify", "delete"];
-  displayedRecipeColumns: string[] = ["position", "name", "type", "timesCooked", "price", "modify", "delete"];
+  displayedIngredientColumns: string[] = ["name", "price", "priceUnit", "modify", "delete"];
+  displayedRecipeColumns: string[] = ["name", "type", "timesCooked", "price", "modify", "delete"];
   displayedDayColumns: string[] = ["date"];
   displayedMealsColumns: string[] = ["type", "number", "name", "price"];
 
-  tabs = [
-    {key: TabMods.Ingredients, value: "ingredients", icon: "ingredient"},
-    {key: TabMods.Recipes, value: "recipes", icon: "recipe"},
-    {key: TabMods.Week, value: "myWeek", icon: "week"}
-  ];
-  activeLink = this.tabs[2].value;
   userLanguage: LanguageTypes;
 
   expandedElement: null;
@@ -239,7 +233,6 @@ ListRecipes() {
         return;
       }
 
-      console.log(response.recipes);
       this.dataSourceRecipes = new MatTableDataSource(response.recipes);
       this.loading = false;
     },
