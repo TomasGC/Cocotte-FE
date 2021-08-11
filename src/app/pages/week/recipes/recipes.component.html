@@ -46,11 +46,12 @@
       <ng-container matColumnDef="name" >
         <mat-cell *matCellDef="let element; let i = index;">
           <mat-form-field name="name" id="name" floatLabel="never">
-            <mat-select [(ngModel)]="recipe.ingredients[i].ingredient" [compareWith]="ObjectComparisonFunction" (selectionChange)="ChangeIngredient(i, $event.value)" [disabled]="loading" placeholder="{{ 'week.dialogs.recipes.ingredients' | translate:'{count:1}' }}" required>
+            <input matInput type="text" [matAutocomplete]="ingredientAutoComplete" [(ngModel)]="recipe.ingredients[i].ingredient" [disabled]="loading" placeholder="{{ 'week.dialogs.recipes.ingredients' | translate:'{count:1}' }}">
+            <mat-autocomplete #ingredientAutoComplete="matAutocomplete" (optionSelected)="ChangeIngredient(i, $event.option.value)" [displayWith]="DisplayIngredient">
               <mat-option *ngFor="let ingredient of ingredients" [value]="ingredient">
                 {{ingredient.name}}
               </mat-option>
-            </mat-select>
+            </mat-autocomplete>
           </mat-form-field>
         </mat-cell>
       </ng-container>

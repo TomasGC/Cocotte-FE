@@ -1,7 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+
 import { BaseResponse } from 'src/app/classes/base/responses';
 import { Ingredients } from 'src/app/classes/ingredients/ingredients';
 import { ListIngredientsResponse } from 'src/app/classes/ingredients/responses';
@@ -28,6 +33,8 @@ export class RecipesComponent implements OnInit {
   dataSource = new MatTableDataSource(this.recipe.ingredients);
   ingredients: Array<Ingredients>;
   loading: boolean = true;
+  myControl = new FormControl();
+  filteredOptions: Observable<Ingredients[]>;
 
   // Translations with variables.
   timesCooked: string;
@@ -55,6 +62,7 @@ export class RecipesComponent implements OnInit {
         }
 
         this.ingredients = response.ingredients;
+
         this.loading = false;
       },
       error => {
@@ -64,6 +72,16 @@ export class RecipesComponent implements OnInit {
 
       this.timesCooked = this.translate.instant('week.dialogs.recipes.timesCooked', { number: IsEmpty(this.recipe.timesCooked) ? 0 : this.recipe.timesCooked });
       this.lastCooked = this.translate.instant('week.dialogs.recipes.lastCooked', { date: this.recipe.lastCooked });
+
+
+  }
+
+  DisplayIngredient(value: Ingredients): string {
+    return value ? value.name : undefined;
+  }
+
+  _filter(name: string): Ingredients[] {
+    return this.ingredients.filter(option => option.name.toLowerCase().includes(name.toLowerCase()));
   }
 
   AddIngredient(): void {
