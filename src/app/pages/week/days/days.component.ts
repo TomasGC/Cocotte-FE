@@ -10,6 +10,9 @@ import { Recipes } from 'src/app/classes/recipes/recipes';
 import { RecipesService } from 'src/app/services/recipes/recipes.service';
 import { ListRecipesResponse } from 'src/app/classes/recipes/responses';
 import { CookieService } from 'ngx-cookie-service';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'meals',
@@ -26,6 +29,9 @@ export class DaysComponent implements OnInit {
   day = this.data;
   loading: boolean = true;
   dataSource = new MatTableDataSource(this.day.meals);
+
+  recipeControls: Array<FormControl> = new Array<FormControl>();
+  recipeFilteredOptions: Array<Observable<Recipes[]>> = new Array<Observable<Recipes[]>>();
 
   constructor(private weeksService: WeeksService,
     private recipesService: RecipesService,
@@ -47,6 +53,19 @@ export class DaysComponent implements OnInit {
         }
 
         this.recipes = response.recipes;
+
+        for (var i = 0; i < this.day.meals.length; ++i) {
+          var control = new FormControl();
+          control.setValue(this.day.meals[i].recipe);
+          this.recipeFilteredOptions.push(control.valueChanges
+          .pipe(
+            startWith(''),
+            map(value => typeof value === 'string' ? value : value.name),
+            map(name => name ? this.FilterRecipe(name) : this.recipes.slice())
+          ));
+          this.recipeControls.push(control);
+        }
+
         this.loading = false;
       },
       error => {
@@ -55,8 +74,23 @@ export class DaysComponent implements OnInit {
       });
   }
 
+  //#region Recipe
+  DisplayRecipe(value: Recipes): string {
+    return value ? value.name : undefined;
+  }
+
+  FilterRecipe(name: string): Recipes[] {
+    return this.recipes.filter(option => option.name.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes(name.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")));
+  }
+
+  ChangeRecipe(index, value: Recipes): void {
+    this.day.meals[index].recipe = value;
+  }
+  //#endregion Recipe
+
   Plus(index, value): void {
     this.day.meals[index].numberOfPeople += value;
+    this.day.meals[index].price += value * this.day.meals[index].recipe.price;
   }
 
   RemoveItem(index): void {
@@ -84,10 +118,6 @@ export class DaysComponent implements OnInit {
 
     this.day.meals.push(meal);
     this.dataSource.data = this.day.meals;
-  }
-
-  ChangeRecipe(index, value: Recipes): void {
-    this.day.meals[index].recipe = value;
   }
 
   ObjectComparisonFunction(option, value): boolean {

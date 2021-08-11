@@ -57,6 +57,8 @@
         "validate": "Valider"
       },
       "days": {
+        "type": "Type",
+        "recipes": "{count, plural, =1 {Recette} other {Recettes}}",
         "number": "Nb",
         "validate": "Valider"
       },

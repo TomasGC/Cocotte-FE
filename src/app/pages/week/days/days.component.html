@@ -16,8 +16,9 @@
     <table mat-table [dataSource]="dataSource" class="w-100">
       <ng-container matColumnDef="type">
         <mat-cell *matCellDef="let element; let i = index;">
-          <mat-form-field name="type" id="type">
-            <mat-select [(ngModel)]="day.meals[i].type" required>
+          <mat-form-field name="type" id="type" floatLabel="never">
+            <mat-label>{{ 'week.dialogs.days.type' | translate }}</mat-label>
+            <mat-select [(ngModel)]="day.meals[i].type" name="type" required>
               <mat-option *ngFor="let type of mealTypes" [value]="type">
                 {{ 'enums.MealTypes.'+type | translate }}
               </mat-option>
@@ -27,12 +28,19 @@
       </ng-container>
       <ng-container matColumnDef="recipe">
         <mat-cell *matCellDef="let element; let i = index;">
-          <mat-form-field name="recipe" id="recipe" >
-            <mat-select [(ngModel)]="day.meals[i].recipe" [compareWith]="ObjectComparisonFunction" (selectionChange)="ChangeRecipe(i, $event.value)" [disabled]="loading" required>
+          <mat-form-field name="recipe" id="recipe" floatLabel="never">
+            <mat-label>{{ 'week.dialogs.days.recipes' | translate:'{count:1}' }}</mat-label>
+            <input matInput type="text" name="recipe" [matAutocomplete]="recipeAutoComplete" [formControl]="recipeControls[i]" required>
+            <mat-autocomplete #recipeAutoComplete="matAutocomplete" (optionSelected)="ChangeRecipe(i, $event.option.value)" [displayWith]="DisplayRecipe">
+              <mat-option *ngFor="let recipe of recipeFilteredOptions[i] | async" [value]="recipe">
+                {{recipe.name}}
+              </mat-option>
+            </mat-autocomplete>
+            <!-- <mat-select [(ngModel)]="day.meals[i].recipe" [compareWith]="ObjectComparisonFunction" (selectionChange)="ChangeRecipe(i, $event.value)" [disabled]="loading" required>
               <mat-option *ngFor="let recipe of recipes" [value]="recipe">
                 {{recipe.name}}
               </mat-option>
-            </mat-select>
+            </mat-select> -->
           </mat-form-field>
         </mat-cell>
       </ng-container>
@@ -53,7 +61,7 @@
       </ng-container>
       <ng-container matColumnDef="price">
         <mat-cell *matCellDef="let element; let i = index;">
-          <span>{{ day.meals[i].recipe.price | number:'1.0-2' }}€</span>
+          <span>{{ day.meals[i].price | number:'1.0-2' }}€</span>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="delete">

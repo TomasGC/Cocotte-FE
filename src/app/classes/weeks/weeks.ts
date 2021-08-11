@@ -11,6 +11,7 @@ export enum MealTypes {
 export class Meal extends BaseType {
     public type: MealTypes;
     public numberOfPeople: number;
+    public price: number;
     public recipe: Recipes;
 
     constructor() {
