@@ -28,13 +28,14 @@ export class RecipesComponent implements OnInit {
   recipeTypes = Object.keys(RecipeTypes);
   seasons = Object.keys(Seasons);
   ingredientUnits = Object.keys(IngredientUnits);
-  displayedColumns: string[] = ['name', 'quantity', 'unit', 'delete'];
+  displayedColumns: string[] = ['ingredient', 'quantity', 'unit', 'delete'];
   recipe = this.data;
   dataSource = new MatTableDataSource(this.recipe.ingredients);
   ingredients: Array<Ingredients>;
   loading: boolean = true;
-  myControl = new FormControl();
-  filteredOptions: Observable<Ingredients[]>;
+
+  ingredientControls: Array<FormControl> = new Array<FormControl>();
+  ingredientFilteredOptions: Array<Observable<Ingredients[]>> = new Array<Observable<Ingredients[]>>();
 
   // Translations with variables.
   timesCooked: string;
@@ -63,6 +64,18 @@ export class RecipesComponent implements OnInit {
 
         this.ingredients = response.ingredients;
 
+        for (var i = 0; i < this.recipe.ingredients.length; ++i) {
+          var control = new FormControl();
+          control.setValue(this.recipe.ingredients[i].ingredient);
+          this.ingredientFilteredOptions.push(control.valueChanges
+          .pipe(
+            startWith(''),
+            map(value => typeof value === 'string' ? value : value.name),
+            map(name => name ? this.FilterIngredient(name) : this.ingredients.slice())
+          ));
+          this.ingredientControls.push(control);
+        }
+
         this.loading = false;
       },
       error => {
@@ -72,37 +85,43 @@ export class RecipesComponent implements OnInit {
 
       this.timesCooked = this.translate.instant('week.dialogs.recipes.timesCooked', { number: IsEmpty(this.recipe.timesCooked) ? 0 : this.recipe.timesCooked });
       this.lastCooked = this.translate.instant('week.dialogs.recipes.lastCooked', { date: this.recipe.lastCooked });
-
-
   }
 
+  //#region Ingredient
   DisplayIngredient(value: Ingredients): string {
     return value ? value.name : undefined;
   }
 
-  _filter(name: string): Ingredients[] {
-    return this.ingredients.filter(option => option.name.toLowerCase().includes(name.toLowerCase()));
+  FilterIngredient(name: string): Ingredients[] {
+    return this.ingredients.filter(option => option.name.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes(name.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")));
   }
+
+  ChangeIngredient(index, value: Ingredients): void {
+    this.recipe.ingredients[index] = new IngredientInfos(value._id, null, null, value)
+  }
+  //#endregion Ingredient
 
   AddIngredient(): void {
     if (this.recipe.ingredients === undefined || IsEmpty(this.recipe.ingredients) || this.recipe.ingredients.length == 0 || this.recipe.ingredients.find(x => IsEmpty(x._id) || IsEmpty(x.quantity)) != null)
       this.recipe.ingredients = new Array<IngredientInfos>();
 
     this.recipe.ingredients.push(new IngredientInfos());
-    this.dataSource.data = this.recipe.ingredients;
-  }
 
-  ChangeIngredient(index, value: Ingredients): void {
-    this.recipe.ingredients[index] = new IngredientInfos(value._id, null, null, value)
+    var control = new FormControl();
+    this.ingredientFilteredOptions.push(control.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.name),
+        map(name => name ? this.FilterIngredient(name) : this.ingredients.slice())
+      ));
+    this.ingredientControls.push(control);
+
+    this.dataSource.data = this.recipe.ingredients;
   }
 
   RemoveIngredient(index): void {
     this.recipe.ingredients.splice(index, 1);
     this.dataSource.data = this.recipe.ingredients;
-  }
-
-  ObjectComparisonFunction(option, value): boolean {
-    return option._id === value._id;
   }
 
   Close(): void {
@@ -126,6 +145,9 @@ export class RecipesComponent implements OnInit {
   }
 
   Validate(): void {
+    for (var i = 0; i < this.recipe.ingredients.length; ++i)
+      this.recipe.ingredients[i].ingredient = undefined;
+
     if (this.isCreation){
       this.recipesService.Create(this.recipe).subscribe(
         data => {

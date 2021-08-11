@@ -42,13 +42,14 @@
     </button>
   </mat-dialog-content>
   <mat-dialog-content>
-    <mat-table [dataSource]="dataSource">
-      <ng-container matColumnDef="name" >
+    <mat-table [dataSource]="dataSource" *ngIf="!loading">
+      <ng-container matColumnDef="ingredient" >
         <mat-cell *matCellDef="let element; let i = index;">
-          <mat-form-field name="name" id="name" floatLabel="never">
-            <input matInput type="text" [matAutocomplete]="ingredientAutoComplete" [(ngModel)]="recipe.ingredients[i].ingredient" [disabled]="loading" placeholder="{{ 'week.dialogs.recipes.ingredients' | translate:'{count:1}' }}">
+          <mat-form-field name="ingredient" id="ingredient" floatLabel="never">
+            <mat-label>{{ 'week.dialogs.recipes.ingredients' | translate:'{count:1}' }}</mat-label>
+            <input matInput type="text" name="ingredient" [matAutocomplete]="ingredientAutoComplete" [formControl]="ingredientControls[i]" required>
             <mat-autocomplete #ingredientAutoComplete="matAutocomplete" (optionSelected)="ChangeIngredient(i, $event.option.value)" [displayWith]="DisplayIngredient">
-              <mat-option *ngFor="let ingredient of ingredients" [value]="ingredient">
+              <mat-option *ngFor="let ingredient of ingredientFilteredOptions[i] | async" [value]="ingredient">
                 {{ingredient.name}}
               </mat-option>
             </mat-autocomplete>
@@ -58,14 +59,16 @@
       <ng-container matColumnDef="quantity">
         <mat-cell *matCellDef="let element; let i = index">
           <mat-form-field name="quantity" id="quantity" floatLabel="never">
-            <input matInput [(ngModel)]="recipe.ingredients[i].quantity" type="number" placeholder="{{ 'week.dialogs.recipes.quantity' | translate }}" required>
+            <mat-label>{{ 'week.dialogs.recipes.quantity' | translate }}</mat-label>
+            <input matInput [(ngModel)]="recipe.ingredients[i].quantity" type="number" name="quantity" required>
           </mat-form-field>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="unit">
         <mat-cell *matCellDef="let element; let i = index">
           <mat-form-field name="unit" id="unit" floatLabel="never">
-            <mat-select [(ngModel)]="recipe.ingredients[i].unit" placeholder="{{ 'week.dialogs.recipes.unit' | translate }}" required>
+            <mat-label>{{ 'week.dialogs.recipes.unit' | translate }}</mat-label>
+            <mat-select [(ngModel)]="recipe.ingredients[i].unit" required>
               <mat-option *ngFor="let unit of ingredientUnits" [value]="unit">
                 {{ 'enums.IngredientUnits.'+unit+".full" | translate }}
               </mat-option>
