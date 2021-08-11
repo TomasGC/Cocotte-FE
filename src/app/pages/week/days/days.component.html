@@ -13,7 +13,7 @@
     </button>
   </mat-dialog-content>
   <mat-dialog-content>
-    <table mat-table [dataSource]="dataSource" class="w-100">
+    <table mat-table [dataSource]="dataSource" class="w-100" *ngIf="!loading">
       <ng-container matColumnDef="type">
         <mat-cell *matCellDef="let element; let i = index;">
           <mat-form-field name="type" id="type" floatLabel="never">
@@ -36,11 +36,6 @@
                 {{recipe.name}}
               </mat-option>
             </mat-autocomplete>
-            <!-- <mat-select [(ngModel)]="day.meals[i].recipe" [compareWith]="ObjectComparisonFunction" (selectionChange)="ChangeRecipe(i, $event.value)" [disabled]="loading" required>
-              <mat-option *ngFor="let recipe of recipes" [value]="recipe">
-                {{recipe.name}}
-              </mat-option>
-            </mat-select> -->
           </mat-form-field>
         </mat-cell>
       </ng-container>
