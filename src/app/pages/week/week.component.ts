@@ -332,7 +332,7 @@ GenerateWeek() {
 public GetDay(date: Date): string {
   const language = this.cookieService.get('language');
   const event = new Date(date);
-  return event.toLocaleDateString(language, { weekday:'long', day:'numeric' });
+  return event.toLocaleDateString(language, { weekday:'long', day:'numeric', month:'long' });
 }
 //#endregion Week
 }

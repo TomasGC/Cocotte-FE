@@ -2,7 +2,7 @@
 <div class="content" role="main">
   <section class="text-center">
     <div class="container">
-      <mat-tab-group headerPosition="above" [selectedIndex]="0" (selectedTabChange)="onTabClick($event)">
+      <mat-tab-group headerPosition="above" [selectedIndex]="0" (selectedTabChange)="onTabClick($event)" mat-align-tabs="center">
         <!-- Week -->
         <mat-tab>
           <ng-template mat-tab-label>
@@ -11,15 +11,12 @@
           </ng-template>
           <div *ngIf="!loading">
             <ng-container>
-              <button mat-flat-button color="accent" class="w-90" (click)="GenerateWeek()">
-                <mat-icon mat-list-icon>autorenew</mat-icon>
-              </button>
-              <button mat-flat-button color="primary" class="w-10" (click)="OpenWeekIngredientsMenu()" [disabled]="dataSourceDay == undefined || dataSourceDay == null || dataSourceDay.data.length == 0">
-                <mat-icon mat-list-icon>list</mat-icon>
+              <button mat-flat-button color="accent" class="w-100" (click)="GenerateWeek()">
+                {{ "week.generate" | translate }}
               </button>
             </ng-container>
 
-            <mat-table [dataSource]="dataSourceDay">
+            <mat-table [dataSource]="dataSourceDay" class="m-t-20 m-b-20">
               <ng-container matColumnDef="date">
                 <mat-cell *matCellDef="let element" class="day-header">
                   <mat-expansion-panel hideToggle class="day-header w-100">
@@ -49,6 +46,12 @@
 
               <mat-row *matRowDef="let row; columns: displayedDayColumns;"></mat-row>
             </mat-table>
+
+            <ng-container>
+              <button mat-flat-button color="primary" class="w-100" (click)="OpenWeekIngredientsMenu()" [disabled]="dataSourceDay == undefined || dataSourceDay == null || dataSourceDay.data.length == 0">
+                {{ "week.shoppingList" | translate }}
+              </button>
+            </ng-container>
           </div>
         </mat-tab>
         <!-- ./Week -->
@@ -61,10 +64,10 @@
           <div *ngIf="!loading">
             <ng-container>
               <button mat-flat-button color="primary" class="w-100" (click)="OpenIngredientMenu(null)">
-                <mat-icon mat-list-icon>add</mat-icon>
+                {{ "week.addIngredient" | translate}}
               </button>
             </ng-container>
-            <mat-table [dataSource]="dataSourceIngredients">
+            <mat-table [dataSource]="dataSourceIngredients" class="m-t-20">
                 <ng-container matColumnDef="name">
                   <mat-header-cell *matHeaderCellDef>{{ 'week.name' | translate }}</mat-header-cell>
                   <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
@@ -83,7 +86,7 @@
                 <ng-container matColumnDef="modify">
                   <mat-header-cell *matHeaderCellDef>{{ 'week.modify' | translate }}</mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <button mat-flat-button color="accent" (click)="OpenIngredientMenu(element)">
+                    <button mat-icon-button color="accent" (click)="OpenIngredientMenu(element)">
                       <mat-icon mat-list-icon>edit</mat-icon>
                     </button>
                   </mat-cell>
@@ -92,7 +95,7 @@
                 <ng-container matColumnDef="delete">
                   <mat-header-cell *matHeaderCellDef>{{ 'week.remove' | translate }}</mat-header-cell>
                   <mat-cell *matCellDef="let element; let i = index;">
-                    <button mat-flat-button  color="warn" (click)="RemoveItem(i)">
+                    <button mat-icon-button  color="warn" (click)="RemoveItem(i)">
                       <mat-icon mat-list-icon>delete</mat-icon>
                     </button>
                   </mat-cell>
@@ -113,10 +116,10 @@
           <div *ngIf="!loading">
             <ng-container>
               <button mat-flat-button color="primary" class="w-100" (click)="OpenRecipeMenu(null)">
-                <mat-icon mat-list-icon>add</mat-icon>
+                {{ "week.addRecipe" | translate}}
               </button>
             </ng-container>
-            <mat-table [dataSource]="dataSourceRecipes">
+            <mat-table [dataSource]="dataSourceRecipes" class="m-t-20">
               <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef>{{ 'week.name' | translate }}</mat-header-cell>
                 <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
@@ -140,7 +143,7 @@
               <ng-container matColumnDef="modify">
                 <mat-header-cell *matHeaderCellDef>{{ 'week.modify' | translate }}</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                  <button mat-flat-button color="accent" (click)="OpenRecipeMenu(element)">
+                  <button mat-icon-button color="accent" (click)="OpenRecipeMenu(element)">
                     <mat-icon mat-list-icon>edit</mat-icon>
                   </button>
                 </mat-cell>
@@ -149,7 +152,7 @@
               <ng-container matColumnDef="delete">
                 <mat-header-cell *matHeaderCellDef>{{ 'week.remove' | translate }}</mat-header-cell>
                 <mat-cell *matCellDef="let element; let i = index;">
-                  <button mat-flat-button color="warn" (click)="RemoveItem(i)">
+                  <button mat-icon-button color="warn" (click)="RemoveItem(i)">
                     <mat-icon mat-list-icon>delete</mat-icon>
                   </button>
                 </mat-cell>

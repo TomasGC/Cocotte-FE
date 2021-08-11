@@ -35,6 +35,10 @@
     "timesCooked": "Times cooked",
     "modify": "Modify",
     "remove": "Remove",
+    "generate": "Time to eat!",
+    "shoppingList": "See my shopping list",
+    "addIngredient": "Add a secret ingredient",
+    "addRecipe": "Add a yummy recipe",
     "dialogs":{
       "ingredients":{
         "price": "Price",

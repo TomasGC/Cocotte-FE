@@ -17,4 +17,6 @@ img {
   font-style: italic;
   display: inline-block;
   text-align: center;
+  padding-left: 0px;
+  padding-right: 0px;
 }

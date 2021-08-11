@@ -35,6 +35,10 @@
     "timesCooked": "Nb fois cuisinés",
     "modify": "Modifier",
     "remove": "Supprimer",
+    "generate": "A table !",
+    "shoppingList": "Voir ma liste de courses",
+    "addIngredient": "Ajouter un ingrédient secret",
+    "addRecipe": "Ajouter une délicieuse recette",
     "dialogs":{
       "ingredients":{
         "price": "Prix",
