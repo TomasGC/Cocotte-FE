@@ -5,9 +5,11 @@ import { BaseResponse } from 'src/app/classes/base/responses';
 import { IngredientPrices } from 'src/app/classes/ingredients/ingredientPrices';
 
 import { IngredientCategories, IngredientPriceUnits, Ingredients } from 'src/app/classes/ingredients/ingredients';
+import { EventNotifierOperation } from 'src/app/classes/signalR/signalR';
 import { IsEmpty } from 'src/app/classes/tools';
 import { LanguageTypes } from 'src/app/classes/users/users';
 import { IngredientsService } from 'src/app/services/ingredients/ingredients.service';
+import { SignalRService } from 'src/app/services/signalR/signalR.service';
 
 @Component({
   selector: 'ingredients',
@@ -26,7 +28,9 @@ export class IngredientsComponent implements OnInit {
 
   userLanguage: LanguageTypes;
 
-  constructor(private ingredientsService: IngredientsService,
+  constructor(
+    private signalRService: SignalRService,
+    private ingredientsService: IngredientsService,
     private cookieService: CookieService,
     public dialogRef: MatDialogRef<IngredientsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Ingredients) {  }
@@ -41,6 +45,22 @@ export class IngredientsComponent implements OnInit {
       this.ingredient.price = new IngredientPrices();
       this.ingredient.price.basePrice = 0;
     }
+
+    this.signalRService.ingredientNotification.subscribe(data => {
+      switch (EventNotifierOperation[data.operation]) {
+        case EventNotifierOperation.Update: {
+          this.ingredient.categories = data.data.categories;
+          this.ingredient.name = data.data.name;
+          this.ingredient.priceUnit = data.data.priceUnit;
+          this.ingredient.price = data.data.price.userId == this.ingredient.price.userId ? data.data.price : this.ingredient.price;
+          break;
+        }
+        case EventNotifierOperation.Delete: {
+          this.Close();
+          break;
+        }
+      }
+    });
   }
 
   ObjectComparisonFunction(option, value): boolean {

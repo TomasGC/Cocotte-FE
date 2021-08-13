@@ -1,8 +1,7 @@
 import { BaseResponse } from "../base/responses";
-import { DataConfigs } from "./dataConfigs";
 
-export class GetDataConfigsResponse extends BaseResponse {
-  public dataConfigs: Array<DataConfigs>;
+export class GetSignalRServerResponse extends BaseResponse {
+  public hostNames: Array<string>;
 
   constructor() {
     super();

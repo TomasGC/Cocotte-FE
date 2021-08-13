@@ -13,6 +13,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { SignalRService } from 'src/app/services/signalR/signalR.service';
+import { EventNotifierOperation } from 'src/app/classes/signalR/signalR';
 
 @Component({
   selector: 'meals',
@@ -33,7 +35,9 @@ export class DaysComponent implements OnInit {
   recipeControls: Array<FormControl> = new Array<FormControl>();
   recipeFilteredOptions: Array<Observable<Recipes[]>> = new Array<Observable<Recipes[]>>();
 
-  constructor(private weeksService: WeeksService,
+  constructor(
+    private signalRService: SignalRService,
+    private weeksService: WeeksService,
     private recipesService: RecipesService,
     private cookieService: CookieService,
     public dialogRef: MatDialogRef<DaysComponent>,
@@ -71,6 +75,19 @@ export class DaysComponent implements OnInit {
       error => {
         this.loading = false;
         console.error('List all recipes not succeeded.');
+      });
+
+      this.signalRService.weekNotification.subscribe(data => {
+        switch (EventNotifierOperation[data.operation]) {
+          case EventNotifierOperation.Update: {
+            this.day = data.data.days.find(x => x._id == this.day._id);
+            break;
+          }
+          case EventNotifierOperation.Delete: {
+            this.Close();
+            break;
+          }
+        }
       });
   }
 

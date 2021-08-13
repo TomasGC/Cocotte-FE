@@ -15,6 +15,8 @@ import { IngredientInfos, IngredientUnits, Recipes, RecipeTypes, Seasons } from 
 import { IsEmpty } from 'src/app/classes/tools';
 import { IngredientsService } from 'src/app/services/ingredients/ingredients.service';
 import { RecipesService } from 'src/app/services/recipes/recipes.service';
+import { SignalRService } from 'src/app/services/signalR/signalR.service';
+import { EventNotifierOperation } from 'src/app/classes/signalR/signalR';
 
 @Component({
   selector: 'recipes',
@@ -41,7 +43,9 @@ export class RecipesComponent implements OnInit {
   timesCooked: string;
   lastCooked: string;
 
-  constructor(private translate: TranslateService,
+  constructor(
+    private signalRService: SignalRService,
+    private translate: TranslateService,
     private ingredientsService: IngredientsService,
     private recipesService: RecipesService,
     public dialogRef: MatDialogRef<RecipesComponent>,
@@ -85,6 +89,19 @@ export class RecipesComponent implements OnInit {
 
       this.timesCooked = this.translate.instant('week.dialogs.recipes.timesCooked', { number: IsEmpty(this.recipe.timesCooked) ? 0 : this.recipe.timesCooked });
       this.lastCooked = this.translate.instant('week.dialogs.recipes.lastCooked', { date: this.recipe.lastCooked });
+
+      this.signalRService.recipeNotification.subscribe(data => {
+        switch (EventNotifierOperation[data.operation]) {
+          case EventNotifierOperation.Update: {
+            this.recipe = data.data;
+            break;
+          }
+          case EventNotifierOperation.Delete: {
+            this.Close();
+            break;
+          }
+        }
+      });
   }
 
   //#region Ingredient

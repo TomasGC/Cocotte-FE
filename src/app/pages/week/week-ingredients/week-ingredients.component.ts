@@ -4,11 +4,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
 import { BaseResponse } from 'src/app/classes/base/responses';
 import { IngredientCategories, IngredientPriceUnits } from 'src/app/classes/ingredients/ingredients';
+import { EventNotifierOperation } from 'src/app/classes/signalR/signalR';
 import { IsEmpty } from 'src/app/classes/tools';
 import { LanguageTypes } from 'src/app/classes/users/users';
 
 import { GetWeekIngredientsResponse } from 'src/app/classes/weeks/responses';
 import { WeekIngredient, WeekIngredients } from 'src/app/classes/weeks/weekIngredients';
+import { SignalRService } from 'src/app/services/signalR/signalR.service';
 import { WeeksService } from 'src/app/services/weeks/weeks.service';
 
 @Component({
@@ -28,7 +30,9 @@ export class WeekIngredientsComponent implements OnInit {
   title: string;
   userLanguage: LanguageTypes;
 
-  constructor(private translate: TranslateService,
+  constructor(
+    private signalRService: SignalRService,
+    private translate: TranslateService,
     private weeksService: WeeksService,
     public dialogRef: MatDialogRef<WeekIngredientsComponent>) {  }
 
@@ -57,6 +61,19 @@ export class WeekIngredientsComponent implements OnInit {
       error => {
         this.loading = false;
         console.error('List all week ingredients not succeeded.');
+      });
+
+      this.signalRService.weekIngredientNotification.subscribe(data => {
+        switch (EventNotifierOperation[data.operation]) {
+          case EventNotifierOperation.Update: {
+            this.weekIngredients = data.data;
+            break;
+          }
+          case EventNotifierOperation.Delete: {
+            this.Close();
+            break;
+          }
+        }
       });
   }
 

@@ -26,10 +26,12 @@ import { BaseResponse } from 'src/app/classes/base/responses';
 import { DeleteRequest } from 'src/app/classes/base/requests';
 import { Recipes } from 'src/app/classes/recipes/recipes';
 import { DaysComponent } from './days/days.component';
-import { Day, Meal } from 'src/app/classes/weeks/weeks';
+import { Day, Meal, Weeks } from 'src/app/classes/weeks/weeks';
 import { IsEmpty } from 'src/app/classes/tools';
 import { WeekIngredientsComponent } from './week-ingredients/week-ingredients.component';
 import { LanguageTypes } from 'src/app/classes/users/users';
+import { SignalRService } from 'src/app/services/signalR/signalR.service';
+import { EventNotifierNotification, EventNotifierOperation } from 'src/app/classes/signalR/signalR';
 
 @Component({
   selector: 'week',
@@ -63,8 +65,8 @@ export class WeekComponent implements OnInit {
   background: ThemePalette = undefined;
   loading: boolean = true;
 
-  dataSourceIngredients : MatTableDataSource<Ingredients>;
-  dataSourceRecipes : MatTableDataSource<Recipes>;
+  dataSourceIngredients : MatTableDataSource<Ingredients> = null;
+  dataSourceRecipes : MatTableDataSource<Recipes> = null;
   dataSourceDay : MatTableDataSource<Day>;
 
   displayedIngredientColumns: string[] = ["name", "price", "priceUnit", "modify", "delete"];
@@ -78,6 +80,7 @@ export class WeekComponent implements OnInit {
 //#endregion Properties
 
   constructor(
+    private signalRService: SignalRService,
     private ingredientsService: IngredientsService,
     private recipesService: RecipesService,
     private weeksService: WeeksService,
@@ -109,12 +112,23 @@ ngOnInit() {
 
   this.userLanguage = LanguageTypes[this.cookieService.get('language')];
   this.GetWeek();
+
+  this.signalRService.StartConnections(sessionKey);
+
+  this.signalRService.ingredientNotification.subscribe(data => this.onIngredientReceived(data));
+  this.signalRService.recipeNotification.subscribe(data => this.onRecipeReceived(data));
+  this.signalRService.weekNotification.subscribe(data => this.onWeekReceived(data));
 }
 
 onTabClick($event) {
   var tab : TabMods = $event.index;
   this.currentTab = tab;
-  this.Reload();
+
+  if (this.currentTab == TabMods.Ingredients && this.dataSourceIngredients == null)
+    this.ListIngredients();
+
+  if (this.currentTab == TabMods.Recipes && this.dataSourceRecipes == null)
+    this.ListRecipes();
 }
 
 Reload() {
@@ -219,6 +233,34 @@ OpenIngredientMenu(ingredient): void {
       this.ListIngredients();
   });
 }
+
+onIngredientReceived(data: EventNotifierNotification<Ingredients>) {
+  if (this.dataSourceIngredients == null)
+    return;
+
+  let temp = this.dataSourceIngredients.data;
+  switch (EventNotifierOperation[data.operation]) {
+    case EventNotifierOperation.Create: {
+      temp.push(data.data);
+      break;
+    }
+    case EventNotifierOperation.Update: {
+      const index = temp.findIndex(x => x._id == data.data._id);
+      temp[index].categories = data.data.categories;
+      temp[index].name = data.data.name;
+      temp[index].priceUnit = data.data.priceUnit;
+      temp[index].price = data.data.price.userId == temp[index].price.userId ? data.data.price : temp[index].price;
+      break;
+    }
+    case EventNotifierOperation.Delete: {
+      const index = temp.findIndex(x => x._id == data.data._id);
+      temp.splice(index, 1);
+      break;
+    }
+  }
+
+  this.dataSourceIngredients.data = temp;
+}
 //#endregion Ingredients
 
 //#region Recipes
@@ -261,6 +303,31 @@ OpenRecipeMenu(recipe): void {
     if (modified == true)
       this.ListRecipes();
   });
+}
+
+onRecipeReceived(data: EventNotifierNotification<Recipes>) {
+  if (this.dataSourceRecipes == null)
+  return;
+
+  let temp = this.dataSourceRecipes.data;
+  switch (EventNotifierOperation[data.operation]) {
+    case EventNotifierOperation.Create: {
+      temp.push(data.data);
+      break;
+    }
+    case EventNotifierOperation.Update: {
+      const index = temp.findIndex(x => x._id == data.data._id);
+      temp[index] = data.data;
+      break;
+    }
+    case EventNotifierOperation.Delete: {
+      const index = temp.findIndex(x => x._id == data.data._id);
+      temp.splice(index, 1);
+      break;
+    }
+  }
+
+  this.dataSourceRecipes.data = temp;
 }
 //#endregion Recipes
 
@@ -333,6 +400,10 @@ public GetDay(date: Date): string {
   const language = this.cookieService.get('language');
   const event = new Date(date);
   return event.toLocaleDateString(language, { weekday:'long', day:'numeric', month:'long' });
+}
+
+onWeekReceived(data: EventNotifierNotification<Weeks>) {
+  this.dataSourceDay = new MatTableDataSource(data.data.days);
 }
 //#endregion Week
 }
