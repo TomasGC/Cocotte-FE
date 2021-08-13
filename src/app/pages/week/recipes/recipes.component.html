@@ -8,6 +8,13 @@
 </mat-dialog-title>
 <mat-dialog-content style="height: 100%;">
   <mat-dialog-content>
+    <img *ngIf="recipe.photo" [src]="recipe.photo" />
+    <img *ngIf="!recipe.photo" [src]="'../../../../assets/img/cocotte.png'">
+    </mat-dialog-content>
+  <mat-dialog-content>
+    <input #imageInput type="file" accept="image/*" (change)="ProcessFile(imageInput)">
+  </mat-dialog-content>
+  <mat-dialog-content>
     <mat-label for="type">{{ "week.dialogs.recipes.type" | translate }}: </mat-label>
     <mat-form-field name="type" id="type" >
       <mat-select [(ngModel)]="recipe.type" required>

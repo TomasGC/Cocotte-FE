@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 import { BaseResponse } from 'src/app/classes/base/responses';
@@ -17,6 +17,8 @@ import { IngredientsService } from 'src/app/services/ingredients/ingredients.ser
 import { RecipesService } from 'src/app/services/recipes/recipes.service';
 import { SignalRService } from 'src/app/services/signalR/signalR.service';
 import { EventNotifierOperation } from 'src/app/classes/signalR/signalR';
+import * as _ from 'lodash';
+import { AddOrUpdateRecipe } from 'src/app/classes/recipes/requests';
 
 @Component({
   selector: 'recipes',
@@ -42,6 +44,8 @@ export class RecipesComponent implements OnInit {
   // Translations with variables.
   timesCooked: string;
   lastCooked: string;
+
+  file: File = null;
 
   constructor(
     private signalRService: SignalRService,
@@ -102,6 +106,21 @@ export class RecipesComponent implements OnInit {
           }
         }
       });
+  }
+
+  ProcessFile(imageInput: any) {
+    this.file = imageInput.files[0];
+    this.convertFile().subscribe(base64 => {
+      this.recipe.photo = "data:" + this.file.type + ";base64," + base64;
+    });
+  }
+
+  convertFile() : Observable<string> {
+    const result = new ReplaySubject<string>(1);
+    const reader = new FileReader();
+    reader.readAsBinaryString(this.file);
+    reader.onload = (event) => result.next(btoa(event.target.result.toString()));
+    return result;
   }
 
   //#region Ingredient

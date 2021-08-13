@@ -60,6 +60,7 @@ export class Recipes extends BaseType {
     public userId: string;
     public lastCooked: Date;
     public name: string;
+    public photo: string;
     public bestSeasons: Array<Seasons>;
     public ingredients: Array<IngredientInfos>;
 
