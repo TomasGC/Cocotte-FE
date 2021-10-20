@@ -39,19 +39,23 @@
             <div matColumnDef="breakfast" >
               <mat-cell *matCellDef="let element; let i = index">
                 <span *ngIf="element.day == 7"><b>{{ 'enums.MealTypes.Breakfast' | translate }}</b></span>
-                <mat-checkbox [(ngModel)]="element.meals[0].value" *ngIf="element.day != 7"></mat-checkbox>
+                <mat-checkbox [(ngModel)]="element.meals[0].value[0]" *ngIf="element.day != 7"></mat-checkbox>
               </mat-cell>
             </div>
             <div matColumnDef="lunch" >
               <mat-cell *matCellDef="let element; let i = index">
                 <span *ngIf="element.day == 7"><b>{{ 'enums.MealTypes.Lunch' | translate }}</b></span>
-                <mat-checkbox [(ngModel)]="element.meals[1].value" *ngIf="element.day != 7"></mat-checkbox>
+                <mat-checkbox [(ngModel)]="element.meals[1].value[0]" *ngIf="element.day != 7"></mat-checkbox>
+                <mat-checkbox [(ngModel)]="element.meals[1].value[1]" *ngIf="element.day != 7"></mat-checkbox>
+                <mat-checkbox [(ngModel)]="element.meals[1].value[2]" *ngIf="element.day != 7"></mat-checkbox>
               </mat-cell>
             </div>
             <div matColumnDef="dinner" >
               <mat-cell *matCellDef="let element; let i = index">
                 <span *ngIf="element.day == 7"><b>{{ 'enums.MealTypes.Dinner' | translate }}</b></span>
-                <mat-checkbox [(ngModel)]="element.meals[2].value" *ngIf="element.day != 7"></mat-checkbox>
+                <mat-checkbox [(ngModel)]="element.meals[2].value[0]" *ngIf="element.day != 7"></mat-checkbox>
+                <mat-checkbox [(ngModel)]="element.meals[2].value[1]" *ngIf="element.day != 7"></mat-checkbox>
+                <mat-checkbox [(ngModel)]="element.meals[2].value[2]" *ngIf="element.day != 7"></mat-checkbox>
               </mat-cell>
             </div>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

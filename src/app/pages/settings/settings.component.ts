@@ -80,10 +80,10 @@ export class SettingsComponent implements OnInit {
 
         var label = new DailyMeals();
         label.day = DaysOfWeek.None;
-        label.meals = new Array<KeyValue<MealTypes, boolean>>();
-        label.meals.push({key: MealTypes.Breakfast, value: false});
-        label.meals.push({key: MealTypes.Lunch, value: false});
-        label.meals.push({key: MealTypes.Dinner, value: false});
+        label.meals = new Array<KeyValue<MealTypes, Array<boolean>>>();
+        label.meals.push({key: MealTypes.Breakfast, value:[false]});
+        label.meals.push({key: MealTypes.Lunch, value: [false]});
+        label.meals.push({key: MealTypes.Dinner, value: [false]});
 
         this.user.dailyMeals.unshift(label);
 

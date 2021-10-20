@@ -20,7 +20,7 @@ export enum LanguageTypes {
 
 export class DailyMeals {
   public day: DaysOfWeek;
-  public meals: Array<KeyValue<MealTypes, boolean>>;
+  public meals: Array<KeyValue<MealTypes, Array<boolean>>>;
 
   constructor() {}
 }
