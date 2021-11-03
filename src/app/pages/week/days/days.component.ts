@@ -59,15 +59,17 @@ export class DaysComponent implements OnInit {
         this.recipes = response.recipes;
 
         for (var i = 0; i < this.day.meals.length; ++i) {
-          var control = new FormControl();
-          control.setValue(this.day.meals[i].recipe);
-          this.recipeFilteredOptions.push(control.valueChanges
-          .pipe(
-            startWith(''),
-            map(value => typeof value === 'string' ? value : value.name),
-            map(name => name ? this.FilterRecipe(name) : this.recipes.slice())
-          ));
-          this.recipeControls.push(control);
+          for (var j = 0; j < this.day.meals[i].recipes.length; ++j) {
+            var control = new FormControl();
+            control.setValue(this.day.meals[i].recipes[j]);
+            this.recipeFilteredOptions.push(control.valueChanges
+            .pipe(
+              startWith(''),
+              map(value => typeof value === 'string' ? value : value.name),
+              map(name => name ? this.FilterRecipe(name) : this.recipes.slice())
+            ));
+            this.recipeControls.push(control);
+          }
         }
 
         this.loading = false;
@@ -100,14 +102,14 @@ export class DaysComponent implements OnInit {
     return this.recipes.filter(option => option.name.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes(name.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")));
   }
 
-  ChangeRecipe(index, value: Recipes): void {
-    this.day.meals[index].recipe = value;
+  ChangeRecipe(mealIndex, recipeIndex, value: Recipes): void {
+    this.day.meals[mealIndex].recipes[recipeIndex] = value;
   }
   //#endregion Recipe
 
-  Plus(index, value): void {
-    this.day.meals[index].numberOfPeople += value;
-    this.day.meals[index].price += value * this.day.meals[index].recipe.price;
+  Plus(mealIndex, recipeIndex, value): void {
+    this.day.meals[mealIndex].numberOfPeople += value;
+    this.day.meals[mealIndex].price += value * this.day.meals[mealIndex].recipes[recipeIndex].price;
   }
 
   RemoveItem(index): void {
@@ -121,7 +123,8 @@ export class DaysComponent implements OnInit {
       return;
 
     var meal = new Meal();
-    meal.recipe = this.recipes[0];
+    meal.recipes = new Array<Recipes>();
+    meal.recipes.push(this.recipes[0]);
     meal.numberOfPeople = 2;
 
     for (var i = 0; i < this.day.meals.length; ++i) {
@@ -160,7 +163,7 @@ export class DaysComponent implements OnInit {
       if (IsEmpty(meal.numberOfPeople))
         return false;
 
-      if (meal.recipe === undefined || meal.recipe == null)
+      if (meal.recipes === undefined || meal.recipes == null)
         return false;
     }
 
@@ -168,8 +171,13 @@ export class DaysComponent implements OnInit {
   }
 
   Validate(): void {
-    for (var i = 0; i < this.day.meals.length; ++i)
-      this.day.meals[i]._id = this.day.meals[i].recipe._id;
+    for (var i = 0; i < this.day.meals.length; ++i){
+      if (IsEmpty(this.day.meals[i].recipeIds))
+        this.day.meals[i].recipeIds = new Array<string>();
+
+      for (var j = 0; j < this.day.meals[i].recipes.length; ++j)
+        this.day.meals[i].recipeIds.push(this.day.meals[i].recipes[j]._id);
+    }
 
     this.weeksService.UpdateDay(this.day).subscribe(
       data => {

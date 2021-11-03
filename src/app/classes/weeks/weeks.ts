@@ -12,7 +12,8 @@ export class Meal extends BaseType {
     public type: MealTypes;
     public numberOfPeople: number;
     public price: number;
-    public recipe: Recipes;
+    public recipeIds: Array<string>;
+    public recipes: Array<Recipes>;
 
     constructor() {
       super();
