@@ -32,6 +32,7 @@ import { WeekIngredientsComponent } from './week-ingredients/week-ingredients.co
 import { LanguageTypes } from 'src/app/classes/users/users';
 import { SignalRService } from 'src/app/services/signalR/signalR.service';
 import { EventNotifierNotification, EventNotifierOperation } from 'src/app/classes/signalR/signalR';
+import { Console } from 'console';
 
 @Component({
   selector: 'week',
@@ -72,7 +73,7 @@ export class WeekComponent implements OnInit {
   displayedIngredientColumns: string[] = ["name", "price", "priceUnit", "modify", "delete"];
   displayedRecipeColumns: string[] = ["name", "type", "timesCooked", "price", "modify", "delete"];
   displayedDayColumns: string[] = ["date"];
-  displayedMealsColumns: string[] = ["type", "number", "name", "price"];
+  displayedMealsColumns: string[] = ["type", "number", "price"];
 
   userLanguage: LanguageTypes;
 
@@ -356,7 +357,7 @@ GetWeek() {
 OpenDayMenu(day): void {
   const dialogRef = this.dialog.open(DaysComponent, {
     height: '800px',
-    width: '700px',
+    width: '1000px',
     data: day,
     backdropClass: 'backdropBackground',
     panelClass: 'modalBox'

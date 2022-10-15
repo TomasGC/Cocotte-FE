@@ -32,11 +32,8 @@
                       <ng-container matColumnDef="number">
                         <mat-cell *matCellDef="let subElement">{{ subElement.numberOfPeople }}</mat-cell>
                       </ng-container>
-                      <ng-container matColumnDef="name">
-                        <mat-cell *matCellDef="let subElement">{{ subElement.recipe.name }}</mat-cell>
-                      </ng-container>
                       <ng-container matColumnDef="price">
-                        <mat-cell *matCellDef="let subElement">{{ subElement.recipe.price | number:'1.0-2' }}€</mat-cell>
+                        <mat-cell *matCellDef="let subElement">{{ subElement.price | number:'1.0-2' }}€</mat-cell>
                       </ng-container>
                       <mat-row *matRowDef="let row; columns: displayedMealsColumns;"></mat-row>
                     </mat-table>

@@ -15,10 +15,10 @@
   <mat-dialog-content>
     <table mat-table [dataSource]="dataSource" class="w-100" *ngIf="!loading">
       <ng-container matColumnDef="type">
-        <mat-cell *matCellDef="let element; let i = index;">
+        <mat-cell *matCellDef="let element; let mealIndex = index;">
           <mat-form-field name="type" id="type" floatLabel="never">
             <mat-label>{{ 'week.dialogs.days.type' | translate }}</mat-label>
-            <mat-select [(ngModel)]="day.meals[i].type" name="type" required>
+            <mat-select [(ngModel)]="day.meals[mealIndex].type" name="type" required>
               <mat-option *ngFor="let type of mealTypes" [value]="type">
                 {{ 'enums.MealTypes.'+type | translate }}
               </mat-option>
@@ -27,12 +27,12 @@
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="recipe">
-        <mat-cell *matCellDef="let element; let i = index;">
+        <mat-cell *matCellDef="let element; let recipeIndex = index;">
           <mat-form-field name="recipe" id="recipe" floatLabel="never">
             <mat-label>{{ 'week.dialogs.days.recipes' | translate:'{count:1}' }}</mat-label>
-            <input matInput type="text" name="recipe" [matAutocomplete]="recipeAutoComplete" [formControl]="recipeControls[i]" required>
-            <mat-autocomplete #recipeAutoComplete="matAutocomplete" (optionSelected)="ChangeRecipe(i, $event.option.value)" [displayWith]="DisplayRecipe">
-              <mat-option *ngFor="let recipe of recipeFilteredOptions[i] | async" [value]="recipe">
+            <input matInput type="text" name="recipe" [matAutocomplete]="recipeAutoComplete" [formControl]="recipeControls[recipeIndex]" required>
+            <mat-autocomplete #recipeAutoComplete="matAutocomplete" (optionSelected)="ChangeRecipe(recipeIndex, $event.option.value)" [displayWith]="DisplayRecipe">
+              <mat-option *ngFor="let recipe of recipeFilteredOptions[recipeIndex] | async" [value]="recipe">
                 {{recipe.name}}
               </mat-option>
             </mat-autocomplete>

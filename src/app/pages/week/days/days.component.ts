@@ -102,15 +102,21 @@ export class DaysComponent implements OnInit {
     return this.recipes.filter(option => option.name.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes(name.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")));
   }
 
-  ChangeRecipe(mealIndex, recipeIndex, value: Recipes): void {
-    this.day.meals[mealIndex].recipes[recipeIndex] = value;
+  ChangeRecipe(recipeIndex, value: Recipes): void {
   }
-  //#endregion Recipe
 
-  Plus(mealIndex, recipeIndex, value): void {
-    this.day.meals[mealIndex].numberOfPeople += value;
-    this.day.meals[mealIndex].price += value * this.day.meals[mealIndex].recipes[recipeIndex].price;
+  // ChangeRecipe(mealIndex, recipeIndex, value: Recipes): void {
+  //   this.day.meals[mealIndex].recipes[recipeIndex] = value;
+  // }
+  //#endregion Recipe
+  Plus(recipeIndex, value): void {
+    // this.day.meals[mealIndex].numberOfPeople += value;
+    // this.day.meals[mealIndex].price += value * this.day.meals[mealIndex].recipes[recipeIndex].price;
   }
+  // Plus(mealIndex, recipeIndex, value): void {
+  //   this.day.meals[mealIndex].numberOfPeople += value;
+  //   this.day.meals[mealIndex].price += value * this.day.meals[mealIndex].recipes[recipeIndex].price;
+  // }
 
   RemoveItem(index): void {
     let temp = this.dataSource.data;
